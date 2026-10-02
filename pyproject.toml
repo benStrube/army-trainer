@@ -18,7 +18,11 @@ dependencies = [
 army-trainer = "army_trainer.cli:app"
 
 [dependency-groups]
-dev = ["pytest>=8", "ruff>=0.5"]
+dev = [
+    "jsonschema>=4.26.0",
+    "pytest>=8",
+    "ruff>=0.5",
+]
 
 [build-system]
 requires = ["hatchling"]

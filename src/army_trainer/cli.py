@@ -43,10 +43,12 @@ def fetch(
 
 @app.command()
 def convert(pub: str = PUB) -> None:
-    """Stage 2: gated PDF to clean Markdown (data/md/<ID>.md + conversion report)."""
+    """Stages 2-3: gated PDF to clean Markdown (data/md/) and document tree (data/json/)."""
+    from .convert.pipeline import MD_DIR
     from .convert.pipeline import convert as run_convert
     from .fetch.pdf import normalize_pub_id
     from .llm_guard import GateError, load_gated_metadata
+    from .structure.parse import build as build_tree
 
     pub_id = normalize_pub_id(pub)
     try:
@@ -55,7 +57,8 @@ def convert(pub: str = PUB) -> None:
         typer.echo(f"error: {e}", err=True)
         raise typer.Exit(code=1) from e
     out = run_convert(meta, RAW_DIR)
-    typer.echo(f"{pub_id}: wrote {out} (report: {out.with_suffix('.report.json')})")
+    tree = build_tree(pub_id, MD_DIR)
+    typer.echo(f"{pub_id}: wrote {out}, {out.with_suffix('.report.json')}, {tree}")
 
 
 @app.command()

@@ -27,7 +27,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 |---|---|---|---|---|---|
 | 1.1 | Converter bake-off: Docling vs. pymupdf4llm (pdfplumber for tables) on one AR 600-20 chapter; record the decision and why | Opus | Decision + comparison written to `docs/decisions/converter.md` | ➡️ continue | done (final for the FM 3-09 pilot, D7/D8) |
 | 1.2 | AR post-processing: headers/footers, paragraph numbering + hierarchy, hyphen/page-break joins, tables, figures, glossary, Summary of Change, YAML front matter | Opus | FM 3-09 pilot converts; spot-check ≥ 98% paragraph-structure accuracy; tables intact; golden tests in `tests/` | ➡️ continue | done |
-| 1.3 | Document tree: Pydantic models + `schemas/doc_tree.schema.json`, MD → JSON | Opus | FM 3-09 produces a valid tree; schema documented | 🛑 **STOP** → Sonnet | todo |
+| 1.3 | Document tree: Pydantic models + `schemas/doc_tree.schema.json`, MD → JSON | Opus | FM 3-09 produces a valid tree; schema documented | 🛑 **STOP** → Sonnet | done |
 | 1.4 | Indexes from the tree: directive sentences (will/must/will not/may), deadlines/time limits, roles, cross-refs, glossary terms | Sonnet | Index outputs for FM 3-09; unit tests per extractor | 🛑 **STOP** → Opus | todo |
 
 ### Phase 2 — Plan

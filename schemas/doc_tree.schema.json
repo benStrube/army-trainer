@@ -1,0 +1,961 @@
+{
+  "$defs": {
+    "Acronym": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "acronym",
+          "default": "acronym",
+          "title": "Type",
+          "type": "string"
+        },
+        "abbreviation": {
+          "title": "Abbreviation",
+          "type": "string"
+        },
+        "meaning": {
+          "title": "Meaning",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "abbreviation",
+        "meaning"
+      ],
+      "title": "Acronym",
+      "type": "object"
+    },
+    "Division": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "division",
+          "default": "division",
+          "title": "Type",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "preface",
+            "introduction",
+            "chapter",
+            "appendix",
+            "glossary",
+            "references",
+            "source_notes"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "'2' for Chapter 2, 'B' for Appendix B.",
+          "title": "Number"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "acronym": "#/$defs/Acronym",
+                "figure": "#/$defs/Figure",
+                "heading": "#/$defs/Heading",
+                "list_item": "#/$defs/ListItem",
+                "paragraph": "#/$defs/Paragraph",
+                "section": "#/$defs/Section",
+                "table": "#/$defs/Table",
+                "term": "#/$defs/Term",
+                "text": "#/$defs/Text"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Heading"
+              },
+              {
+                "$ref": "#/$defs/Section"
+              },
+              {
+                "$ref": "#/$defs/Paragraph"
+              },
+              {
+                "$ref": "#/$defs/Table"
+              },
+              {
+                "$ref": "#/$defs/Figure"
+              },
+              {
+                "$ref": "#/$defs/Text"
+              },
+              {
+                "$ref": "#/$defs/ListItem"
+              },
+              {
+                "$ref": "#/$defs/Term"
+              },
+              {
+                "$ref": "#/$defs/Acronym"
+              }
+            ]
+          },
+          "title": "Children",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "kind",
+        "title"
+      ],
+      "title": "Division",
+      "type": "object"
+    },
+    "Figure": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "figure",
+          "default": "figure",
+          "title": "Type",
+          "type": "string"
+        },
+        "number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Number"
+        },
+        "caption": {
+          "title": "Caption",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "caption"
+      ],
+      "title": "Figure",
+      "type": "object"
+    },
+    "Heading": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "heading",
+          "default": "heading",
+          "title": "Type",
+          "type": "string"
+        },
+        "level": {
+          "description": "Markdown level; levels may skip (## -> ####).",
+          "maximum": 6,
+          "minimum": 2,
+          "title": "Level",
+          "type": "integer"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "acronym": "#/$defs/Acronym",
+                "figure": "#/$defs/Figure",
+                "heading": "#/$defs/Heading",
+                "list_item": "#/$defs/ListItem",
+                "paragraph": "#/$defs/Paragraph",
+                "section": "#/$defs/Section",
+                "table": "#/$defs/Table",
+                "term": "#/$defs/Term",
+                "text": "#/$defs/Text"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Heading"
+              },
+              {
+                "$ref": "#/$defs/Section"
+              },
+              {
+                "$ref": "#/$defs/Paragraph"
+              },
+              {
+                "$ref": "#/$defs/Table"
+              },
+              {
+                "$ref": "#/$defs/Figure"
+              },
+              {
+                "$ref": "#/$defs/Text"
+              },
+              {
+                "$ref": "#/$defs/ListItem"
+              },
+              {
+                "$ref": "#/$defs/Term"
+              },
+              {
+                "$ref": "#/$defs/Acronym"
+              }
+            ]
+          },
+          "title": "Children",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "level",
+        "title"
+      ],
+      "title": "Heading",
+      "type": "object"
+    },
+    "ListItem": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "list_item",
+          "default": "list_item",
+          "title": "Type",
+          "type": "string"
+        },
+        "depth": {
+          "description": "0 for a top-level bullet.",
+          "minimum": 0,
+          "title": "Depth",
+          "type": "integer"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "plain": {
+          "title": "Plain",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "$ref": "#/$defs/ListItem"
+          },
+          "title": "Children",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "depth",
+        "text",
+        "plain"
+      ],
+      "title": "ListItem",
+      "type": "object"
+    },
+    "Paragraph": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "paragraph",
+          "default": "paragraph",
+          "title": "Type",
+          "type": "string"
+        },
+        "number": {
+          "description": "Paragraph number as printed, e.g. '1-11', 'B-18'.",
+          "title": "Number",
+          "type": "string"
+        },
+        "text": {
+          "description": "Markdown of the paragraph, without its number.",
+          "title": "Text",
+          "type": "string"
+        },
+        "plain": {
+          "title": "Plain",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "list_item": "#/$defs/ListItem",
+                "text": "#/$defs/Text"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ListItem"
+              },
+              {
+                "$ref": "#/$defs/Text"
+              }
+            ]
+          },
+          "title": "Children",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "number",
+        "text",
+        "plain"
+      ],
+      "title": "Paragraph",
+      "type": "object"
+    },
+    "PubInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "pub_id": {
+          "title": "Pub Id",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "pub_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pub Date"
+        },
+        "supersedes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supersedes"
+        },
+        "proponent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Proponent"
+        },
+        "distribution": {
+          "title": "Distribution",
+          "type": "string"
+        },
+        "source_sha256": {
+          "title": "Source Sha256",
+          "type": "string"
+        },
+        "page_count": {
+          "title": "Page Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "pub_id",
+        "distribution",
+        "source_sha256",
+        "page_count"
+      ],
+      "title": "PubInfo",
+      "type": "object"
+    },
+    "Section": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "section",
+          "default": "section",
+          "title": "Type",
+          "type": "string"
+        },
+        "number": {
+          "description": "Roman numeral, e.g. 'II'.",
+          "title": "Number",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "children": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "acronym": "#/$defs/Acronym",
+                "figure": "#/$defs/Figure",
+                "heading": "#/$defs/Heading",
+                "list_item": "#/$defs/ListItem",
+                "paragraph": "#/$defs/Paragraph",
+                "section": "#/$defs/Section",
+                "table": "#/$defs/Table",
+                "term": "#/$defs/Term",
+                "text": "#/$defs/Text"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Heading"
+              },
+              {
+                "$ref": "#/$defs/Section"
+              },
+              {
+                "$ref": "#/$defs/Paragraph"
+              },
+              {
+                "$ref": "#/$defs/Table"
+              },
+              {
+                "$ref": "#/$defs/Figure"
+              },
+              {
+                "$ref": "#/$defs/Text"
+              },
+              {
+                "$ref": "#/$defs/ListItem"
+              },
+              {
+                "$ref": "#/$defs/Term"
+              },
+              {
+                "$ref": "#/$defs/Acronym"
+              }
+            ]
+          },
+          "title": "Children",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "number",
+        "title"
+      ],
+      "title": "Section",
+      "type": "object"
+    },
+    "Table": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "table",
+          "default": "table",
+          "title": "Type",
+          "type": "string"
+        },
+        "number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "'1-2', 'E-3', 'Introductory 1'.",
+          "title": "Number"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Caption"
+        },
+        "columns": {
+          "description": "Header row.",
+          "items": {
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "rows": {
+          "description": "Body rows; cells are Markdown.",
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Rows",
+          "type": "array"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Abbreviation key printed under it.",
+          "title": "Key"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "columns",
+        "rows"
+      ],
+      "title": "Table",
+      "type": "object"
+    },
+    "Term": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "term",
+          "default": "term",
+          "title": "Type",
+          "type": "string"
+        },
+        "term": {
+          "title": "Term",
+          "type": "string"
+        },
+        "definition": {
+          "title": "Definition",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Proponent publication, e.g. 'JP 3-09'.",
+          "title": "Source"
+        },
+        "proponent": {
+          "default": false,
+          "description": "True when this publication is the term's proponent (*).",
+          "title": "Proponent",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "term",
+        "definition"
+      ],
+      "title": "Term",
+      "type": "object"
+    },
+    "Text": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Stable within the document, e.g. 'para-1-11', 'table-1-2'.",
+          "title": "Id",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Citation for slide footers, e.g. 'para 1-11', 'table 1-2'.",
+          "title": "Cite",
+          "type": "string"
+        },
+        "page": {
+          "description": "1-based PDF page where the node starts.",
+          "title": "Page",
+          "type": "integer"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Page number printed on that page, e.g. '1-3', 'vii'.",
+          "title": "Page Label"
+        },
+        "type": {
+          "const": "text",
+          "default": "text",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "description": "Markdown as converted (emphasis kept).",
+          "title": "Text",
+          "type": "string"
+        },
+        "plain": {
+          "description": "Text with Markdown emphasis removed.",
+          "title": "Plain",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "cite",
+        "page",
+        "text",
+        "plain"
+      ],
+      "title": "Text",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "pub": {
+      "$ref": "#/$defs/PubInfo"
+    },
+    "divisions": {
+      "items": {
+        "$ref": "#/$defs/Division"
+      },
+      "title": "Divisions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "pub",
+    "divisions"
+  ],
+  "title": "DocTree",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "army-trainer/doc_tree.schema.json"
+}

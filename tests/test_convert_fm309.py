@@ -6,6 +6,7 @@ run it with RUN_SLOW=1. Refresh the golden excerpt with UPDATE_GOLDEN=1 after an
 
 import os
 import re
+from collections import Counter
 from pathlib import Path
 
 import pymupdf
@@ -13,6 +14,7 @@ import pytest
 
 from army_trainer.convert.pipeline import convert_pdf
 from army_trainer.fetch.fetch import ingest
+from army_trainer.structure.parse import parse_markdown
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = [ROOT / "data/raw/FM-3-09.pdf", *sorted(ROOT.glob("FM 3-09*.pdf"))]
@@ -82,3 +84,14 @@ def test_full_document_against_pdf_ground_truth(gated):
     assert not re.search(r"^\W*(12 August 2024|FM 3-09)\W*$", body, re.M)
     assert not re.search("[-�]", body)
     assert report.glossary_terms > 240
+
+    tree = parse_markdown(md)  # stage 3 on the full document
+    kinds = Counter(n.type for d in tree.divisions for n in _walk(d))
+    assert kinds["paragraph"] == 933 and kinds["term"] == report.glossary_terms
+    assert [d.id for d in tree.divisions][:3] == ["preface", "introduction", "ch-1"]
+
+
+def _walk(node):
+    yield node
+    for ch in getattr(node, "children", []):
+        yield from _walk(ch)
