@@ -323,7 +323,9 @@ def _run_rules(pub_id: str, meta, spec_path: Path, write_report: bool = False) -
         typer.echo(f"  {name:12} {errs} error(s), {len(fs) - errs} warning(s)")
     r, c = report.readability, report.coverage
     typer.echo(
-        f"readability: mean grade {r['mean_grade']} over {r['statements']} statements; "
+        f"readability (D15): {r['slides_ok']}/{r['scored_slides']} slides at grade 9 or below "
+        f"({r['slide_share']:.0%}, target {r['target_share']:.0%}: "
+        f"{'PASS' if r['passed'] else 'FAIL'}); neutralized statement mean {r['mean_grade']}; "
         f"coverage: {c['cited']}/{c['mandatory_requirements']} mandatory requirements cited "
         f"({c['share']:.0%})" + ("" if report.deck_checked else "; deck not rendered")
     )

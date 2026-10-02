@@ -190,11 +190,24 @@ def build_report(
     h.append("</table>")
     r, cov = qa.readability, qa.coverage
     h.append(
-        f"<p>Readability: mean grade {r.get('mean_grade')} over {r.get('statements')} statements "
-        f"({r.get('over_limit')} over the limit). Coverage: {cov.get('cited')} of "
+        f"<p>Readability (D15): {r.get('slides_ok')} of {r.get('scored_slides')} slides at grade 9 "
+        f"or below ({r.get('slide_share', 0):.0%}; target {r.get('target_share', 0):.0%}: "
+        f"{'PASS' if r.get('passed') else 'FAIL'}). Neutralized statement mean "
+        f"{r.get('mean_grade')} over {r.get('statements')} statements "
+        f"({r.get('over_limit')} over grade 12). Coverage: {cov.get('cited')} of "
         f"{cov.get('mandatory_requirements')} mandatory requirements cited "
         f"({cov.get('share', 0):.0%}).</p>"
     )
+    rs = r.get("slides", {})
+    h.append("<details><summary>Readability by slide (neutralized / raw grade)</summary><table>"
+             "<tr><th>Slide</th><th>Grade</th><th>Raw</th><th>Statements</th></tr>")  # fmt: skip
+    for sid, row in rs.items():
+        warn = ' class="flag"' if row["grade"] > 9.0 else ""
+        h.append(
+            f"<tr{warn}><td>{_e(sid)}</td><td>{row['grade']}</td><td>{row['raw_grade']}</td>"
+            f"<td>{row['statements']}</td></tr>"
+        )
+    h.append("</table></details>")
     h.append("<details><summary>Coverage by chapter</summary><table><tr><th>Division</th>"
              "<th>Title</th><th>Cited</th><th>Requirements</th></tr>")  # fmt: skip
     for div, row in cov.get("per_division", {}).items():

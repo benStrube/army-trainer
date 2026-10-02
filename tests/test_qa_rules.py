@@ -84,6 +84,28 @@ def test_readability_flags_hard_statements_and_the_deck_average():
     assert easy == [] and stats["over_limit"] == 0
 
 
+def test_readability_neutralizes_glossary_terms_and_scores_per_slide(tree):
+    idx = NodeIndex(tree)
+    text = "Send the message to the fire direction center (FDC) as soon as you can do it."
+    spec = make(item(text, ["para-1-2"]))
+    _, plain = check_readability(spec)
+    out, stats = check_readability(spec, idx)
+    assert stats["slides"]["s02"]["grade"] < plain["slides"]["s02"]["grade"]
+    assert stats["slides"]["s02"]["raw_grade"] == plain["slides"]["s02"]["raw_grade"]
+    assert stats["scored_slides"] == 1 and stats["passed"] == (stats["slide_share"] >= 0.9)
+
+
+def test_readability_fails_the_deck_when_too_few_slides_are_at_level():
+    hard = (
+        "Synchronization of multidomain capabilities necessitates comprehensive "
+        "interoperability throughout operational environments."
+    )
+    out, stats = check_readability(make(item(hard, ["para-1-1"])))
+    assert stats["passed"] is False and stats["slides_ok"] == 0
+    assert any(f.where == "s02" and "slide grade level" in f.message for f in out)
+    assert any(f.where == "deck" and "FAIL" in f.message for f in out)
+
+
 def test_acronym_must_be_spelled_out_where_first_used(tree):
     idx = NodeIndex(tree)
     bare = make(item("Send the message to the FDC.", ["para-1-2"]))
@@ -136,3 +158,29 @@ def test_fm309_deck_has_no_qa_errors():
     report = run_qa(FM_SPEC, tree, idx, FM_DECK)
     assert report.deck_checked
     assert not report.errors, [str(f) for f in report.errors]
+
+
+FIXTURE = Path(__file__).parent / "fixtures/spec_fm309_d15.json"
+#: D15 reference values (docs/decisions/readability.md), per-slide tolerance +-0.1.
+D15_GRADES = {
+    "s02": 8.7, "s03": 8.6, "s04": 8.2, "s05": 6.7, "s06": 9.7, "s07": 10.0, "s08": 5.0,
+    "s09": 8.2, "s10": 7.2, "s11": 12.0, "s12": 9.4, "s13": 6.4, "s14": 4.7, "s15": 10.6,
+    "s16": 8.7, "s17": 12.0, "s18": 9.1, "s19": 9.3, "s20": 6.9, "s21": 8.6, "s22": 12.3,
+    "s23": 9.3, "s24": 6.5, "s25": 11.2, "s26": 5.1, "s27": 6.5, "s28": 7.8, "s29": 15.0,
+    "s30": 14.6, "s31": 10.1, "s32": 9.0, "s33": 8.9, "s34": 9.1, "s35": 10.0,
+}  # fmt: skip
+
+
+@pytest.mark.skipif(not FM_TREE.exists(), reason="run convert for FM-3-09 first")
+def test_readability_matches_the_d15_reference_values():
+    from army_trainer.structure.models import DocTree
+
+    idx = NodeIndex(DocTree.model_validate_json(FM_TREE.read_text()))
+    spec = SlideSpec.model_validate_json(FIXTURE.read_text())
+    _, stats = check_readability(spec, idx)
+    assert stats["scored_slides"] == 34 and stats["slides_ok"] == 18
+    assert round(stats["slide_share"], 2) == 0.53 and stats["passed"] is False
+    assert abs(stats["mean_grade"] - 9.01) <= 0.1
+    assert stats["raw_slides_ok"] == 3
+    for sid, want in D15_GRADES.items():
+        assert abs(stats["slides"][sid]["grade"] - want) <= 0.1, sid

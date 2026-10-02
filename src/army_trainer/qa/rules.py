@@ -9,7 +9,8 @@ replace that review (D12).
 * verbatim: numbers, dates and form numbers on a slide appear in the cited text.
 * directive: directive words (will / must / will not / may ...) on a slide appear in the cited
   text; an item's `directive` is in the source; the rendered deck keeps the directive word.
-* readability: Flesch-Kincaid grade of each slide statement and of the deck (target ~8th grade).
+* readability (D15): per-slide Flesch-Kincaid grade with glossary terms and acronyms counted as
+  one word; the deck passes when >= 90% of scored slides are at grade 9.0 or below.
 * acronym: acronyms are in the glossary, spelled out where first used, and listed on the
   acronyms slide.
 * coverage: share of the publication's will / must requirements that a slide cites, per chapter,
@@ -34,8 +35,12 @@ from .review import claims, deck_text, rendered
 CHECKS = ("citation", "verbatim", "directive", "readability", "acronym", "coverage")
 #: Flesch-Kincaid grade above which one statement is flagged (target ~8th grade).
 GRADE_WARN = 12.0
-#: The deck as a whole should average no more than this.
-GRADE_DECK = 9.0
+#: A slide (mean of its statements) is "at level" at or below this grade (D15).
+GRADE_SLIDE = 9.0
+#: The deck passes when at least this share of scored slides are at level (MVP criterion 8.4).
+SLIDE_SHARE_PASS = 0.90
+#: Slides whose text is fixed, a list of expansions or pointers elsewhere (D15).
+READABILITY_EXEMPT = frozenset({"title", "acronyms", "closing"})
 MIN_WORDS = 8  # shorter text has no stable grade level
 #: Share of mandatory requirements a chapter's slides should cite before coverage warns.
 COVERAGE_WARN = 0.10
@@ -172,41 +177,107 @@ def check_uncited(spec: SlideSpec) -> list[QaFinding]:
     return out
 
 
-def check_readability(spec: SlideSpec) -> tuple[list[QaFinding], dict]:
+def neutralizer(idx: NodeIndex | None):
+    """Regex replacing the publication's glossary terms and acronyms with one word (D15)."""
+    phrases, abbrs = set(), set()
+    for loc in idx.by_id.values() if idx else ():
+        n = loc.node
+        if n.type == "term" and n.term.strip():
+            phrases.add(n.term.strip())
+        elif n.type == "acronym":
+            if n.meaning.strip():
+                phrases.add(n.meaning.strip())
+            if n.abbreviation.strip():
+                abbrs.add(n.abbreviation.strip())
+    if not phrases and not abbrs:
+        return None
+    # longest first, whole words only; phrases ignore case, abbreviations don't
+    ph = "|".join(re.escape(p) for p in sorted(phrases, key=len, reverse=True))
+    ab = "|".join(re.escape(a) for a in sorted(abbrs, key=len, reverse=True))
+    rx_p = re.compile(rf"(?<![\w-])(?:{ph})(?![\w-])", re.I) if ph else None
+    rx_a = re.compile(rf"(?<![\w-])(?:{ab})(?![\w-])") if ab else None
+
+    def neutralize(text: str) -> str:
+        if rx_p:
+            text = rx_p.sub("term", text)
+        if rx_a:
+            text = rx_a.sub("term", text)
+        return text
+
+    return neutralize
+
+
+def check_readability(
+    spec: SlideSpec, idx: NodeIndex | None = None
+) -> tuple[list[QaFinding], dict]:
+    """Per-slide, term-aware Flesch-Kincaid grade (D15, `docs/decisions/readability.md`)."""
     import textstat
 
-    out, grades = [], []
+    neutralize = (neutralizer(idx) if idx is not None else None) or (lambda t: t)
+    out: list[QaFinding] = []
+    slides: dict[str, dict] = {}
+    statements = []  # neutralized grades
+    by_slide: dict[str, list[tuple[float, float]]] = {}
     for c in claims(spec):
-        if c.in_notes:
+        if c.in_notes or c.pattern in READABILITY_EXEMPT:
             continue
-        text = ". ".join(p.rstrip(".") for p in c.parts if p)
-        if len(re.findall(r"[A-Za-z']+", text)) < MIN_WORDS:
+        for part in c.parts:
+            if len(re.findall(r"[A-Za-z']+", part)) < MIN_WORDS:
+                continue
+            g = textstat.flesch_kincaid_grade(neutralize(part))
+            raw = textstat.flesch_kincaid_grade(part)
+            statements.append(g)
+            by_slide.setdefault(c.slide, []).append((g, raw))
+            if g > GRADE_WARN:
+                out.append(
+                    QaFinding(
+                        "readability", "warning", c.id,
+                        f"grade level {g:.1f} (> {GRADE_WARN:.0f}): {part[:80]}",
+                    )
+                )  # fmt: skip
+    for s in spec.slides:
+        rows = by_slide.get(s.id)
+        if not rows:
             continue
-        g = textstat.flesch_kincaid_grade(text)
-        grades.append(g)
-        if g > GRADE_WARN:
+        grade = sum(g for g, _ in rows) / len(rows)
+        slides[s.id] = {
+            "grade": round(grade, 2),
+            "raw_grade": round(sum(r for _, r in rows) / len(rows), 2),
+            "statements": len(rows),
+        }
+        if grade > GRADE_SLIDE:
             out.append(
                 QaFinding(
-                    "readability",
-                    "warning",
-                    c.id,
-                    f"grade level {g:.1f} (> {GRADE_WARN:.0f}): {text[:80]}",
+                    "readability", "warning", s.id,
+                    f"slide grade level {grade:.1f} (> {GRADE_SLIDE:.1f})",
                 )
-            )
-    avg = sum(grades) / len(grades) if grades else 0.0
-    if avg > GRADE_DECK:
+            )  # fmt: skip
+    ok = sum(1 for v in slides.values() if v["grade"] <= GRADE_SLIDE)
+    share = ok / len(slides) if slides else 1.0
+    avg = sum(statements) / len(statements) if statements else 0.0
+    passed = share >= SLIDE_SHARE_PASS
+    raw_ok = sum(1 for v in slides.values() if v["raw_grade"] <= GRADE_SLIDE)
+    if not passed:
         out.append(
             QaFinding(
-                "readability",
-                "warning",
-                "deck",
-                f"average grade level {avg:.1f} > {GRADE_DECK:.0f}",
+                "readability", "warning", "deck",
+                f"{ok} of {len(slides)} slides at grade {GRADE_SLIDE:.0f} or below "
+                f"({share:.0%}); target {SLIDE_SHARE_PASS:.0%}: FAIL",
             )
-        )
+        )  # fmt: skip
     stats = {
-        "statements": len(grades),
+        "method": "D15",
+        "neutralized": neutralize is not None and idx is not None,
+        "statements": len(statements),
         "mean_grade": round(avg, 2),
-        "over_limit": sum(1 for g in grades if g > GRADE_WARN),
+        "over_limit": sum(1 for g in statements if g > GRADE_WARN),
+        "scored_slides": len(slides),
+        "slides_ok": ok,
+        "slide_share": round(share, 3),
+        "target_share": SLIDE_SHARE_PASS,
+        "passed": passed,
+        "raw_slides_ok": raw_ok,
+        "slides": slides,
     }
     return out, stats
 
@@ -375,7 +446,7 @@ def run_qa(spec_path: Path, tree: DocTree, indexes, deck: Path | None = None) ->
     report.findings += [_map_plan_finding(f) for f in plan]
     report.findings += check_uncited(spec)
     report.findings += check_forms_dates(spec, idx)
-    rf, report.readability = check_readability(spec)
+    rf, report.readability = check_readability(spec, idx)
     report.findings += rf
     report.findings += check_acronyms(spec, idx)
     cf, report.coverage = coverage(spec, tree, indexes, idx)
