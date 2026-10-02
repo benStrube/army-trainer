@@ -48,7 +48,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 ### Phase 4 — QA
 | WP | Work | Model | Exit criteria | Stop | Status |
 |---|---|---|---|---|---|
-| 4.1 | **Session fidelity review (D10):** playbook `src/army_trainer/qa/prompts/fidelity_review.md` + rubric; `qa --review-packet` emits slide ↔ cited-text pairs; Opus session writes `specs/FM-3-09.review.json` | Opus | Playbook committed; review run on the FM 3-09 deck; findings fixed or listed | 🛑 **STOP** → Sonnet | in progress |
+| 4.1 | **Session fidelity review (D10):** playbook `src/army_trainer/qa/prompts/fidelity_review.md` + rubric; `qa --review-packet` emits slide ↔ cited-text pairs; Opus session writes `specs/FM-3-09.review.json` | Opus | Playbook committed; review run on the FM 3-09 deck; findings fixed or listed | 🛑 **STOP** → Sonnet | done |
 | 4.2 | Rule-based checks: citation, verbatim (numbers/dates/forms), directive-word, readability (`textstat`), acronym, coverage report | Sonnet | `army-trainer qa` runs all checks; tests for each | ➡️ continue | todo |
 | 4.3 | Local review report: thumbnails ↔ cited source side by side, all flags | Sonnet | Static report generated per deck | 🛑 **STOP** → Opus | todo |
 | 4.4 | Pilot review: assess the FM 3-09 deck against MVP success criteria (§8 of scope); list fixes by WP; recommend on open question Q1 (per-chapter decks) | Opus | Review written to a handover; fix list assigned to models in this file | 🛑 **STOP** → user | todo |

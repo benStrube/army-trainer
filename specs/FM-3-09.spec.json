@@ -69,7 +69,7 @@
      ]
     },
     {
-     "text": "Danger close: rounds from mortars or artillery predicted to land within 600 meters of friendly troops.",
+     "text": "Danger close is a mandatory call when mortar or artillery rounds are predicted to land within 600 meters of friendly troops.",
      "cite": [
       "para-3-29"
      ]
@@ -82,7 +82,7 @@
      "directive": "must"
     },
     {
-     "text": "In a no-fire area, fires or their effects are prohibited.",
+     "text": "In a no-fire area, fires or their effects are prohibited, with two narrow exceptions (see the no-fire area slide).",
      "cite": [
       "para-B-33"
      ]
@@ -170,6 +170,7 @@
     {
      "text": "The fire support system's elements: command and control, target acquisition, and attack/delivery systems.",
      "cite": [
+      "para-1-28",
       "para-1-28.li1",
       "para-1-28.li2",
       "para-1-28.li3"
@@ -240,12 +241,14 @@
       {
        "text": "Train and enforce task standards.",
        "cite": [
+        "para-1-47",
         "para-1-47.li3"
        ]
       },
       {
        "text": "Keep training focused on sustaining strengths and improving weaknesses.",
        "cite": [
+        "para-1-47",
         "para-1-47.li4"
        ]
       }
@@ -291,7 +294,7 @@
        ]
       },
       {
-       "text": "The FO must fully understand their part in the observation plan.",
+       "text": "The FO must fully understand their part in the observation plan and refine or submit key targets for the company fire plan.",
        "cite": [
         "para-2-19"
        ],
@@ -347,7 +350,7 @@
        ]
       },
       {
-       "text": "Cannot control close air support attacks and does not replace a joint terminal attack controller (JTAC).",
+       "text": "Cannot perform terminal attack control of close air support; does not replace a qualified joint terminal attack controller (JTAC).",
        "cite": [
         "para-2-20"
        ]
@@ -385,7 +388,7 @@
      ]
     },
     {
-     "text": "The FIST works closely with the battalion and brigade fire support elements.",
+     "text": "The brigade fire support element works closely with battalion fire support elements and company FISTs.",
      "cite": [
       "para-2-38"
      ]
@@ -463,18 +466,18 @@
   {
    "pattern": "big_numbers",
    "chapter": "ch-3",
-   "title": "Danger close: the distances to know",
+   "title": "Danger close: when to call it",
    "stats": [
     {
      "value": "600 m",
-     "label": "Mortars or artillery: impact within this of friendly troops",
+     "label": "Mortar or artillery rounds predicted to land this close",
      "cite": [
       "para-3-29"
      ]
     },
     {
      "value": "750 m",
-     "label": "Naval surface fires: impact within this of friendly troops",
+     "label": "Naval surface fires predicted to land this close",
      "cite": [
       "para-3-29"
      ]
@@ -630,7 +633,7 @@
   {
    "pattern": "checklist",
    "chapter": "ch-3",
-   "title": "Positive clearance of fires: what it takes",
+   "title": "Positive clearance of fires: what to get",
    "items": [
     {
      "text": "Fires that are not pre-cleared or allowed by a permissive FSCM must be positively cleared.",
@@ -640,9 +643,9 @@
      "directive": "must"
     },
     {
-     "text": "This should be a battle drill in command posts. Best method: send the call for clearance over two nets, the fire support net and the maneuver net.",
+     "text": "For positive clearance of fires, the following should be obtained:",
      "cite": [
-      "para-3-50"
+      "para-3-51"
      ],
      "directive": "should"
     },
@@ -680,9 +683,9 @@
    "notes": {
     "talking_points": [
      {
-      "text": "For positive clearance of fires, the listed items should be obtained.",
+      "text": "This should be a battle drill in command posts. Best method: send the call for clearance over two nets, the fire support net and the maneuver net.",
       "cite": [
-       "para-3-51"
+       "para-3-50"
       ],
       "directive": "should"
      },
@@ -741,7 +744,7 @@
       "directive": "must"
      },
      {
-      "text": "Each essential fire support task will be described in the sequence of planned execution using task, purpose, method, effects.",
+      "text": "Within each phase of an operation, each essential fire support task will be described in the order of planned execution: task, purpose, method, effects.",
       "cite": [
        "para-A-7"
       ],
@@ -804,7 +807,7 @@
        ]
       },
       {
-       "text": "No-fire area: fires or their effects are prohibited inside it.",
+       "text": "No-fire area: fires or their effects are prohibited inside it, with two exceptions.",
        "cite": [
         "para-B-33"
        ]
@@ -851,8 +854,8 @@
     {
      "cells": [
       "Coordinated fire line (CFL)",
-      "Surface fires may fire beyond it at any time without more coordination.",
-      "Inside the setting unit's boundaries; must still follow the rules of engagement."
+      "Surface fires may fire beyond it without more coordination (own boundaries).",
+      "Airspace still has to be coordinated; fires must follow rules of engagement."
      ],
      "cite": [
       "para-B-2"
@@ -922,7 +925,7 @@
     {
      "key": "q2",
      "kind": "question",
-     "text": "An enemy in it is engaging a friendly force: does its commander need immediate protection?",
+     "text": "Enemy inside engages friendlies: does the engaged commander find protection is needed now?",
      "yes": "o2",
      "no": "o3",
      "cite": [
@@ -932,7 +935,7 @@
     {
      "key": "o2",
      "kind": "outcome",
-     "text": "Exception: respond with only the minimal force needed to defend the force.",
+     "text": "Exception: the engaged commander responds with only the minimal force needed to defend.",
      "cite": [
       "para-B-33.li2"
      ]
@@ -959,7 +962,7 @@
    "steps": [
     {
      "label": "Find a need for air support",
-     "detail": "When targets need effects beyond the unit's own capabilities, the fire support element creates an air support request.",
+     "detail": "When targets need effects beyond the unit's own capabilities, or other joint air needs are found, the fire support element makes a request.",
      "cite": [
       "para-E-1"
      ]
@@ -1168,9 +1171,10 @@
       ]
      },
      {
-      "text": "Field artillery HQ is on the list only if designated by the support commander.",
+      "text": "The field artillery HQ (and the force field artillery HQ for general support) is on the list only if designated by the support commander.",
       "cite": [
-       "para-4-62.t1"
+       "para-4-62.t1",
+       "table-4-1"
       ]
      }
     ],
@@ -1366,7 +1370,7 @@
    "notes": {
     "talking_points": [
      {
-      "text": "Without GPS, field artillery personnel will use the M2A2 aiming circle for directional control. Soldiers can also use the sun and stars.",
+      "text": "In a GPS degraded, disrupted, or denied environment, field artillery personnel will use the M2A2 aiming circle for directional control.",
       "cite": [
        "para-C-31"
       ],
@@ -1383,7 +1387,7 @@
    "chapter": "ch-5",
    "number": "5",
    "blurb": {
-    "text": "How fire support works before a war starts: during competition and during crisis.",
+    "text": "Fire support during competition and during crisis, and the move to armed conflict.",
     "cite": [
      "ch-5.t1"
     ]
@@ -1393,7 +1397,7 @@
   {
    "pattern": "comparison",
    "chapter": "ch-5",
-   "title": "Fire support before the fighting: competition and crisis",
+   "title": "Fire support in competition and crisis",
    "columns": [
     {
      "heading": "Competition",
@@ -1504,15 +1508,16 @@
        ]
       },
       {
-       "text": "To surprise the enemy, meet the five requirements for accurate predicted fire for first-round fire for effect.",
+       "text": "To help surprise the enemy, meet the five requirements for accurate predicted fire so the first rounds are fire for effect.",
        "cite": [
         "para-6-86",
         "para-6-86.li1"
        ]
       },
       {
-       "text": "Fire support coordination measures, such as coordinated fire lines, must be well forward so the force will not outrun them.",
+       "text": "When the reserve is committed during movement, measures such as coordinated fire lines must be well forward so the force will not outrun them.",
        "cite": [
+        "para-6-103",
         "para-6-103.li7"
        ],
        "directive": "must"
@@ -1544,7 +1549,7 @@
     },
     {
      "label": "Obscure",
-     "detail": "Reduce enemy direct fire on breach and assault elements. Smoke should be used with fog or darkness; it may draw enemy attention.",
+     "detail": "Reduce enemy direct fire on the breach. Smoke should be used with fog or darkness to maximize effect; it may attract enemy attention.",
      "cite": [
       "para-6-128.li1",
       "para-6-128.li3",
@@ -1589,7 +1594,7 @@
     {
      "cells": [
       "Deep snow (cold weather)",
-      "Airburst munitions; white phosphorous",
+      "Airburst munitions; white phosphorous (may burn undetected for 4 days)",
       "High explosives (HE) point detonating or delay: ineffective in deep snow",
       "Amber filters cut snow blindness; update visibility diagrams regularly"
      ],
@@ -1619,7 +1624,7 @@
       "Sandy or dune desert",
       "Variable time and time fuzes are very effective",
       "HE with point detonating or delay fuze is smothered by deep sand",
-      "Watch for dust clouds from moving enemy; heat waves hamper distance estimates"
+      "Heat waves hamper distance estimates: laser range finders must be used"
      ],
      "cite": [
       "para-D-99.li1",
@@ -1726,8 +1731,9 @@
       ]
      },
      {
-      "text": "In cold weather, panels or pyrotechnics must be used to indicate friendly locations.",
+      "text": "When close air support is used in cold weather, panels or pyrotechnics must be used to indicate friendly locations.",
       "cite": [
+       "para-D-141",
        "para-D-141.li3"
       ],
       "directive": "must"
@@ -1757,7 +1763,7 @@
     },
     {
      "term": "Danger close",
-     "definition": "A mandatory call that warns of higher risk to the closest friendly troops from where a weapon impacts.",
+     "definition": "A mandatory call that warns of higher risk to the closest friendly troops from a weapon's intended point of impact. It requires specific risk-mitigation procedures.",
      "cite": [
       "term-danger-close"
      ]
