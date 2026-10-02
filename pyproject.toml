@@ -44,3 +44,4 @@ ignore = ["B008"]  # typer.Option defaults are idiomatic
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["E501"]
+"scripts/slides_preview.py" = ["E501", "E731"]  # inline-styled HTML templates (WP 2.4 preview only)
