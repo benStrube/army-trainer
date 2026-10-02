@@ -219,9 +219,66 @@ def render(
 
 
 @app.command()
-def qa(pub: str = PUB) -> None:
-    """Stage 6: fidelity/readability checks and review report."""
-    _stub("qa", "4.1-4.3")
+def qa(
+    pub: str = PUB,
+    review_packet: bool = typer.Option(
+        False, "--review-packet", help="Write the fidelity review packet (WP 4.1)."
+    ),
+    review_check: bool = typer.Option(
+        False, "--review-check", help="Check specs/<ID>.review.json against the spec."
+    ),
+    spec: Path | None = typer.Option(None, help="Spec (default specs/<ID>.spec.json)."),
+) -> None:
+    """Stage 6: fidelity review packet and review check (rule-based QA: WP 4.2)."""
+    if not (review_packet or review_check):
+        _stub("qa (rule-based checks)", "4.2-4.3")
+    from .fetch.pdf import normalize_pub_id
+    from .index.build import JSON_DIR, Indexes
+    from .llm_guard import GateError, load_gated_metadata
+    from .qa.review import Review, build_review_packet, check_review
+    from .structure.models import DocTree
+
+    pub_id = normalize_pub_id(pub)
+    try:  # the session reads the packet: gate first (D10)
+        meta = load_gated_metadata(pub_id, RAW_DIR)
+    except GateError as e:
+        typer.echo(f"error: {e}", err=True)
+        raise typer.Exit(code=1) from e
+    spec_path = spec or Path("specs") / f"{pub_id}.spec.json"
+    if not spec_path.exists():
+        typer.echo(f"error: no spec at {spec_path}", err=True)
+        raise typer.Exit(code=1)
+    if review_packet:
+        tree_path, index_path = JSON_DIR / f"{pub_id}.json", JSON_DIR / f"{pub_id}.indexes.json"
+        if not (tree_path.exists() and index_path.exists()):
+            typer.echo(f"error: run `convert` and `index` for {pub_id} first.", err=True)
+            raise typer.Exit(code=1)
+        tree = DocTree.model_validate_json(tree_path.read_text())
+        if tree.pub.source_sha256 != meta.sha256:
+            typer.echo(f"error: {tree_path} is from another PDF; re-run `convert`.", err=True)
+            raise typer.Exit(code=1)
+        indexes = Indexes.model_validate_json(index_path.read_text())
+        deck = Path("out/decks") / f"{pub_id}.pptx"
+        out = build_review_packet(spec_path, tree, indexes, Path("data/packets") / pub_id, deck)
+        typer.echo(f"{pub_id}: wrote {out}" + ("" if deck.exists() else " (no rendered deck)"))
+    if review_check:
+        review_path = spec_path.with_name(f"{pub_id}.review.json")
+        if not review_path.exists():
+            typer.echo(f"error: no review at {review_path}", err=True)
+            raise typer.Exit(code=1)
+        report = check_review(Review.model_validate_json(review_path.read_text()), spec_path)
+        for e in report.errors:
+            typer.echo(f"ERROR   {e}")
+        for f in report.open_blocking:
+            typer.echo(f"OPEN    {f.verdict} {f.claim}: {f.note}")
+        c = report.counts
+        typer.echo(
+            f"{review_path}: {sum(c.values())} claims: {c['pass']} pass, {c['minor']} minor, "
+            f"{c['major']} major, {c['critical']} critical; "
+            + ("PASSES" if report.passes else "DOES NOT PASS")
+        )
+        if not report.passes:
+            raise typer.Exit(code=1)
 
 
 @app.command()
