@@ -22,6 +22,7 @@
 | D12 | **Fidelity review (WP 4.1):** `qa <ID> --review-packet` (gated) pairs every claim (cited statement, speaker-note talking points included) with the full cited text, the requirement sentences in it and a check that the claim is drawn in the rendered deck. An Opus session reviews it with `qa/prompts/fidelity_review.md` (rubric 1.0: pass / minor / major / critical) and writes `specs/<ID>.review.json`, tied to the spec by SHA-256. A deck **passes** with 0 open critical/major findings and a verdict for every claim; `qa <ID> --review-check` enforces it. Long decks may be split across independent reviewers; the session adjudicates every finding. | 2026-10-02 |
 | D13 | **Rule-based QA (WP 4.2):** `qa <ID>` (gated; no flags) runs six checks on the committed spec and the rendered deck and writes `data/qa/<ID>/qa.json`: citation, verbatim (numbers, dates, form/pub numbers), directive words, readability (`textstat` Flesch-Kincaid: statement > grade 12 and deck mean > 9 warn), acronyms (spelled out at first use, listed on the acronyms slide) and coverage (share of mandatory requirements cited, per chapter). It reuses `plan.check`, so the two never disagree. Errors exit 1; warnings are for a person. `textstat` is pinned `>=0.7.7,<0.7.9` because later versions download an NLTK dictionary at run time, which a local, offline tool can't rely on. These checks support the Opus fidelity review (D12) but don't replace it. |
 | D14 | **Review report (WP 4.3):** `qa <ID> --report` writes one static, offline HTML page to `out/reports/<ID>/index.html` (gitignored; regenerate): per slide a LibreOffice thumbnail, each claim beside the full text it cites, the rule flags (D13) and the fidelity verdict (D12), plus totals, coverage by chapter and the uncited requirements. A review whose spec hash no longer matches is shown with a stale banner. Thumbnails need `soffice` with Impress and `pdftoppm`; without them the page is built without images. |
+| D15 | **Reading level (§8.4):** measured per slide as the mean Flesch-Kincaid grade of its on-slide statements (≥ 8 words each; notes and the title/acronyms/closing slides excluded), with the publication's glossary terms, acronym meanings and abbreviations counted as one word ("term"). Pass: ≥ 90% of scored slides ≤ grade 9.0. Raw grades are reported alongside. See `docs/decisions/readability.md`. | 2026-10-02 |
 
 ## 1. Problem & Outcome
 
@@ -259,7 +260,7 @@ army-trainer/
 - The pilot (FM 3-09) converted with ≥ 98% paragraph-structure accuracy (spot-checked) and all tables intact.
 - The pilot deck: ≥ 60% of content slides are diagrams/visuals (not bullet lists).
 - 100% of slide claims carry a valid citation; 0 verbatim-check failures on numbers/dates/forms.
-- The pilot deck is 25–40 slides, with ≥ 90% of slides at or below ~grade 9 reading level and no undefined acronyms.
+- The pilot deck is 25–40 slides, with ≥ 90% of slides at or below ~grade 9 reading level (measured as in D15) and no undefined acronyms.
 - A junior Soldier unfamiliar with the reg can answer 8/10 basic "what do I have to do" questions about it after a 15-minute deck walkthrough (simple usability test).
 
 ## 9. Open Questions

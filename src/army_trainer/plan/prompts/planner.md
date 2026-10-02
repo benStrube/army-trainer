@@ -71,7 +71,7 @@ Vary the patterns: two `checklist` slides in a row is a sign one should be somet
 
 ## 4. Writing plain language
 
-- **Short sentences, common words, active voice, "you" where it fits.** Aim for 8th grade: under ~20 words per sentence, one idea per item.
+- **Short sentences, common words, active voice, "you" where it fits.** Aim for 8th grade: under ~15 words per sentence, one idea per item. **Target (D15, `docs/decisions/readability.md`): every slide at Flesch-Kincaid grade ≤ 9**, measured per slide with glossary terms and acronyms counted as one word, and ≥ 90% of slides must pass. Long ordinary words and long sentences are what push a slide over; doctrinal terms are not. Divider blurbs count.
 - **Lead with the action or the point.** "Locate targets accurately, then call for and adjust fire." not "The primary duty of the FO is to…".
 - **Use only acronyms the glossary defines, with the glossary's meaning.** Check the meaning before using one: FM 3-09's glossary has FFA = "force field artillery", but appendix B uses FFA for free-fire area, so write "free-fire area" out. Shorthand the glossary lacks (e.g. D3A) stays out of slide text; spell the steps out instead.
 - **Spell out every acronym the first time it appears in the deck**: "forward observer (FO)". After that the acronym is fine. Prefer the words when there's room. Every acronym on a slide goes on the `acronyms` slide, with the glossary's meaning.
