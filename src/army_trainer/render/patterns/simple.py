@@ -274,14 +274,17 @@ def comparison(slide, s, ctx: Ctx) -> None:
             align="c",
         )
         body_y = CONTENT_Y + 0.9
-        k = len(col.points)
-        ph = min(2.2, (CONTENT_H - 0.9 - GAP * k) / k)  # short columns: don't stretch panels
+        # rows line up across columns: every panel has the height the fullest column allows
+        k = max(len(c.points) for c in s.columns)
+        ph = min(2.2, (CONTENT_H - 0.9 - GAP * k) / k)
         for j, it in enumerate(col.points):
+            y = body_y + GAP + j * (ph + GAP)
+            box(slide, x, y, 0.14, ph, "", fill=P.army_gold)
             box(
                 slide,
-                x,
-                body_y + GAP + j * (ph + GAP),
-                w,
+                x + 0.14,
+                y,
+                w - 0.14,
                 ph,
                 it.text,
                 ctx=ctx,

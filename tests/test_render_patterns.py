@@ -138,3 +138,49 @@ def test_table_text_never_goes_below_14_pt(tmp_path, tpl):
                         for pa in cell.text_frame.paragraphs:
                             for r in pa.runs:
                                 assert r.font.size.pt >= 14
+
+
+def _arrowheads(slide):
+    return len(slide._element.xpath(".//a:ln/a:tailEnd[@type='triangle']"))
+
+
+def _fixture_slide(tmp_path, tpl, pattern):
+    spec, slides = _render_fixture(tmp_path, tpl)
+    i = next(i for i, s in enumerate(spec.slides) if s.pattern == pattern)
+    return spec.slides[i], slides[i]
+
+
+def test_decision_tree_draws_an_arrow_for_every_branch_and_a_yes_no_pill(tmp_path, tpl):
+    s, sl = _fixture_slide(tmp_path, tpl, "decision_tree")
+    branches = sum(1 for n in s.nodes if n.kind == "question") * 2
+    assert _arrowheads(sl) == branches
+    texts = [sh.text_frame.text for sh in sl.shapes if sh.has_text_frame]
+    assert texts.count("YES") == texts.count("NO") == branches // 2
+    for n in s.nodes:  # every node's text is on the slide, unchanged
+        assert n.text in texts
+
+
+def test_cycle_is_a_ring_of_arrows_one_per_step(tmp_path, tpl):
+    s, sl = _fixture_slide(tmp_path, tpl, "cycle")
+    assert _arrowheads(sl) == len(s.steps)
+
+
+def test_comparison_panels_line_up_across_columns(tmp_path, tpl):
+    s, sl = _fixture_slide(tmp_path, tpl, "comparison")
+    texts = {it.text for c in s.columns for it in c.points}
+    panels = [sh for sh in sl.shapes if sh.has_text_frame and sh.text_frame.text in texts]
+    assert len(panels) == len(texts)
+    assert len({sh.height for sh in panels}) == 1  # one height
+    tops = {sh.top for sh in panels}
+    assert len(tops) == max(len(c.points) for c in s.columns)  # rows align across columns
+
+
+def test_key_term_cards_have_a_term_tab_over_the_definition(tmp_path, tpl):
+    s, sl = _fixture_slide(tmp_path, tpl, "key_terms")
+    by_text = {sh.text_frame.text: sh for sh in sl.shapes if sh.has_text_frame}
+    for tm in s.terms:
+        tab, body = by_text[tm.term], by_text[tm.definition]
+        assert tab.left == body.left and tab.width == body.width
+        assert tab.top + tab.height == body.top  # the tab sits directly on the definition
+        sizes = {r.font.size.pt for pa in body.text_frame.paragraphs for r in pa.runs}
+        assert min(sizes) >= 16

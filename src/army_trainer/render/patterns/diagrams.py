@@ -15,15 +15,17 @@ from ..shapes import (
     CONTENT_W,
     CONTENT_X,
     CONTENT_Y,
+    RECT,
     Ctx,
     P,
     Para,
     _rgb,
+    arc_arrow,
     box,
     check_mark,
     cross_mark,
+    elbow,
     est_lines,
-    flat,
     line,
     set_title,
 )
@@ -118,15 +120,14 @@ def process_flow(slide, s, ctx: Ctx) -> None:
 def cycle(slide, s, ctx: Ctx) -> None:
     set_title(slide, s.title)
     n = len(s.steps)
-    d = 4.4
+    d = 3.8
     cx, cy = CONTENT_X + 0.4 + d / 2, CONTENT_Y + CONTENT_H / 2
-    ring = slide.shapes.add_shape(
-        MSO_SHAPE.OVAL, Inches(cx - d / 2), Inches(cy - d / 2), Inches(d), Inches(d)
-    )
-    ring.fill.background()
-    ring.line.color.rgb = _rgb(P.army_gold)
-    ring.line.width = Pt(6)
-    flat(ring)
+    nd = 0.8
+    gap = math.asin((nd / 2 + 0.12) / (d / 2))  # leave room for the numbered nodes
+    for i in range(n):
+        a0 = -math.pi / 2 + 2 * math.pi * i / n + gap
+        a1 = -math.pi / 2 + 2 * math.pi * (i + 1) / n - gap
+        arc_arrow(slide, cx, cy, d / 2, a0, a1)
     if s.center_label:
         box(
             slide,
@@ -140,7 +141,6 @@ def cycle(slide, s, ctx: Ctx) -> None:
             bold=True,
             align="c",
         )
-    nd = 0.8
     for i in range(n):
         a = -math.pi / 2 + 2 * math.pi * i / n
         box(
@@ -158,7 +158,7 @@ def cycle(slide, s, ctx: Ctx) -> None:
             shape=MSO_SHAPE.OVAL,
             pad=0,
         )
-    lx = cx + d / 2 + 0.9
+    lx = cx + d / 2 + 0.7
     h = (CONTENT_H - GAP * (n - 1)) / n
     for i, st in enumerate(s.steps):
         paras = [Para(f"{i + 1}. {st.label}", 22, True)]
@@ -435,7 +435,7 @@ def decision_tree(slide, s, ctx: Ctx) -> None:
     nleaf = max(leaf[0], 1)
     cw = CONTENT_W / nleaf
     bw = min(3.6, cw - 0.15)
-    gap_y = 0.55
+    gap_y = 0.75
     bh = (CONTENT_H - gap_y * (levels - 1)) / levels
 
     def at(k: str) -> tuple[float, float]:
@@ -448,23 +448,15 @@ def decision_tree(slide, s, ctx: Ctx) -> None:
         for label, child in (("YES", n.yes), ("NO", n.no)):
             if child in nodes:
                 cx, cy = at(child)
-                line(slide, x + bw / 2, y + bh, cx + bw / 2, cy, P.mid_gray, 2)
-                mx = (x + cx) / 2 + bw / 2
+                ym = elbow(slide, x + bw / 2, y + bh, cx + bw / 2, cy, P.army_black, 3)
+                color = P.do_green if label == "YES" else P.dont_red
+                # the answer sits on the horizontal run, next to the child it leads to
+                px = cx + bw / 2 + (-0.45 if cx > x else 0.45 if cx < x else 0.0) * 1.0
                 box(
-                    slide,
-                    mx - 0.3,
-                    y + bh + 0.08,
-                    0.6,
-                    0.38,
-                    label,
-                    size=14,
-                    bold=True,
-                    color=P.do_green if label == "YES" else P.dont_red,
-                    fill=P.white,
-                    align="c",
-                    pad=0.02,
-                    floor=12,
-                )
+                    slide, px - 0.35, ym - 0.2, 0.7, 0.4, label, size=14, bold=True,
+                    color=P.white, fill=color, align="c", pad=0.02, floor=12,
+                    shape=MSO_SHAPE.ROUNDED_RECTANGLE,
+                )  # fmt: skip
     for k, n in nodes.items():
         if k not in xs:
             continue
@@ -481,10 +473,11 @@ def decision_tree(slide, s, ctx: Ctx) -> None:
             size=18,
             bold=q,
             color=P.white if q else P.army_black,
-            fill=P.army_black if q else P.gold_light if hasattr(P, "gold_light") else P.army_gold,
+            fill=P.army_black if q else P.army_gold,
             align="c",
-            floor=13,
-            pad=0.08,
+            floor=16,
+            pad=0.1,
+            shape=MSO_SHAPE.ROUNDED_RECTANGLE if q else RECT,
         )
 
 
@@ -495,22 +488,14 @@ def key_terms(slide, s, ctx: Ctx) -> None:
     rows = math.ceil(n / cols)
     w = (CONTENT_W - GAP * (cols - 1)) / cols
     h = (CONTENT_H - GAP * (rows - 1)) / rows
+    head = 0.5
     for i, tm in enumerate(s.terms):
         x, y = CONTENT_X + (i % cols) * (w + GAP), CONTENT_Y + (i // cols) * (h + GAP)
-        box(slide, x, y, 0.18, h, "", fill=P.army_gold)
-        box(
-            slide,
-            x + 0.18,
-            y,
-            w - 0.18,
-            h,
-            [Para(tm.term, 22, True, after=4), Para(tm.definition, 20)],
-            ctx=ctx,
-            fill=P.pale_gray,
-            anchor="m",
-            pad=0.2,
-            floor=16,
-        )
+        # card: the term on a black tab, the plain-language definition below it
+        box(slide, x, y, w, head, tm.term, ctx=ctx, size=22, bold=True, color=P.army_gold,
+            fill=P.army_black, pad=0.2, floor=18)  # fmt: skip
+        box(slide, x, y + head, w, h - head, tm.definition, ctx=ctx, size=20, fill=P.pale_gray,
+            anchor="t", pad=0.2, floor=16)  # fmt: skip
 
 
 def acronyms(slide, s, ctx: Ctx) -> None:

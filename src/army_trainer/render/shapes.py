@@ -169,6 +169,56 @@ def line(slide, x1, y1, x2, y2, color=P.army_black, pt=2.0):
     return c
 
 
+def arrowhead(shape) -> None:
+    """Triangle arrowhead at the end of a line or open freeform (a:tailEnd, after the fill)."""
+    from lxml import etree
+
+    ln = shape.line._get_or_add_ln()
+    for old in ln.findall("{http://schemas.openxmlformats.org/drawingml/2006/main}tailEnd"):
+        ln.remove(old)
+    el = etree.SubElement(ln, "{http://schemas.openxmlformats.org/drawingml/2006/main}tailEnd")
+    el.set("type", "triangle")
+    el.set("w", "lg")
+    el.set("len", "lg")
+
+
+def elbow(slide, x1, y1, x2, y2, color=P.mid_gray, pt=2.5, arrow=True):
+    """Orthogonal connector: down from (x1, y1), across, down to (x2, y2), arrowhead at the end.
+    Returns the y of the horizontal run."""
+    ym = (y1 + y2) / 2
+    if abs(x1 - x2) < 0.01:
+        c = line(slide, x1, y1, x2, y2, color, pt)
+        if arrow:
+            arrowhead(c)
+        return ym
+    line(slide, x1, y1, x1, ym, color, pt)
+    line(slide, x1, ym, x2, ym, color, pt)
+    c = line(slide, x2, ym, x2, y2, color, pt)
+    if arrow:
+        arrowhead(c)
+    return ym
+
+
+def arc_arrow(slide, cx, cy, r, a0, a1, color=P.army_gold, pt=6.0, steps=24):
+    """Open arc from angle ``a0`` to ``a1`` (radians, y down) with an arrowhead at ``a1``."""
+    pts = [
+        (
+            Inches(cx + r * math.cos(a0 + (a1 - a0) * k / steps)),
+            Inches(cy + r * math.sin(a0 + (a1 - a0) * k / steps)),
+        )
+        for k in range(steps + 1)
+    ]
+    fb = slide.shapes.build_freeform(*pts[0])
+    fb.add_line_segments(pts[1:], close=False)
+    shp = fb.convert_to_shape()
+    shp.fill.background()
+    shp.line.color.rgb = _rgb(color)
+    shp.line.width = Pt(pt)
+    flat(shp)
+    arrowhead(shp)
+    return shp
+
+
 def check_mark(slide, x, y, size, color=P.do_green, pt=4.0):
     """Open polyline check mark inside a ``size`` x ``size`` square at (x, y)."""
     s = lambda v: int(Inches(v * size))  # noqa: E731
