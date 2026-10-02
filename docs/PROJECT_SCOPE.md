@@ -265,7 +265,7 @@ army-trainer/
 ## 9. Open Questions
 Resolved questions are recorded in §0 (D1–D6).
 
-1. **Per-chapter decks** — keep one deck per regulation (D2), or also produce per-chapter decks for long regulations (e.g. AR 350-1)? Revisit after the pilots show whether the 25–40 slide budget loses too much.
+1. **Per-chapter decks** — keep one deck per regulation (D2), or also produce per-chapter decks for long regulations (e.g. AR 350-1)? Revisit after the pilots show whether the 25–40 slide budget loses too much. *WP 4.4 recommendation (awaiting the user's decision): keep one deck per publication; don't add per-chapter decks for FMs. Close the Soldier-task gap inside the deck (WP 5.1c) and mark a ~12-slide core path for short sessions. Revisit companion chapter decks on the first AR pilot. See `docs/handovers/2026-10-02-WP4.4-pilot-review.md`.*
 2. **Other output formats** — `.pptx` only for now (D6). Revisit whether a PDF copy (for people without PowerPoint) or other formats are needed.
 
 ## 10. Immediate Next Steps

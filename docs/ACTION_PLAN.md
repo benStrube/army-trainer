@@ -36,7 +36,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 | 2.1 | Slide spec: Pydantic models + `schemas/slide_spec.schema.json` covering every visual pattern and the deck structure template; rule-based pattern classifier | Opus | Schema committed; rules classify pilot sections with a reviewed accuracy sample | ➡️ continue | done |
 | 2.2 | **Session planner (no API key, D10):** `army-trainer plan <ID> --packet` builds a deterministic planning packet (outline, indexes, rule-based pattern hints, per-chapter slide budget; gated). The playbook `src/army_trainer/plan/prompts/planner.md` covers patterns, junior-Soldier plain-language rewrite, fidelity rules and the 25–40 budget. `army-trainer plan <ID> --check` validates a spec (schema, every cite exists in the tree, budget, directive words kept) | Opus | Packet + check commands with tests; playbook committed; dry run on one FM 3-09 chapter | ➡️ continue | done |
 | 2.3 | Opus session writes the full FM 3-09 slide spec by following the playbook; self-review; tune the playbook | Opus | `specs/FM-3-09.spec.json` committed and passing `plan --check`; every item cited; review notes in handover | ➡️ continue | done |
-| 2.4 | *(Optional)* **Content/look preview in Claude Slides:** render the spec as a Claude "Slides" artifact with the D9 palette so the user can page through it and download a `.pptx` before Phase 3. Record the user's feedback for the renderer | Opus | Preview artifact link + user feedback in handover (or skipped at the user's request) | 🛑 **STOP** → Sonnet | in progress (preview published; waiting for user feedback) |
+| 2.4 | *(Optional)* **Content/look preview in Claude Slides:** render the spec as a Claude "Slides" artifact with the D9 palette so the user can page through it and download a `.pptx` before Phase 3. Record the user's feedback for the renderer | Opus | Preview artifact link + user feedback in handover (or skipped at the user's request) | 🛑 **STOP** → Sonnet | superseded (no feedback; real deck from WP 3.3 replaces the preview) |
 
 ### Phase 3 — Render
 | WP | Work | Model | Exit criteria | Stop | Status |
@@ -51,12 +51,26 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 | 4.1 | **Session fidelity review (D10):** playbook `src/army_trainer/qa/prompts/fidelity_review.md` + rubric; `qa --review-packet` emits slide ↔ cited-text pairs; Opus session writes `specs/FM-3-09.review.json` | Opus | Playbook committed; review run on the FM 3-09 deck; findings fixed or listed | 🛑 **STOP** → Sonnet | done |
 | 4.2 | Rule-based checks: citation, verbatim (numbers/dates/forms), directive-word, readability (`textstat`), acronym, coverage report | Sonnet | `army-trainer qa` runs all checks; tests for each | ➡️ continue | done |
 | 4.3 | Local review report: thumbnails ↔ cited source side by side, all flags | Sonnet | Static report generated per deck | 🛑 **STOP** → Opus | done |
-| 4.4 | Pilot review: assess the FM 3-09 deck against MVP success criteria (§8 of scope); list fixes by WP; recommend on open question Q1 (per-chapter decks) | Opus | Review written to a handover; fix list assigned to models in this file | 🛑 **STOP** → user | todo |
+| 4.4 | Pilot review: assess the FM 3-09 deck against MVP success criteria (§8 of scope); list fixes by WP; recommend on open question Q1 (per-chapter decks) | Opus | Review written to a handover; fix list assigned to models in this file | 🛑 **STOP** → user | done (review: docs/handovers/2026-10-02-WP4.4-pilot-review.md) |
 
 ### Phase 5 — Scale
 | WP | Work | Model | Exit criteria | Stop | Status |
 |---|---|---|---|---|---|
 | 5.1 | Fixes from WP 4.4 (split by model as assigned there) | per 4.4 | Fix list closed | 🛑 **STOP** | todo |
+
+**WP 5.1 fix list** (from WP 4.4; details in `docs/handovers/2026-10-02-WP4.4-pilot-review.md`):
+
+| ID | Fix | Model | Status |
+|---|---|---|---|
+| 5.1a | Converter: repair 7 damaged tables, word joins, split references; golden tests | Opus | todo |
+| 5.1b | Decision D15: per-slide, term-aware readability metric for §8 | Opus | todo |
+| 5.1c | Spec rewrite for readability + Soldier-task coverage (D-81, C-9, C-67, C-63), swap low-value slides; packet flags Soldier-actionable requirements; fidelity re-review | Opus | todo |
+| 5.1d | Schema: `callout` (caution/warning) and `big_numbers` caveat; playbook | Opus | todo |
+| 5.1e | QA readability check per D15 | Sonnet | todo |
+| 5.1f | Renderer: one-line big numbers, shared sibling font size, table split/14 pt floor, panel sizing, title slide | Sonnet | todo |
+| 5.1g | Renderer: draw callout and caveat | Sonnet | todo |
+| 5.1h | Tooling: libreoffice-impress for thumbnails; loud failure | Sonnet | todo |
+| 5.1i | Run the usability check (`docs/pilot/FM-3-09-usability-check.md`) | User | todo |
 | 5.2 | Remaining patterns: decision tree, comparison, term cards | Sonnet | Samples + tests | ➡️ continue | todo |
 | 5.3 | Batch mode for every deterministic stage (fetch, convert, indexes, render, qa) over a list of publications; `check-updates` revision detection. Planning a new publication still needs one Opus session (D10) | Sonnet | Batch run on ≥ 5 publications through `convert`; update check tested | 🛑 **STOP** → user | todo |
 
