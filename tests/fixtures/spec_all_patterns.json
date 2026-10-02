@@ -622,7 +622,7 @@
    "terms": [
     {
      "term": "Danger close",
-     "definition": "A mandatory call warning of higher risk to the closest friendly troops from where a weapon will hit.",
+     "definition": "A mandatory call that warns of higher risk to the closest friendly troops from where a weapon impacts.",
      "cite": [
       "term-danger-close"
      ]
@@ -654,6 +654,34 @@
    "pattern": "acronyms",
    "entries": [
     {
+     "abbreviation": "BN",
+     "meaning": "battalion",
+     "cite": [
+      "acr-bn"
+     ]
+    },
+    {
+     "abbreviation": "CFL",
+     "meaning": "coordinated fire line",
+     "cite": [
+      "acr-cfl"
+     ]
+    },
+    {
+     "abbreviation": "DFSCOORD",
+     "meaning": "deputy fire support coordinator",
+     "cite": [
+      "acr-dfscoord"
+     ]
+    },
+    {
+     "abbreviation": "DIVARTY",
+     "meaning": "division artillery",
+     "cite": [
+      "acr-divarty"
+     ]
+    },
+    {
      "abbreviation": "FA",
      "meaning": "field artillery",
      "cite": [
@@ -661,10 +689,17 @@
      ]
     },
     {
-     "abbreviation": "FS",
-     "meaning": "fire support",
+     "abbreviation": "FAB",
+     "meaning": "field artillery brigade",
      "cite": [
-      "acr-fs"
+      "acr-fab"
+     ]
+    },
+    {
+     "abbreviation": "FDC",
+     "meaning": "fire direction center",
+     "cite": [
+      "acr-fdc"
      ]
     },
     {
@@ -675,10 +710,10 @@
      ]
     },
     {
-     "abbreviation": "FSO",
-     "meaning": "fire support officer",
+     "abbreviation": "FS",
+     "meaning": "fire support",
      "cite": [
-      "acr-fso"
+      "acr-fs"
      ]
     },
     {
@@ -696,10 +731,10 @@
      ]
     },
     {
-     "abbreviation": "CFL",
-     "meaning": "coordinated fire line",
+     "abbreviation": "FSO",
+     "meaning": "fire support officer",
      "cite": [
-      "acr-cfl"
+      "acr-fso"
      ]
     },
     {

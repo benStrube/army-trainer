@@ -1,0 +1,99 @@
+{
+  "spec_version": "1.0",
+  "pub": {
+    "pub_id": "FM-3-09",
+    "short_name": "FM 3-09",
+    "title": "Fire Support and Field Artillery Operations",
+    "pub_date": "2024-08-12",
+    "source_sha256": "1fd2a14b86c57f2b7af7d757fd5acba80f0abda59f65e313f5b67526a33303ba"
+  },
+  "audience": "junior Soldiers",
+  "disclaimer": "Unofficial training aid. Not an official Army product. The publication is the authoritative source; read it before acting.",
+  "slides": [
+    {"id": "s01", "pattern": "title", "title": "Fire Support and Field Artillery Operations",
+     "subtitle": "FM 3-09 (12 August 2024), chapter 2 dry run: key ideas for junior Soldiers"},
+    {"id": "s02", "pattern": "divider", "title": "The Fire Support System", "chapter": "ch-2", "number": "2",
+     "blurb": {"text": "Fire support (FS) works as a system with three parts: command and control, target acquisition, and attack and delivery.",
+               "cite": ["ch-2.t1"]}},
+    {"id": "s03", "pattern": "comparison", "title": "Three parts of the fire support system", "chapter": "ch-2",
+     "columns": [
+       {"heading": "Command and control", "points": [
+         {"text": "The people, command posts and networks that direct fires.", "cite": ["ch-2.t1"]},
+         {"text": "The ground force commander is responsible for command, control and coordination of fire support.", "cite": ["para-2-1"]}]},
+       {"heading": "Target acquisition", "points": [
+         {"text": "Detect, identify and locate a target well enough to engage it.", "cite": ["para-2-71"]},
+         {"text": "Ranges from Soldiers who see the target to advanced electronic sensors.", "cite": ["para-2-76"]}]},
+       {"heading": "Attack and delivery", "points": [
+         {"text": "Cannon, rocket and missile systems, plus mortars in maneuver units.", "cite": ["para-2-80"]},
+         {"text": "Also air, naval, cyberspace and space capabilities.", "cite": ["para-2-78.li1", "para-2-78.li2", "para-2-78.li3"]}]}
+     ],
+     "notes": {"talking_points": [
+       {"text": "Your unit's commander controls its own fire support assets but has limited control over outside ones.", "cite": ["ch-2.t1"]}]}},
+    {"id": "s04", "pattern": "roles", "title": "Fire support people at company and platoon", "chapter": "ch-2", "layout": "cards",
+     "roles": [
+       {"key": "fo", "name": "Forward observer", "abbreviation": "FO", "duties": [
+         {"text": "Fire support representative for the maneuver platoon.", "cite": ["para-2-19"]},
+         {"text": "Main job: locate targets accurately, then call for and adjust fire support.", "cite": ["para-2-19"]},
+         {"text": "The FO must fully understand their part in the observation plan.", "cite": ["para-2-19"], "directive": "must"}]},
+       {"key": "fs-sgt", "name": "Fire support sergeant", "duties": [
+         {"text": "Senior enlisted assistant to the company fire support officer; does that officer's duties when they are absent.", "cite": ["para-2-18"]},
+         {"text": "Trains the fire support team and the forward observers.", "cite": ["para-2-18"]}]},
+       {"key": "co-fso", "name": "Company fire support officer", "abbreviation": "FSO", "duties": [
+         {"text": "Works for the company or troop commander in combat.", "cite": ["para-2-17"]},
+         {"text": "Writes the fire support plan from the commander's guidance and submits it for approval.", "cite": ["para-2-17"]}]},
+       {"key": "jfo", "name": "Joint fires observer", "duties": [
+         {"text": "A certified Service member who requests, controls and adjusts surface-to-surface fires.", "cite": ["para-2-20"]},
+         {"text": "Cannot control close air support attacks and does not replace a joint terminal attack controller (JTAC).", "cite": ["para-2-20"]}]}
+     ]},
+    {"id": "s05", "pattern": "key_idea", "title": "The fire support team (FIST)", "chapter": "ch-2",
+     "statement": {"text": "Each maneuver company or troop gets a field artillery team that plans and coordinates all the fires supporting it.",
+                   "cite": ["para-2-18"]},
+     "points": [
+       {"text": "Those fires include mortars, field artillery, naval surface fire support and close air support (CAS).", "cite": ["para-2-18"]},
+       {"text": "The FIST works closely with the battalion and brigade fire support elements.", "cite": ["para-2-38"]},
+       {"text": "Infantry and armor company FISTs make artillery, mortar and joint fire support work for the maneuver force.", "cite": ["para-2-40"]}]},
+    {"id": "s06", "pattern": "comparison", "title": "Target or suspected target?", "chapter": "ch-2",
+     "columns": [
+       {"heading": "Target", "points": [
+         {"text": "Targets must meet accuracy and timeliness requirements for engagement.", "cite": ["para-2-76"], "directive": "must"}]},
+       {"heading": "Suspected target", "points": [
+         {"text": "Suspected targets must be confirmed before any engagement.", "cite": ["para-2-76"], "directive": "must"}]}
+     ],
+     "notes": {"talking_points": [
+       {"text": "Target selection standards are the criteria used to decide whether enemy activity is a target.", "cite": ["para-2-76"]}]}},
+    {"id": "s07", "pattern": "table", "title": "Ground and naval fire support at a glance", "chapter": "ch-2",
+     "columns": ["System", "Good for", "Watch out for"],
+     "rows": [
+       {"cells": ["Cannon artillery", "Near-immediate response, 24-hour availability, 6400 mil coverage", "Firing signature can give away the unit"],
+        "cite": ["para-2-86", "para-2-80.li1"]},
+       {"cells": ["Rockets and missiles (MLRS/HIMARS)", "Large volume of fire in a very short time", "High flight path: close coordination with air planners"],
+        "cite": ["para-2-81", "para-2-82"]},
+       {"cells": ["Mortars", "High-angle, high rate of fire, close support", "Relatively short range"],
+        "cite": ["para-2-88"]},
+       {"cells": ["Naval surface fire support", "Navy guns and missiles", "Flat trajectory is hard to adjust on flat terrain"],
+        "cite": ["para-2-89", "para-2-91"]}
+     ]},
+    {"id": "s08", "pattern": "checklist", "title": "Built-in limits of field artillery", "chapter": "ch-2",
+     "items": [
+       {"text": "Its firing signature makes the unit easier for enemy sensors to detect.", "cite": ["para-2-80.li1"]},
+       {"text": "It has limited ability to defend itself against ground and air attack.", "cite": ["para-2-80.li2"]},
+       {"text": "It has limited ability to hit moving targets well.", "cite": ["para-2-80.li3"]}
+     ],
+     "notes": {"talking_points": [
+       {"text": "Units must be aware that field artillery units have these built-in limits.", "cite": ["para-2-80"], "directive": "must"}]}},
+    {"id": "s09", "pattern": "acronyms", "title": "Acronyms", "entries": [
+      {"abbreviation": "CAS", "meaning": "close air support", "cite": ["acr-cas"]},
+      {"abbreviation": "FIST", "meaning": "fire support team", "cite": ["acr-fist"]},
+      {"abbreviation": "FO", "meaning": "forward observer", "cite": ["acr-fo"]},
+      {"abbreviation": "FS", "meaning": "fire support", "cite": ["acr-fs"]},
+      {"abbreviation": "FSO", "meaning": "fire support officer", "cite": ["acr-fso"]},
+      {"abbreviation": "HIMARS", "meaning": "High Mobility Artillery Rocket System", "cite": ["acr-himars"]},
+      {"abbreviation": "JTAC", "meaning": "joint terminal attack controller", "cite": ["acr-jtac"]},
+      {"abbreviation": "MLRS", "meaning": "multiple launch rocket system", "cite": ["acr-mlrs"]}
+    ]},
+    {"id": "s10", "pattern": "closing", "title": "Read the full text", "items": [
+      {"text": "This is the Army's field manual for fire support and field artillery operations. Read chapter 2 before acting.", "cite": ["preface.t1"]},
+      {"text": "For forward observer duties see ATP 3-09.30; for FIST and fire support sergeant duties see ATP 3-09.42.", "cite": ["para-2-19", "para-2-18"]}
+    ]}
+  ]
+}

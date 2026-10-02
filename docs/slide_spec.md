@@ -27,14 +27,14 @@ uv run python -m army_trainer.plan.schema
 | Text budgets (see the table) keep slides readable | Field limits |
 | No unknown fields | `extra="forbid"` everywhere |
 
-The 25–40 slide budget, the ≥ 60% visual-slide target and the deck template order are **checked by `plan --check`** (WP 2.2), not by the schema. The schema only bounds a deck at 3–60 slides.
+The 25–40 slide budget, the ≥ 60% visual-slide target and the deck template order are **checked by `plan --check`**, not by the schema. The schema only bounds a deck at 3–60 slides. See "Planning packet and check" below.
 
 ## Deck template (one deck per publication, D2)
 1. `title`: renders the disclaimer
 2. `at_a_glance`: purpose, who it applies to, 2–4 headline numbers
 3. `takeaways`: "What this means for you" (3–5)
 4. `whats_new`: from the Introduction / Summary of Change
-5. Per chapter: `divider` → content slides (one or more patterns per chapter)
+5. Per chapter: `divider` → content slides (one or more patterns per chapter). Appendixes get no divider: their slides (`chapter` = the appendix id) sit with the chapter they support, or after the chapters
 6. Optional cross-chapter slides: `timeline` (deadlines), `do_dont` (prohibitions)
 7. `key_terms`, then `acronyms`
 8. `closing`: "Read the full text", which repeats the disclaimer
@@ -71,3 +71,28 @@ Every slide has `id`, `pattern`, `title` (≤ 70 characters), optional `chapter`
 
 ## Rule-based pattern hints (`plan --hints`)
 `uv run army-trainer plan <ID> --hints` writes `data/json/<ID>.hints.json`. It gives one entry per content unit (a division, section or heading that holds paragraphs): the top patterns with scores and the reasons. They are **hints for the planning session, not decisions**. On a blind-labelled review sample the best pattern was in the top 3 about 70% of the time, and top-1 was exact only about 45–60% of the time (see `docs/decisions/classifier-review.md`).
+
+## Planning packet and check (WP 2.2, D10/D11)
+The playbook the planning session follows is [`src/army_trainer/plan/prompts/planner.md`](../src/army_trainer/plan/prompts/planner.md).
+
+`uv run army-trainer plan <ID> --packet [--target 34]` runs the Distribution A gate, then writes `data/packets/<ID>/`:
+- `README.md`: publication, SHA-256 for the spec, suggested budget per chapter/appendix, deck template, file list.
+- `<division-id>.md` for every division: outline with pattern hints, requirement and prohibition rows (`mandatory`/`prohibitive`, not historical), deadlines, roles with duties, terms defined there, acronyms used there, then the **full text with node ids** (`` `[para-2-19]` ``) to cite.
+- `packet.json`: budget and per-division counts as data.
+
+The budget is by length only: every chapter gets a divider and one content slide, then the rest goes by D'Hondt on sqrt(words). The session moves slides toward what junior Soldiers need.
+
+`uv run army-trainer plan <ID> --check [--spec PATH] [--partial]` validates `specs/<ID>.spec.json` (exit 1 on any error). `--partial` skips the whole-deck checks for a chapter dry run.
+
+| Errors | Warnings |
+|---|---|
+| Schema / model validation | `may` / `should` in slide text but not in the cited text |
+| `pub_id` or `source_sha256` doesn't match the tree | A number in slide text that isn't in the cited text (digits or one…twelve; "chapter 2"-style references ignored) |
+| A cite, `chapter`, `source_table` or `extra_sources` id not in the tree | A cite of a whole heading/section/division (except divider blurbs) |
+| An item's `directive` isn't in its cited text | An acronym's meaning differs from the glossary; a key term found nowhere |
+| Slide text says will / must / shall / will not / must not / may not / should not and the cited text doesn't | An acronym used on a slide but missing from the `acronyms` slide (publication designators like "FM 3-09" don't count) |
+| A slide title contains one of those words (titles aren't cited) | A chapter with no divider |
+| An acronym entry not in the glossary | |
+| Whole deck: 25–40 slides; ≥ 60% of non-structural slides visual; `title`, `at_a_glance`, `takeaways` (slide 3 or 4), …, `key_terms`, `acronyms`, `closing` order; dividers in document order; a chapter's slides under its own divider | |
+
+What the check can't see: a reworded requirement with **no** directive word ("Never look at the sun" for "must never be viewed"), meaning changes, and outside knowledge. The session's self-review and the fidelity review (WP 4.1) cover those.

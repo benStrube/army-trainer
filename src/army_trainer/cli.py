@@ -78,27 +78,81 @@ def index(pub: str = PUB) -> None:
 def plan(
     pub: str = PUB,
     hints: bool = typer.Option(False, "--hints", help="Write rule-based pattern hints."),
+    packet: bool = typer.Option(
+        False, "--packet", help="Write the planning packet to data/packets/<ID>/."
+    ),
+    check: bool = typer.Option(False, "--check", help="Validate a slide spec against the tree."),
+    spec: Path | None = typer.Option(None, help="Spec to check (default specs/<ID>.spec.json)."),
+    partial: bool = typer.Option(
+        False, "--partial", help="With --check: skip deck-level checks (a chapter dry run)."
+    ),
+    target: int = typer.Option(34, help="With --packet: total slides to budget (25-40)."),
 ) -> None:
     """Stage 4: planning inputs and checks (the spec itself is written in a session, D10)."""
-    if not hints:
-        _stub("plan --packet / --check", "2.2")
     import json
 
     from .fetch.pdf import normalize_pub_id
     from .index.build import JSON_DIR, Indexes
-    from .plan.classify import classify
+    from .llm_guard import GateError, load_gated_metadata
     from .structure.models import DocTree
 
+    if not (hints or packet or check):
+        typer.echo("error: choose --hints, --packet or --check.", err=True)
+        raise typer.Exit(code=2)
     pub_id = normalize_pub_id(pub)
+    try:  # the session reads what these commands write: gate first (D10)
+        meta = load_gated_metadata(pub_id, RAW_DIR)
+    except GateError as e:
+        typer.echo(f"error: {e}", err=True)
+        raise typer.Exit(code=1) from e
     tree_path, index_path = JSON_DIR / f"{pub_id}.json", JSON_DIR / f"{pub_id}.indexes.json"
     if not (tree_path.exists() and index_path.exists()):
         typer.echo(f"error: run `convert` and `index` for {pub_id} first.", err=True)
         raise typer.Exit(code=1)
     tree = DocTree.model_validate_json(tree_path.read_text())
-    indexes = Indexes.model_validate_json(index_path.read_text())
-    out = JSON_DIR / f"{pub_id}.hints.json"
-    out.write_text(json.dumps([h.to_dict() for h in classify(tree, indexes)], indent=1))
-    typer.echo(f"{pub_id}: wrote {out}")
+    if tree.pub.source_sha256 != meta.sha256:
+        typer.echo(f"error: {tree_path} is from another PDF; re-run `convert`.", err=True)
+        raise typer.Exit(code=1)
+
+    if hints or packet:
+        indexes = Indexes.model_validate_json(index_path.read_text())
+    if hints:
+        from .plan.classify import classify
+
+        out = JSON_DIR / f"{pub_id}.hints.json"
+        out.write_text(json.dumps([h.to_dict() for h in classify(tree, indexes)], indent=1))
+        typer.echo(f"{pub_id}: wrote {out}")
+    if packet:
+        from .plan.packet import PACKET_DIR, build_packet
+
+        gate_line = f"Distribution {meta.gate.distribution} ({meta.gate.reason})"
+        try:
+            readme = build_packet(tree, indexes, PACKET_DIR / pub_id, target, gate_line)
+        except ValueError as e:
+            typer.echo(f"error: {e}", err=True)
+            raise typer.Exit(code=2) from e
+        typer.echo(f"{pub_id}: wrote {readme.parent}/ (start with README.md)")
+    if check:
+        from .plan.check import check_spec
+
+        spec_path = spec or Path("specs") / f"{pub_id}.spec.json"
+        if not spec_path.exists():
+            typer.echo(f"error: no spec at {spec_path}", err=True)
+            raise typer.Exit(code=1)
+        try:
+            data = json.loads(spec_path.read_text())
+        except json.JSONDecodeError as e:
+            typer.echo(f"error: {spec_path} is not valid JSON: {e}", err=True)
+            raise typer.Exit(code=1) from e
+        findings = check_spec(data, tree, partial=partial)
+        for f in findings:
+            typer.echo(str(f))
+        errors = sum(f.level == "error" for f in findings)
+        warnings = len(findings) - errors
+        n = len(data.get("slides", []))
+        typer.echo(f"{spec_path}: {n} slides, {errors} error(s), {warnings} warning(s)")
+        if errors:
+            raise typer.Exit(code=1)
 
 
 @app.command()
