@@ -229,9 +229,7 @@ def qa(
     ),
     spec: Path | None = typer.Option(None, help="Spec (default specs/<ID>.spec.json)."),
 ) -> None:
-    """Stage 6: fidelity review packet and review check (rule-based QA: WP 4.2)."""
-    if not (review_packet or review_check):
-        _stub("qa (rule-based checks)", "4.2-4.3")
+    """Stage 6: rule-based checks (default), fidelity review packet and review check."""
     from .fetch.pdf import normalize_pub_id
     from .index.build import JSON_DIR, Indexes
     from .llm_guard import GateError, load_gated_metadata
@@ -248,6 +246,9 @@ def qa(
     if not spec_path.exists():
         typer.echo(f"error: no spec at {spec_path}", err=True)
         raise typer.Exit(code=1)
+    if not (review_packet or review_check):
+        _run_rules(pub_id, meta, spec_path)
+        return
     if review_packet:
         tree_path, index_path = JSON_DIR / f"{pub_id}.json", JSON_DIR / f"{pub_id}.indexes.json"
         if not (tree_path.exists() and index_path.exists()):
@@ -279,6 +280,48 @@ def qa(
         )
         if not report.passes:
             raise typer.Exit(code=1)
+
+
+def _run_rules(pub_id: str, meta, spec_path: Path) -> None:
+    import json
+
+    from .index.build import JSON_DIR, Indexes
+    from .qa.rules import CHECKS, run_qa
+    from .structure.models import DocTree
+
+    tree_path, index_path = JSON_DIR / f"{pub_id}.json", JSON_DIR / f"{pub_id}.indexes.json"
+    if not (tree_path.exists() and index_path.exists()):
+        typer.echo(f"error: run `convert` and `index` for {pub_id} first.", err=True)
+        raise typer.Exit(code=1)
+    tree = DocTree.model_validate_json(tree_path.read_text())
+    if tree.pub.source_sha256 != meta.sha256:
+        typer.echo(f"error: {tree_path} is from another PDF; re-run `convert`.", err=True)
+        raise typer.Exit(code=1)
+    indexes = Indexes.model_validate_json(index_path.read_text())
+    deck = Path("out/decks") / f"{pub_id}.pptx"
+    report = run_qa(spec_path, tree, indexes, deck)
+    out = Path("data/qa") / pub_id
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "qa.json").write_text(json.dumps(report.to_json(), indent=1), encoding="utf-8")
+    for f in report.findings:
+        typer.echo(str(f))
+    typer.echo("")
+    for name in CHECKS:
+        fs = report.by_check(name)
+        errs = sum(f.level == "error" for f in fs)
+        typer.echo(f"  {name:12} {errs} error(s), {len(fs) - errs} warning(s)")
+    r, c = report.readability, report.coverage
+    typer.echo(
+        f"readability: mean grade {r['mean_grade']} over {r['statements']} statements; "
+        f"coverage: {c['cited']}/{c['mandatory_requirements']} mandatory requirements cited "
+        f"({c['share']:.0%})" + ("" if report.deck_checked else "; deck not rendered")
+    )
+    typer.echo(
+        f"{pub_id}: {len(report.errors)} error(s), {len(report.warnings)} warning(s); "
+        f"{out / 'qa.json'}"
+    )
+    if report.errors:
+        raise typer.Exit(code=1)
 
 
 @app.command()
