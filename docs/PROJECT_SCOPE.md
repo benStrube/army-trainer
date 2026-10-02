@@ -229,6 +229,8 @@ army-trainer/
 
 \*Single developer with AI assistance; **MVP = Phases 0–3 ≈ 5–7 weeks**.
 
+**Two-model build:** the phases are split into work packages, each assigned to Opus or Sonnet, with defined stop and handover points. See [ACTION_PLAN.md](ACTION_PLAN.md) for assignments and status, and [`CLAUDE.md`](../CLAUDE.md) for the handover procedure.
+
 **Suggested pilot regulations** (all public, varied structure):
 - **AR 600-20** *Army Command Policy* — responsibilities, EO/SHARP complaint processes (great for flowcharts)
 - **AR 670-1** *Wear and Appearance of Army Uniforms and Insignia* — rules, do/don't, tables
@@ -261,6 +263,4 @@ Resolved questions are recorded in §0 (D1–D6).
 2. **Other output formats** — `.pptx` only for now (D6). Revisit whether a PDF copy (for people without PowerPoint) or other formats are needed.
 
 ## 10. Immediate Next Steps
-1. Phase 0: scaffold the Python package, CLI skeleton, CI.
-2. Phase 0 subtask: branding research from army.mil sources into `docs/SETUP_NOTES.md` — must be done before Phase 3 (rendering).
-3. Download the 3 pilot PDFs and run Docling vs. pymupdf4llm side by side on one chapter to lock in the converter.
+Current status and the next work package live in [ACTION_PLAN.md](ACTION_PLAN.md). The first work is Phase 0 (WP 0.1–0.3) on **Sonnet**: scaffold, fetch + Distribution A gate, branding research. It then hard-stops and hands over to **Opus** for the converter work (WP 1.1).
