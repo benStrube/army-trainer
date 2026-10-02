@@ -14,6 +14,7 @@
 | D4 | **Hosting / delivery:** **no hosting.** The tool runs locally as a CLI and produces `.pptx` files for **manual distribution**. | 2026-10-02 |
 | D5 | **Branding:** use **standard Army branding** (colors, fonts, logo usage, slide layout). Exact values come from the Phase 0 branding research subtask (`docs/SETUP_NOTES.md`). | 2026-10-02 |
 | D6 | **Output format:** **PowerPoint (`.pptx`) only** for now. Other formats (PDF etc.) stay an open question (§9). | 2026-10-02 |
+| D7 | **Converter (provisional):** pymupdf4llm primary, pdfplumber for table cross-check, PyMuPDF for bookmarks/font signals; Docling not evaluated (huggingface.co blocked). See `docs/decisions/converter.md`. Re-confirm on an AR. | 2026-10-02 |
 
 ## 1. Problem & Outcome
 
@@ -76,10 +77,12 @@ Army regs have a very consistent layout, which makes this tractable.
 
 | Tool | Strength | Weakness | Role |
 |---|---|---|---|
-| **Docling** (IBM) | Best table structure recovery, layout model, reading order | Heavier install, slower | **Primary converter** |
-| **PyMuPDF / pymupdf4llm** | Fast, exact text + font info (bold, size) | Tables weaker | Font/heading signals, fallback |
-| pdfplumber | Fine-grained table cells | Manual tuning | Fallback for tricky tables |
-| Marker | Good general MD output | Less control | Benchmark only |
+| **pymupdf4llm** (+ PyMuPDF) | Headings, re-flowed paragraphs, emphasis, header/footer removal, offline; PyMuPDF gives bookmarks + font info | Page-break splits, per-page "(continued)" tables, some row splits | **Primary converter** (D7) |
+| **pdfplumber** | Best table cell fidelity | No structure | Table cross-check/fallback (D7) |
+| Docling (IBM) | Strong table/layout models | Models download from huggingface.co (blocked here) | Not evaluated; revisit only if needed |
+| Marker | Good general MD output | Also needs downloaded models | Not evaluated |
+
+Bake-off results: `docs/decisions/converter.md`.
 
 **AR-specific post-processing (custom code — this is where the real work is):**
 - Strip running headers/footers (`AR 600–20 • 24 July 2020`, page numbers).

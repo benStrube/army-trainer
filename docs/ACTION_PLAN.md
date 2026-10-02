@@ -25,8 +25,8 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 ### Phase 1 — Convert
 | WP | Work | Model | Exit criteria | Stop | Status |
 |---|---|---|---|---|---|
-| 1.1 | Converter bake-off: Docling vs. pymupdf4llm (pdfplumber for tables) on one AR 600-20 chapter; record the decision and why | Opus | Decision + comparison written to `docs/decisions/converter.md` | ➡️ continue | todo |
-| 1.2 | AR post-processing: headers/footers, paragraph numbering + hierarchy, hyphen/page-break joins, tables, figures, glossary, Summary of Change, YAML front matter | Opus | All 3 pilots convert; spot-check ≥ 98% paragraph-structure accuracy; tables intact; golden tests in `tests/` | ➡️ continue | todo |
+| 1.1 | Converter bake-off: Docling vs. pymupdf4llm (pdfplumber for tables) on one AR 600-20 chapter; record the decision and why | Opus | Decision + comparison written to `docs/decisions/converter.md` | ➡️ continue | done (provisional: tested on FM 3-09; re-confirm on an AR in WP 1.2) |
+| 1.2 | AR post-processing: headers/footers, paragraph numbering + hierarchy, hyphen/page-break joins, tables, figures, glossary, Summary of Change, YAML front matter | Opus | All 3 pilots convert; spot-check ≥ 98% paragraph-structure accuracy; tables intact; golden tests in `tests/`; converter decision re-confirmed on an AR | ➡️ continue | blocked (needs AR pilot PDFs; armypubs.army.mil blocked by network policy) |
 | 1.3 | Document tree: Pydantic models + `schemas/doc_tree.schema.json`, MD → JSON | Opus | All 3 pilots produce valid trees; schema documented | 🛑 **STOP** → Sonnet | todo |
 | 1.4 | Indexes from the tree: directive sentences (will/must/will not/may), deadlines/time limits, roles, cross-refs, glossary terms | Sonnet | Index outputs for all 3 pilots; unit tests per extractor | 🛑 **STOP** → Opus | todo |
 
