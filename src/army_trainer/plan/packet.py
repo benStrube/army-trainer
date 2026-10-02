@@ -67,6 +67,26 @@ class Budget:
         return len(self.fixed) + sum(d.total for d in self.divisions)
 
 
+#: who or what a junior Soldier in a fires unit or maneuver platoon deals with (WP 5.1c)
+_SOLDIER = re.compile(
+    r"\b(observers?|FOs?|FISTs?|fire support teams?|Soldiers?|crews?|sections?|squads?|"
+    r"platoons?|howitzers?|guns?|launchers?|mortars?|FDCs?|fire direction|gunners?|"
+    r"section chiefs?|telescopes?|aiming circles?|GPS|radios?|filters?|vehicles?|"
+    r"ammunition|rounds?|fuzes?|positions?)\b",
+    re.I,
+)
+_STAFF = re.compile(
+    r"\b(commanders?|staffs?|FSCOORD|G-\d|S-\d|boards?|working groups?|JFC|corps|division|"
+    r"theater|joint force|planners?|headquarters|HQ)\b"
+)
+
+
+def soldier_actionable(sentence: str) -> bool:
+    """Heuristic: the requirement is about people or equipment at crew/observer level and not
+    mainly about commanders, staffs or echelons above brigade."""
+    return bool(_SOLDIER.search(sentence)) and len(_STAFF.findall(sentence)) < 2
+
+
 def plan_budget(tree: DocTree, target: int = DEFAULT_TARGET) -> Budget:
     """Split `target` slides over chapters and appendixes.
 
@@ -194,11 +214,20 @@ def _division_md(ctx: _Ctx, div) -> tuple[str, dict]:
         if in_div(d["node_id"]) and d["strength"] in ("mandatory", "prohibitive")
         and not d["possibly_historical"]
     ]  # fmt: skip
-    out.append(f"## Requirements and prohibitions ({len(dirs)})\n")
+    n_soldier = sum(soldier_actionable(d["sentence"]) for d in dirs)
+    out.append(
+        f"## Requirements and prohibitions ({len(dirs)}; ★ {n_soldier} likely Soldier tasks)\n"
+    )
     out.append("Sentences with will / must / shall / will not / must not / may not. Many FM "
                "\"must\"s are doctrine for staffs; pick those a junior Soldier acts on. Keep the "
-               "verb exactly as written.\n")  # fmt: skip
-    out.extend(f"- `[{d['node_id']}]` **{d['verb']}**: {d['sentence']}" for d in dirs)
+               "verb exactly as written. ★ marks sentences about observers, crews, howitzers, "
+               "fire direction, Soldiers or equipment they handle: a heuristic shortlist, not a "
+               "decision.\n")  # fmt: skip
+    out.extend(
+        f"- {'★ ' if soldier_actionable(d['sentence']) else ''}`[{d['node_id']}]` "
+        f"**{d['verb']}**: {d['sentence']}"
+        for d in dirs
+    )
     out.append("")
 
     dls = [d for d in ix.deadlines if in_div(d["node_id"]) and d["kind"] != "duration"]

@@ -276,3 +276,16 @@ def test_structural_slides_take_no_callout_and_caveat_is_cited(tree):
     }
     warns = warnings(check_spec(deck([nums]), tree, partial=True))
     assert any("['7']" in w for w in warns)  # the caveat is a checked claim like any item
+
+
+def test_soldier_actionable_heuristic():
+    from army_trainer.plan.packet import soldier_actionable
+
+    assert soldier_actionable("The observer must know where all friendly troops are.")
+    assert soldier_actionable(
+        "When the failure occurs, voice fire commands must be sent to the howitzers."
+    )
+    assert not soldier_actionable(
+        "The commander and staff must align the targeting working groups."
+    )
+    assert not soldier_actionable("FS must be integrated with our unified action partners.")
