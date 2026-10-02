@@ -67,3 +67,16 @@ def test_cli_fetch_rejection_exit_code(tmp_path, monkeypatch):
     src = make_pdf(tmp_path / "in.pdf", [FRONT_B])
     r = CliRunner().invoke(app, ["fetch", "AR-1-1", "--pdf", str(src)])
     assert r.exit_code == 1
+
+
+def test_pub_date_prefers_hq_block_over_superseded_date():
+    from datetime import date
+
+    from army_trainer.fetch.pdf import parse_pub_date, parse_supersedes
+
+    text = (
+        "This publication supersedes FM 3-09, dated 30 April 2020.\n"
+        "Headquarters Department of the Army Washington, DC, 12 August 2024"
+    )
+    assert parse_pub_date(text) == date(2024, 8, 12)
+    assert parse_supersedes(text) == "FM 3-09, dated 30 April 2020"

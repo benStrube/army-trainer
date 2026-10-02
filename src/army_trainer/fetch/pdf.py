@@ -21,7 +21,10 @@ _MONTHS = {
     )
 }
 _DATE = re.compile(r"\b(\d{1,2})\s+(" + "|".join(_MONTHS) + r")\s+(\d{4})\b")
-_SUPERSEDES = re.compile(r"This\s+(?:major\s+)?revision\s+(?:\w+\s+)*?supersedes\s+([^.]+)\.", re.I)
+_SUPERSEDES = re.compile(
+    r"This\s+(?:major\s+)?(?:revision|publication|regulation)\s+(?:\w+\s+)*?supersedes\s+([^.]+)\.",
+    re.I,
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -40,9 +43,19 @@ def read_front(path: Path, pages: int = FRONT_PAGES) -> tuple[str, int]:
     return text, len(reader.pages)
 
 
+def _to_date(m: re.Match[str]) -> date:
+    return date(int(m.group(3)), _MONTHS[m.group(2)], int(m.group(1)))
+
+
 def parse_pub_date(text: str) -> date | None:
-    if m := _DATE.search(text):
-        return date(int(m.group(3)), _MONTHS[m.group(2)], int(m.group(1)))
+    """Publication date: the date after 'Washington, DC,'; else the first date that is not
+    part of a 'supersedes ... dated ...' sentence."""
+    flat = " ".join(text.split())
+    if m := re.search(r"Washington,\s*DC,?\s*" + _DATE.pattern, flat):
+        return _to_date(m)
+    stripped = _SUPERSEDES.sub(" ", flat)
+    if m := _DATE.search(stripped):
+        return _to_date(m)
     return None
 
 
