@@ -38,12 +38,37 @@ Record the exact URL and date accessed for everything below.
 | Slide/graphic examples (5–10) | **Not found.** None retrieved. | n/a | 2026-10-02 |
 | Related (not Army enterprise) | Other brand guides surfaced and not read: Chaplain Corps brand guide (https://api.army.mil/e2/c/downloads/2021/04/01/bc3c5489/3-0-brand-essence-voice-tone-chaplain-corps-brand-guide.pdf), USACE guides, Military OneSource style guides. | see URLs | 2026-10-02 |
 
+### Addendum (2026-10-02): user-supplied screenshots
+The user attached 4 screenshots of Army websites as style references (the originals were not saved in the repo). Colors below were **sampled from screenshot pixels**, so they are visual approximations. They are **not** official brand values (no brand guide was read) and must be confirmed against the Army brand guide before final use. The screenshots show an `army.mil` home page, the Army Publishing Directorate (APD) site, an Army ROTC page, and an Army Worldwide News page.
+
+| Observed element | Sampled hex | Where seen |
+|---|---|---|
+| Near-black header/nav bar | #222021 | army.mil, ROTC page, news page |
+| Army gold (buttons, headlines, accent rule, active filter) | #FFCD01 (also #FCCC00, #F1CC35) | "JOIN US TODAY", "FULL STORY", ROTC headline, news filter |
+| Olive-gray secondary bar / tiles | #58574E / #585A52 | army.mil subnav and story strip |
+| Dark green page background | #2E362F | ROTC page hero |
+| Muted gold/tan nav band and info buttons | #CCB166 | APD nav bar, ROTC "Get in touch" bar (approx. #DBBBA1 light tan) |
+| Light gray panels | #F2F2F2, #E6E6E6 | news filter, APD search panel |
+| Info callout (light blue + cyan stripe) | #E7F6F8 / #00BDE3 | APD notice box |
+
+Layout and style observations:
+- Headlines: large, all-caps, thin/light geometric sans in gold or white on black or dark green; subheads and nav in bold caps with letter-spacing. APD uses a heavier condensed-style sans in caps, with a gold title on black.
+- Logo: gold outlined star beside "U.S. ARMY" wordmark, top-left or centered in a black bar. A 1–2 px gold rule sits under the header bar. This is the brand mark, so the logo question (ATLP permission) is still open.
+- Buttons: flat, rectangular, gold fill with black bold caps text; no rounded corners; thin-outline white buttons on gray panels.
+- Data tables (APD): white background, 1 px black border, light-gray header row, alternating light-gray row banding, black text, blue underlined links.
+- Photography is full-bleed with a dark overlay behind text. Icons are thin outline style.
+- Contrast: gold #FFCD01 on #222021 is high contrast; gold on white is not usable for text; black on gold is fine. Formal ratios still to be computed in WP 3.1.
+
+Tentative direction for WP 3.1, **pending verification**: black/charcoal + gold + white base, olive-gray secondary, all-caps light sans headings, flat rectangular shapes, gold accent rule. Fonts are not identified from screenshots (could not confirm); use a font that ships with Office as a substitute until the brand guide is read.
+
+**ADP 3-09 test document:** the message said a PDF was attached, but no PDF is present in the session's files or in `data/raw/`. Please re-attach it or commit it to the repo (e.g. `tests/fixtures/` or `data/raw/`) and run `army-trainer fetch ADP-3-09 --pdf <path>`. Note ADP 3-09 (Fires) is an Army Doctrine Publication, not an AR; the Stage 2 cleanup rules assume AR layout, so treat it as an extra test case.
+
 ### Checklist status
-- [ ] Colors: not found
+- [~] Colors: screenshot-sampled approximations only (see addendum); official values still not found
 - [ ] Typography: not found
 - [ ] Logo: lead only; unresolved
 - [ ] Trademark/usage: lead only; ATLP contact identified
-- [ ] Slide/graphic examples: not found
+- [~] Slide/graphic examples: 4 user-supplied screenshots (see addendum); not army.mil links
 - [ ] Accessibility: **blocked** until a palette exists. Can be done in WP 3.1 once colors are known.
 - [ ] Decision summary: **blocked.** Interim rule only: no Army logo; neutral placeholder palette; keep disclaimer.
 
