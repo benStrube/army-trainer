@@ -71,6 +71,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "acronyms",
           "default": "acronyms",
@@ -129,6 +146,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "at_a_glance",
@@ -194,6 +228,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "big_numbers",
           "default": "big_numbers",
@@ -208,6 +259,18 @@
           "minItems": 2,
           "title": "Stats",
           "type": "array"
+        },
+        "caveat": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Item"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "One cited line drawn under the numbers when they could be misread (e.g. 'Don't confuse these with minimum safe distances')."
         }
       },
       "required": [
@@ -251,6 +314,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "checklist",
@@ -310,6 +390,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "closing",
@@ -396,6 +493,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "comparison",
           "default": "comparison",
@@ -454,6 +568,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "cycle",
@@ -599,6 +730,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "decision_tree",
           "default": "decision_tree",
@@ -663,6 +811,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "divider",
@@ -736,6 +901,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "do_dont",
@@ -910,6 +1092,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "key_idea",
           "default": "key_idea",
@@ -969,6 +1168,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "key_terms",
@@ -1053,6 +1269,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "process_flow",
@@ -1217,6 +1450,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "roles",
@@ -1396,6 +1646,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "table",
           "default": "table",
@@ -1478,6 +1745,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "takeaways",
@@ -1574,6 +1858,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "timeline",
           "default": "timeline",
@@ -1631,6 +1932,23 @@
         },
         "notes": {
           "$ref": "#/$defs/Notes"
+        },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
         },
         "pattern": {
           "const": "title",
@@ -1693,6 +2011,23 @@
         "notes": {
           "$ref": "#/$defs/Notes"
         },
+        "callout": {
+          "anyOf": [
+            {
+              "enum": [
+                "caution",
+                "warning"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The publication prints this content as a CAUTION or WARNING block: the renderer labels the slide with that word. Only for content under such a label (`plan --check` verifies a cited node sits right under it).",
+          "title": "Callout"
+        },
         "pattern": {
           "const": "whats_new",
           "default": "whats_new",
@@ -1721,8 +2056,11 @@
   "additionalProperties": false,
   "properties": {
     "spec_version": {
-      "const": "1.0",
-      "default": "1.0",
+      "default": "1.1",
+      "enum": [
+        "1.0",
+        "1.1"
+      ],
       "title": "Spec Version",
       "type": "string"
     },

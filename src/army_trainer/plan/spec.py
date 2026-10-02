@@ -21,7 +21,7 @@ from typing import Annotated, Literal, get_args
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-SPEC_VERSION = "1.0"
+SPEC_VERSION = "1.1"  # 1.1 (WP 5.1d): optional `callout` and big-number `caveat`
 DISCLAIMER = (
     "Unofficial training aid. Not an official Army product. "
     "The publication is the authoritative source; read it before acting."
@@ -140,6 +140,9 @@ class Notes(_M):
 # ---------------------------------------------------------------- slides
 
 
+Callout = Literal["caution", "warning"]
+
+
 class _Slide(_M):
     id: str = Field(pattern=r"^s\d{2,3}$", description="'s01', 's02', ... in deck order.")
     title: str = _s(70)
@@ -147,6 +150,18 @@ class _Slide(_M):
         default=None, description="Division id this slide belongs to, e.g. 'ch-2'."
     )
     notes: Notes = Field(default_factory=Notes)
+    callout: Callout | None = Field(
+        default=None,
+        description="The publication prints this content as a CAUTION or WARNING block: the "
+        "renderer labels the slide with that word. Only for content under such a label "
+        "(`plan --check` verifies a cited node sits right under it).",
+    )
+
+    @model_validator(mode="after")
+    def _no_structural_callout(self) -> _Slide:
+        if self.callout and type(self).model_fields["pattern"].default in STRUCTURAL_PATTERNS:
+            raise ValueError("title, divider, acronyms and closing slides take no callout")
+        return self
 
 
 class TitleSlide(_Slide):
@@ -256,6 +271,11 @@ class TableSlide(_Slide):
 class BigNumbersSlide(_Slide):
     pattern: Literal["big_numbers"] = "big_numbers"
     stats: list[Stat] = Field(min_length=2, max_length=4)
+    caveat: Item | None = Field(
+        default=None,
+        description="One cited line drawn under the numbers when they could be misread "
+        "(e.g. 'Don't confuse these with minimum safe distances').",
+    )
 
 
 class ComparisonSlide(_Slide):
@@ -351,7 +371,7 @@ class PubRef(_M):
 
 
 class SlideSpec(_M):
-    spec_version: Literal["1.0"] = SPEC_VERSION
+    spec_version: Literal["1.0", "1.1"] = SPEC_VERSION
     pub: PubRef
     audience: Literal["junior Soldiers"] = "junior Soldiers"
     disclaimer: Literal[DISCLAIMER] = DISCLAIMER  # type: ignore[valid-type]

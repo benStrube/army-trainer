@@ -246,3 +246,46 @@ def test_review_lines_pair_statements_with_cited_text(tree):
     lines = list(review_lines(spec, tree, {"s02"}))
     assert lines[0].strip().startswith("=== s02 [checklist]")
     assert "* Verify the date and time." in lines[1] and "[para-1-2.li2] Verify" in lines[2]
+
+
+def test_callout_needs_every_statement_under_the_label(tree):
+    sun = item("The sun must never be viewed without a filter.", ["para-1-3.t2"], "must")
+    sun_slide = {"pattern": "key_idea", "title": "Sun", "statement": sun, "callout": "caution"}
+    assert errors(check_spec(deck([sun_slide]), tree, partial=True)) == []
+    mixed = dict(sun_slide, points=[item("Observers use optics.", ["para-1-3"])])
+    errs = errors(check_spec(deck([mixed]), tree, partial=True))
+    assert any("isn't under a CAUTION block" in e for e in errs)
+    warn_slide = dict(sun_slide, callout="warning")
+    assert any("WARNING" in e for e in errors(check_spec(deck([warn_slide]), tree, partial=True)))
+
+
+def test_structural_slides_take_no_callout_and_caveat_is_cited(tree):
+    from pydantic import ValidationError
+
+    from army_trainer.plan.spec import SlideSpec
+
+    spec = deck([])
+    spec["slides"][0]["callout"] = "caution"
+    with pytest.raises(ValidationError, match="take no callout"):
+        SlideSpec.model_validate(spec)
+    nums = {
+        "pattern": "big_numbers",
+        "title": "Numbers",
+        "stats": [{"value": "3", "label": "desert terrain types", "cite": ["para-1-4"]}] * 2,
+        "caveat": item("There are 7 types.", ["para-1-4"]),
+    }
+    warns = warnings(check_spec(deck([nums]), tree, partial=True))
+    assert any("['7']" in w for w in warns)  # the caveat is a checked claim like any item
+
+
+def test_soldier_actionable_heuristic():
+    from army_trainer.plan.packet import soldier_actionable
+
+    assert soldier_actionable("The observer must know where all friendly troops are.")
+    assert soldier_actionable(
+        "When the failure occurs, voice fire commands must be sent to the howitzers."
+    )
+    assert not soldier_actionable(
+        "The commander and staff must align the targeting working groups."
+    )
+    assert not soldier_actionable("FS must be integrated with our unified action partners.")

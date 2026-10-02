@@ -133,6 +133,8 @@ def check_spec(data: dict, tree: DocTree, partial: bool = False) -> list[Finding
         sid = s.id
         if strict := [w for w in directive_words(s.title) if w in STRICT]:
             err(sid, f"title says {strict[0]!r}: titles aren't cited, keep requirements in items")
+        if s.callout:
+            _check_callout(s, idx, err)
         if s.chapter is not None:
             if s.chapter not in idx:
                 err(sid, f"chapter {s.chapter!r} is not in the tree")
@@ -189,6 +191,37 @@ def check_spec(data: dict, tree: DocTree, partial: bool = False) -> list[Finding
     if not partial:
         _deck_checks(spec, tree, idx, err, warn)
     return f
+
+
+def _check_callout(s, idx: NodeIndex, err) -> None:
+    """A callout labels the whole slide, so every statement on it (notes aside) must rest on
+    text the publication prints under that label (CAUTION / WARNING)."""
+    label = s.callout.upper()
+    order = sorted(idx.order, key=idx.order.get)
+    pos = {nid: i for i, nid in enumerate(order)}
+
+    def under_label(c: str) -> bool:
+        if c not in idx:
+            return False
+        if idx.text(c).strip().upper().startswith(label):
+            return True
+        i = pos[c]
+        while i > 0:  # the label is its own text node just before the block, which may run on
+            prev = idx.get(order[i - 1])
+            text = (getattr(prev, "plain", None) or "").strip()
+            if text.upper() == label:
+                return True
+            if prev.type != "text" or not text:
+                return False
+            i -= 1
+        return False
+
+    for path, obj in _cited_objects(s, s.id):
+        if ".notes." in path:
+            continue
+        if not any(under_label(c) for c in obj.cite):
+            where = path.replace(f"{s.id}.", f"{s.id} ", 1)
+            err(where, f"callout {s.callout!r}: this statement isn't under a {label} block")
 
 
 def _strings(obj):
