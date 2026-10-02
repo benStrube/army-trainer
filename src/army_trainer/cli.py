@@ -167,9 +167,55 @@ def plan(
 
 
 @app.command()
-def render(pub: str = PUB) -> None:
-    """Stage 5: render the slide spec to .pptx."""
-    _stub("render", "3.1-3.3")
+def render(
+    pub: str = PUB,
+    spec: Path | None = typer.Option(None, help="Slide spec (default specs/<ID>.spec.json)."),
+    out: Path | None = typer.Option(None, help="Output .pptx (default out/decks/<ID>.pptx)."),
+) -> None:
+    """Stage 5: render the slide spec to .pptx (checks the spec first)."""
+    import json
+
+    from .fetch.pdf import normalize_pub_id
+    from .index.build import JSON_DIR
+    from .llm_guard import GateError, load_gated_metadata
+    from .plan.check import check_spec
+    from .plan.spec import SlideSpec
+    from .render.deck import render_deck
+    from .structure.models import DocTree
+
+    pub_id = normalize_pub_id(pub)
+    try:
+        meta = load_gated_metadata(pub_id, RAW_DIR)
+    except GateError as e:
+        typer.echo(f"error: {e}", err=True)
+        raise typer.Exit(code=1) from e
+    tree_path = JSON_DIR / f"{pub_id}.json"
+    spec_path = spec or Path("specs") / f"{pub_id}.spec.json"
+    for p, hint in ((tree_path, "run `convert`"), (spec_path, "plan the deck first (WP 2.3)")):
+        if not p.exists():
+            typer.echo(f"error: missing {p}: {hint}.", err=True)
+            raise typer.Exit(code=1)
+    tree = DocTree.model_validate_json(tree_path.read_text())
+    if tree.pub.source_sha256 != meta.sha256:
+        typer.echo(f"error: {tree_path} is from another PDF; re-run `convert`.", err=True)
+        raise typer.Exit(code=1)
+    data = json.loads(spec_path.read_text())
+    findings = check_spec(data, tree)
+    errors = [f for f in findings if f.level == "error"]
+    for f in errors:
+        typer.echo(str(f), err=True)
+    if errors:
+        typer.echo(f"error: {len(errors)} spec error(s); fix them (`plan --check`).", err=True)
+        raise typer.Exit(code=1)
+    out_path = out or Path("out/decks") / f"{pub_id}.pptx"
+    result = render_deck(SlideSpec.model_validate(data), tree, out_path)
+    typer.echo(f"{pub_id}: wrote {out_path} ({result.slide_count} slides)")
+    if result.splits:
+        typer.echo(f"  split for fit: {', '.join(result.splits)}")
+    if result.unsplit_warnings:
+        typer.echo(f"  {len(result.unsplit_warnings)} text box(es) at minimum size may be tight:")
+        for w in result.unsplit_warnings:
+            typer.echo(f"    {w}")
 
 
 @app.command()

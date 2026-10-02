@@ -13,9 +13,15 @@ def test_help_lists_stage_commands():
 
 
 def test_stub_command_exits_nonzero():
-    result = runner.invoke(app, ["render", "AR-600-20"])
+    result = runner.invoke(app, ["qa", "AR-600-20"])
     assert result.exit_code == 2
     assert "not implemented" in result.output
+
+
+def test_render_refuses_document_without_gate_record(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    result = runner.invoke(app, ["render", "AR-600-20"])
+    assert result.exit_code == 1
 
 
 def test_convert_refuses_document_without_gate_record(tmp_path, monkeypatch):

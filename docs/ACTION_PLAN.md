@@ -43,7 +43,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 |---|---|---|---|---|---|
 | 3.1 | Theme + `templates/base.pptx` from the **D9 palette** (`docs/decisions/no-api-key.md`; WP 2.4 feedback if any); `render/theme.py` | Sonnet | Template opens in PowerPoint/LibreOffice; colors/fonts match D9; contrast checked | ➡️ continue | done |
 | 3.2 | Pattern renderers (native shapes): process flow, roles, timeline, checklist, do/don't, restyled table, title, at-a-glance, what-this-means-for-you | Sonnet | One sample slide per pattern rendered from a fixture spec; thumbnails via LibreOffice | ➡️ continue | done |
-| 3.3 | Deck assembly: deck structure template, footers with citations, speaker notes with verbatim source text, overflow splitting, disclaimer slide | Sonnet | Full `.pptx` for FM 3-09 in `out/decks/` | 🛑 **STOP** → Opus | todo |
+| 3.3 | Deck assembly: deck structure template, footers with citations, speaker notes with verbatim source text, overflow splitting, disclaimer slide | Sonnet | Full `.pptx` for FM 3-09 in `out/decks/` | 🛑 **STOP** → Opus | done |
 
 ### Phase 4 — QA
 | WP | Work | Model | Exit criteria | Stop | Status |
