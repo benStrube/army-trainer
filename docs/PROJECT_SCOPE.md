@@ -12,6 +12,8 @@
 | D2 | **Deck size:** **one deck per regulation** for now. Per-chapter decks remain an open question (§9). | 2026-10-02 |
 | D3 | **LLM use:** Distribution A regulation text **may be sent to the Claude API**. The distribution gate (Stage 1) must pass before any API call. | 2026-10-02 |
 | D4 | **Hosting / delivery:** **no hosting.** The tool runs locally as a CLI and produces `.pptx` files for **manual distribution**. | 2026-10-02 |
+| D5 | **Branding:** use **standard Army branding** (colors, fonts, logo usage, slide layout). Exact values come from the Phase 0 branding research subtask (`docs/SETUP_NOTES.md`). | 2026-10-02 |
+| D6 | **Output format:** **PowerPoint (`.pptx`) only** for now. Other formats (PDF etc.) stay an open question (§9). | 2026-10-02 |
 
 ## 1. Problem & Outcome
 
@@ -39,7 +41,8 @@ Army Regulations (ARs) are long (often 100+ pages), text-dense, and built from n
 - Field Manuals / ATPs (different structure — later phase).
 - Interactive e-learning, quizzes, LMS integration (possible Phase 6).
 - Hosting of any kind — no web app, server, or online viewer (D4).
-- Official endorsement or Army branding (see §7 — decks are labeled unofficial training aids).
+- Claiming official endorsement — decks use standard Army branding (D5) but are still labeled unofficial training aids (see §7).
+- Output formats other than `.pptx` (D6).
 
 ### Audience & writing style (D1)
 Decks target **general Army, focused on junior Soldiers**. This drives the planning and rendering stages:
@@ -146,7 +149,7 @@ Output: a **slide spec** per deck, validated against a JSON Schema:
 - Numbers, dates, form numbers, and role names are copied verbatim (checked in stage 6).
 
 ### Stage 5 — Rendering
-- **python-pptx** with a custom master template (`templates/base.pptx`).
+- **python-pptx** with a master template (`templates/base.pptx`) built to standard Army branding (D5).
 - Diagrams drawn as **native PowerPoint shapes** (chevrons, rounded rectangles, connectors) where possible — they stay editable and recolorable. A small layout library per pattern: `process_flow.py`, `timeline.py`, `org_chart.py`, `decision_tree.py`, etc.
 - Complex graphs (big decision trees, cross-reference maps) via **Graphviz/Mermaid → SVG/PNG** inserted as images (not editable, but auto-laid-out).
 - Icons from an open-licensed set (e.g. Lucide / Material Symbols) rendered to PNG/SVG.
@@ -156,7 +159,8 @@ Output: a **slide spec** per deck, validated against a JSON Schema:
 
 **Design system**
 - Palette: high-contrast, colorblind-safe categorical palette (6–8 colors) with semantic colors fixed across all decks — e.g. responsibilities = blue, deadlines = amber, prohibitions = red, requirements = green, definitions = purple.
-- Neutral/"tactical" base (charcoal, sand, olive) so it feels on-theme without copying official Army branding.
+- Base look follows **standard Army branding** (D5): Army brand colors (black, gold, white and the official accent colors), brand fonts or their approved substitutes, and logo placement rules. Exact hex values, fonts, and logo rules are pulled from army.mil sources during Phase 0 (see `docs/SETUP_NOTES.md`) and stored in `render/theme.py` — no hard-coded guesses.
+- The semantic colors above are mapped onto the Army palette where possible, and checked for contrast and colorblind safety.
 - 16:9, one big idea per slide, ≥ 18 pt body text.
 
 ### Stage 6 — QA & review
@@ -171,7 +175,7 @@ Automated:
 
 Human:
 - Review the spec + thumbnails before distribution. The `qa` command writes a local review report (slide thumbnail ↔ cited source text side by side, plus all flags) as a static HTML/PDF file opened on your own machine — nothing hosted (D4).
-- Final output is the reviewed `.pptx` (optionally also a PDF export via LibreOffice for people without PowerPoint), ready to hand out manually.
+- Final output is the reviewed `.pptx` only (D6), ready to hand out manually.
 
 ## 4. Tech Stack
 
@@ -215,7 +219,7 @@ army-trainer/
 
 | Phase | Deliverable | Est. effort* |
 |---|---|---|
-| **0. Setup** | Repo, tooling, CI, pick 3 pilot regs, download PDFs | 2–3 days |
+| **0. Setup** | Repo, tooling, CI, pick 3 pilot regs, download PDFs; **branding research subtask** → `docs/SETUP_NOTES.md` | 3–4 days |
 | **1. Convert** | High-quality MD + JSON tree for the 3 pilots; golden tests | 1.5–2 weeks |
 | **2. Plan** | Rule-based + LLM pattern classifier; slide spec schema; specs for pilots | 1.5–2 weeks |
 | **3. Render** | Theme + 6 core patterns (process, roles, timeline, checklist, do/don't, table) + title/at-a-glance; first full decks | 2 weeks |
@@ -238,7 +242,7 @@ army-trainer/
 | **Misrepresenting the regulation** (oversimplification, hallucination) | Citations on everything, verbatim checks, LLM judge, human approval, verbatim text in notes, disclaimer slide: *"Unofficial training aid. The regulation is the authoritative source."* |
 | **Restricted material slipping in** | Distribution-statement gate; reject on CUI/FOUO/"Distribution B–F" markings; never fetch behind CAC login; log provenance (URL, hash, date) |
 | **Stale content** (regs revised, rapid action revisions) | Store pub date + hash; `check-updates` command compares against armypubs; deck footer shows reg date |
-| **Branding / endorsement concerns** | No Army star logo, seals, or "official" styling; Army trademarks require licensing for some uses — keep a neutral theme |
+| **Branding misuse / implied endorsement** | Follow the Army's published brand and trademark guidance exactly (captured in `docs/SETUP_NOTES.md`); use only logo files and colors from official army.mil sources; confirm whether unit/individual training products may use the Army star logo and drop it if not; keep the "unofficial training aid" disclaimer |
 | **Table/layout extraction errors** | Docling + pdfplumber fallback; golden tests; flag low-confidence tables for manual review |
 | **Visual clutter / bad auto-layout** | Hard budgets per pattern, auto-splitting, thumbnail review |
 | **LLM cost** | Rules first; prompt caching of the full reg text; batch API for large runs. Rough order: low single-digit dollars per regulation |
@@ -251,13 +255,12 @@ army-trainer/
 - A junior Soldier unfamiliar with the reg can answer 8/10 basic "what do I have to do" questions about it after a 15-minute deck walkthrough (simple usability test).
 
 ## 9. Open Questions
-Resolved questions are recorded in §0 (D1–D4).
+Resolved questions are recorded in §0 (D1–D6).
 
 1. **Per-chapter decks** — keep one deck per regulation (D2), or also produce per-chapter decks for long regulations (e.g. AR 350-1)? Revisit after the pilots show whether the 25–40 slide budget loses too much.
-2. **Branding** — neutral theme, or a unit-specific template you're allowed to use?
-3. **PDF copies** — should every run also export a PDF of the deck for people without PowerPoint, or `.pptx` only?
+2. **Other output formats** — `.pptx` only for now (D6). Revisit whether a PDF copy (for people without PowerPoint) or other formats are needed.
 
 ## 10. Immediate Next Steps
-1. Settle the branding question (§9 Q2) before Phase 3; Q1 and Q3 can wait until the pilots are done.
-2. Phase 0: scaffold the Python package, CLI skeleton, CI.
+1. Phase 0: scaffold the Python package, CLI skeleton, CI.
+2. Phase 0 subtask: branding research from army.mil sources into `docs/SETUP_NOTES.md` — must be done before Phase 3 (rendering).
 3. Download the 3 pilot PDFs and run Docling vs. pymupdf4llm side by side on one chapter to lock in the converter.
