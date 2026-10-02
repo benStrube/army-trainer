@@ -80,7 +80,7 @@ def scan_page(page: pymupdf.Page) -> PageLayout:
             if not spans:
                 continue
             y0, y1 = ln["bbox"][1], ln["bbox"][3]
-            text = _line_text(spans)
+            text = _line_text(ln["spans"])  # keep whitespace-only spans: they carry the spaces
             if y0 > FOOTER_Y and _PAGE_LABEL.match(text):
                 out.label = text
             if y1 < HEADER_Y or y0 > FOOTER_Y:

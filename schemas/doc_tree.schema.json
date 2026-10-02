@@ -785,6 +785,12 @@
           "default": null,
           "description": "Abbreviation key printed under it.",
           "title": "Key"
+        },
+        "grid": {
+          "default": true,
+          "description": "False when the PDF prints the table as plain text (e.g. a checklist): columns and rows are empty and the content follows as sibling text/list nodes.",
+          "title": "Grid",
+          "type": "boolean"
         }
       },
       "required": [

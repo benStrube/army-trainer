@@ -47,7 +47,7 @@ Nesting follows the Markdown heading levels. Levels can skip: Appendix D goes st
 | `paragraph` | `para-2-5`, `para-B-18` | `number`, `text`, `plain` | **The unit slides cite.** `text` excludes the number |
 | `list_item` | `para-2-5.li1`, `para-2-5.li1.li2` | `depth`, `text`, `plain` | Inherits its paragraph's `cite` |
 | `text` | `para-2-5.t1`, `ch-1.t1` | `text`, `plain` | Unnumbered text. It's a child of the paragraph it continues, or of the container when no paragraph has started (chapter introductions, quotes) |
-| `table` | `table-1-2`, `table-introductory-1` | `number`, `caption`, `columns`, `rows`, `key` | Cells are Markdown. `<br>` separates bullets in a cell. `key` is the abbreviation key printed under the table |
+| `table` | `table-1-2`, `table-introductory-1` | `number`, `caption`, `columns`, `rows`, `key`, `grid` | Cells are Markdown. `<br>` separates bullets in a cell. `key` is the abbreviation key printed under the table. `grid: false` means the PDF prints the table as plain text (e.g. the Table A-1 checklist): `columns`/`rows` are empty and the content follows as sibling nodes |
 | `figure` | `figure-2-1` | `number`, `caption` | Caption only. Images aren't extracted (see the WP 1.2 handover) |
 | `term` | `term-kill-box` | `term`, `definition`, `source`, `proponent` | `proponent: true` means this publication defines the term (`*` in the glossary). Otherwise `source` names the defining publication |
 | `acronym` | `acr-fscoord` | `abbreviation`, `meaning` | From glossary section I |
@@ -63,4 +63,4 @@ Nesting follows the Markdown heading levels. Levels can skip: Appendix D goes st
 
 ## FM 3-09 (pilot) at a glance
 
-16 divisions · 44 sections · 332 headings · 933 paragraphs · 1,381 list items · 162 unnumbered texts · 31 tables · 41 figures · 251 terms (35 FM-proponent) · 146 acronyms.
+16 divisions · 44 sections · 332 headings · 933 paragraphs · 1,381 list items · 162 unnumbered texts · 40 tables (9 gridless) · 41 figures · 251 terms (35 FM-proponent) · 146 acronyms.

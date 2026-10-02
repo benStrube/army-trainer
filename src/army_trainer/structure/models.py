@@ -74,6 +74,11 @@ class Table(_Node):
     columns: list[str] = Field(description="Header row.")
     rows: list[list[str]] = Field(description="Body rows; cells are Markdown.")
     key: str | None = Field(default=None, description="Abbreviation key printed under it.")
+    grid: bool = Field(
+        default=True,
+        description="False when the PDF prints the table as plain text (e.g. a checklist): "
+        "columns and rows are empty and the content follows as sibling text/list nodes.",
+    )
 
 
 class Figure(_Node):

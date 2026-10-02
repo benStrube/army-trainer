@@ -68,6 +68,7 @@ class _Builder:
         self.para: M.Paragraph | None = None
         self.items: list[M.ListItem] = []  # open list items by depth
         self.caption: tuple[str, str, str] | None = None  # (caption, kind, number)
+        self.caption_where: dict = {}
         self.last_table: M.Table | None = None
         self.page, self.label = 0, None
         self.ids: dict[str, int] = {}
@@ -246,6 +247,7 @@ class _Builder:
             if caption.startswith("Introductory"):
                 number = f"Introductory {number}"
             self.caption = (caption, kind, number)
+            self.caption_where = self.where()
 
     def table(self, block: str) -> None:
         header, rows = _table(block)
@@ -277,6 +279,26 @@ class _Builder:
         self.container().children.append(t)
         self.caption, self.last_table, self.items = None, t, []
 
+    def flush_gridless_table(self) -> None:
+        """A table caption followed by something other than a table: the PDF prints that
+        table as plain text. Keep it as a gridless table node so references to it resolve."""
+        if not self.caption:
+            return
+        caption, _, number = self.caption
+        self.container().children.append(
+            M.Table(
+                id=self.uid(f"table-{slug(number)}"),
+                cite=f"table {number}",
+                number=number,
+                caption=caption,
+                columns=[],
+                rows=[],
+                grid=False,
+                **self.caption_where,
+            )
+        )
+        self.caption = None
+
     # ---------------------------------------------------------------- driver
 
     def feed(self, block: str) -> None:
@@ -289,6 +311,7 @@ class _Builder:
         if block.lstrip().startswith("|"):
             self.table(block)
             return
+        self.flush_gridless_table()
         self.last_table = None if not KEY.match(plain(block)) else self.last_table
         if m := HEADING.match(block):
             self.heading(len(m.group(1)), m.group(2).strip())
