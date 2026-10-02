@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import typer
+
+from .fetch.fetch import FetchError
+from .fetch.fetch import fetch as run_fetch
 
 app = typer.Typer(
     help="Turn public (Distribution A) Army regulations into training decks. "
@@ -19,9 +24,21 @@ def _stub(stage: str, wp: str) -> None:
 
 
 @app.command()
-def fetch(pub: str = PUB) -> None:
+def fetch(
+    pub: str = PUB,
+    url: str | None = typer.Option(None, help="armypubs.army.mil PDF URL to download."),
+    pdf: Path | None = typer.Option(None, help="Local PDF to ingest instead of downloading."),
+) -> None:
     """Stage 1: download/accept a PDF, write metadata, run the Distribution A gate."""
-    _stub("fetch", "0.2")
+    try:
+        meta = run_fetch(pub, url=url, pdf_path=pdf)
+    except FetchError as e:
+        typer.echo(f"error: {e}", err=True)
+        raise typer.Exit(code=1) from e
+    typer.echo(
+        f"{meta.pub_id}: gate passed (Distribution {meta.gate.distribution}), "
+        f"{meta.page_count} pages, sha256 {meta.sha256[:12]}"
+    )
 
 
 @app.command()
