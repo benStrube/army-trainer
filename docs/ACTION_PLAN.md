@@ -67,9 +67,9 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 | 5.1c | Spec rewrite for readability + Soldier-task coverage (D-81, C-9, C-67, C-63), swap low-value slides; packet flags Soldier-actionable requirements; fidelity re-review | Opus | done (s12 caveat waits for 5.1g) |
 | 5.1d | Schema: `callout` (caution/warning) and `big_numbers` caveat; playbook | Opus | done |
 | 5.1e | QA readability check per D15 | Sonnet | done |
-| 5.1f | Renderer: one-line big numbers, shared sibling font size, table split/14 pt floor, panel sizing, title slide | Sonnet | todo |
-| 5.1g | Renderer: draw callout and caveat | Sonnet | todo |
-| 5.1h | Tooling: libreoffice-impress for thumbnails; loud failure | Sonnet | todo |
+| 5.1f | Renderer: one-line big numbers, shared sibling font size, table split/14 pt floor, panel sizing, title slide | Sonnet | done |
+| 5.1g | Renderer: draw callout and caveat | Sonnet | done |
+| 5.1h | Tooling: libreoffice-impress for thumbnails; loud failure | Sonnet | done |
 | 5.1i | Run the usability check (`docs/pilot/FM-3-09-usability-check.md`) | User | todo |
 | 5.2 | Remaining patterns: decision tree, comparison, term cards | Sonnet | Samples + tests | ➡️ continue | todo |
 | 5.3 | Batch mode for every deterministic stage (fetch, convert, indexes, render, qa) over a list of publications; `check-updates` revision detection. Planning a new publication still needs one Opus session (D10) | Sonnet | Batch run on ≥ 5 publications through `convert`; update check tested | 🛑 **STOP** → user | todo |

@@ -84,3 +84,29 @@ def test_deck_slide_map_follows_split_slides(tmp_path):
     prs.save(p)
     assert deck_slide_map(spec, p) == {"s01": [1], "s02": [2, 3], "s03": [4]}
     assert deck_slide_map(spec, None) == {}
+
+
+def test_thumbnails_fail_loudly_with_the_fix_when_tools_are_missing(monkeypatch, tmp_path):
+    import army_trainer.qa.report as report
+
+    monkeypatch.setattr(report.shutil, "which", lambda name: None)
+    with pytest.raises(report.ThumbnailError, match="libreoffice-impress"):
+        report.make_thumbnails(tmp_path / "d.pptx", tmp_path)
+
+
+def test_report_says_why_when_thumbnails_cannot_be_made(
+    monkeypatch, tree, spec_path, tmp_path, capsys
+):
+    import army_trainer.qa.report as report
+
+    def boom(*a, **k):
+        raise report.ThumbnailError("soffice not found: install it")
+
+    monkeypatch.setattr(report, "make_thumbnails", boom)
+    monkeypatch.setattr(report, "deck_slide_map", lambda spec, pptx: {})
+    deck = tmp_path / "d.pptx"
+    deck.write_bytes(b"x")
+    qa = run_qa(spec_path, tree, build_indexes(tree))
+    page = build_report(spec_path, tree, qa, tmp_path / "rep", deck).read_text()
+    assert "No thumbnails: soffice not found" in page
+    assert "WARNING: no thumbnails" in capsys.readouterr().err

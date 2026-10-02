@@ -13,6 +13,7 @@ import html
 import re
 import shutil
 import subprocess
+import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -27,31 +28,51 @@ _WHERE_RX = re.compile(r"^(s\d+)(?:[ .]|$)")
 _SPLIT_RX = re.compile(r" \(\d+ of \d+\)$")
 
 
+INSTALL_HINT = (
+    "install LibreOffice Impress and poppler (Debian/Ubuntu: "
+    "`apt-get install libreoffice-impress poppler-utils`; macOS: `brew install --cask "
+    "libreoffice` and `brew install poppler`)"
+)
+
+
+class ThumbnailError(RuntimeError):
+    """Slide thumbnails could not be made; the message says why and how to fix it."""
+
+
 def make_thumbnails(pptx: Path, out_dir: Path) -> list[Path]:
-    """PNG per deck slide via LibreOffice + pdftoppm. Returns [] when the tools are missing."""
-    if not (shutil.which("soffice") and shutil.which("pdftoppm")):
-        return []
+    """PNG per deck slide via LibreOffice + pdftoppm. Raises ThumbnailError, with the fix, when
+    the tools are missing or produce nothing (WP 5.1h: never fail silently)."""
+    missing = [n for n in ("soffice", "pdftoppm") if not shutil.which(n)]
+    if missing:
+        raise ThumbnailError(f"{' and '.join(missing)} not found: {INSTALL_HINT}")
     thumbs = out_dir / "thumbs"
     thumbs.mkdir(parents=True, exist_ok=True)
     for old in thumbs.glob("slide-*.png"):
         old.unlink()
     pdf = thumbs / f"{pptx.stem}.pdf"
-    subprocess.run(
-        ["soffice", "--headless", "--convert-to", "pdf", "--outdir", str(thumbs), str(pptx)],
-        check=True,
-        capture_output=True,
-        timeout=300,
-    )
-    if not pdf.exists():  # soffice exits 0 without Impress installed
-        return []
-    subprocess.run(
-        ["pdftoppm", "-png", "-r", "50", str(pdf), str(thumbs / "slide")],
-        check=True,
-        capture_output=True,
-        timeout=300,
-    )
-    pdf.unlink(missing_ok=True)
-    return sorted(thumbs.glob("slide-*.png"))
+    try:
+        subprocess.run(
+            ["soffice", "--headless", "--convert-to", "pdf", "--outdir", str(thumbs), str(pptx)],
+            check=True,
+            capture_output=True,
+            timeout=300,
+        )
+        if not pdf.exists():  # soffice exits 0 without Impress installed
+            raise ThumbnailError(f"LibreOffice made no PDF (is Impress missing?): {INSTALL_HINT}")
+        subprocess.run(
+            ["pdftoppm", "-png", "-r", "50", str(pdf), str(thumbs / "slide")],
+            check=True,
+            capture_output=True,
+            timeout=300,
+        )
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
+        raise ThumbnailError(f"thumbnail tools failed ({e}): {INSTALL_HINT}") from e
+    finally:
+        pdf.unlink(missing_ok=True)
+    out = sorted(thumbs.glob("slide-*.png"))
+    if not out:
+        raise ThumbnailError(f"pdftoppm made no images: {INSTALL_HINT}")
+    return out
 
 
 def deck_slide_map(spec: SlideSpec, pptx: Path | None) -> dict[str, list[int]]:
@@ -127,7 +148,13 @@ def build_report(
     spec = SlideSpec.model_validate_json(spec_path.read_text())
     idx = NodeIndex(tree)
     out_dir.mkdir(parents=True, exist_ok=True)
-    thumbs = make_thumbnails(deck, out_dir) if deck and deck.exists() else []
+    thumbs, thumb_error = [], None
+    if deck and deck.exists():
+        try:
+            thumbs = make_thumbnails(deck, out_dir)
+        except ThumbnailError as e:
+            thumb_error = str(e)
+            print(f"WARNING: no thumbnails in the report: {e}", file=sys.stderr)
     smap = deck_slide_map(spec, deck)
 
     review: Review | None = None
@@ -158,9 +185,11 @@ def build_report(
         f"<h1>{_e(spec.pub.short_name)}: review report (unofficial training aid)</h1>",
         f'<p class="mut">{len(spec.slides)} spec slides · {len(claims(spec))} claims · '
         f"{len(qa.errors)} rule error(s) · {len(qa.warnings)} warning(s)"
-        + ("" if thumbs else " · no thumbnails (LibreOffice or pdftoppm not found, or no deck)")
+        + ("" if thumbs or thumb_error else " · no thumbnails (no deck rendered)")
         + "</p>",
     ]
+    if thumb_error:
+        h.append(f'<div class="banner">No thumbnails: {_e(thumb_error)}</div>')
     if review:
         c = {v: sum(1 for x in review.verdicts.values() if x == v) for v in
              ("pass", "minor", "major", "critical")}  # fmt: skip

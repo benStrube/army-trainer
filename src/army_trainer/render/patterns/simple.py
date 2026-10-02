@@ -32,21 +32,13 @@ def title(slide, s, ctx: Ctx) -> None:
     slide.shapes.title.text_frame.text = s.title
     sub = slide.placeholders[1]
     sub.text_frame.text = s.subtitle or ""
-    sub.height = Inches(0.7)
+    sub.top, sub.height = Inches(4.65), Inches(0.7)
+    # the disclaimer fills the lower part of the slide: gold bar + panel, body-size text
+    box(slide, t.MARGIN, 5.6, 0.18, 1.3, "", fill=P.army_gold)
     box(
-        slide,
-        t.MARGIN + 0.3,
-        6.25,
-        t.SLIDE_W - 2 * t.MARGIN - 0.6,
-        0.85,
-        ctx.disclaimer,
-        ctx=ctx,
-        size=14,
-        color=P.mid_gray,
-        floor=12,
-        anchor="t",
-        pad=0,
-    )
+        slide, t.MARGIN + 0.18, 5.6, t.SLIDE_W - 2 * t.MARGIN - 0.18, 1.3, ctx.disclaimer,
+        ctx=ctx, size=20, bold=True, fill=P.pale_gray, pad=0.3,
+    )  # fmt: skip
     drop_empty_placeholders(slide)
 
 
@@ -68,6 +60,7 @@ def stat_tiles(slide, stats, ctx: Ctx, y: float, h: float, big_pt: int = 54) -> 
             bold=True,
             align="c",
             floor=24,
+            one_line=True,
         )
         box(
             slide,
@@ -238,7 +231,25 @@ def checklist(slide, s, ctx: Ctx) -> None:
 
 def big_numbers(slide, s, ctx: Ctx) -> None:
     set_title(slide, s.title)
-    stat_tiles(slide, s.stats, ctx, CONTENT_Y + 0.4, 4.2, big_pt=72)
+    caveat = getattr(s, "caveat", None)
+    if caveat:
+        # one cited line under the tiles, at body size (not footer size)
+        stat_tiles(slide, s.stats, ctx, CONTENT_Y + 0.1, 3.9, big_pt=72)
+        y = CONTENT_Y + 4.2
+        box(
+            slide,
+            CONTENT_X,
+            y,
+            CONTENT_W,
+            CONTENT_Y + CONTENT_H - y,
+            caveat.text,
+            ctx=ctx,
+            size=20,
+            fill=P.pale_gray,
+            pad=0.25,
+        )
+    else:
+        stat_tiles(slide, s.stats, ctx, CONTENT_Y + 0.4, 4.2, big_pt=72)
 
 
 def comparison(slide, s, ctx: Ctx) -> None:
@@ -264,7 +275,7 @@ def comparison(slide, s, ctx: Ctx) -> None:
         )
         body_y = CONTENT_Y + 0.9
         k = len(col.points)
-        ph = (CONTENT_H - 0.9 - GAP * k) / k
+        ph = min(2.2, (CONTENT_H - 0.9 - GAP * k) / k)  # short columns: don't stretch panels
         for j, it in enumerate(col.points):
             box(
                 slide,

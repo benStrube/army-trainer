@@ -39,6 +39,8 @@ class Ctx:
     short_name: str = ""
     disclaimer: str = t.DISCLAIMER
     warnings: list[str] = field(default_factory=list)
+    #: every text box drawn: (group key, runs with their base size, shrink applied), see equalize
+    fits: list[tuple[tuple, list[tuple], int]] = field(default_factory=list)
 
 
 def _rgb(h: str) -> RGBColor:
@@ -86,9 +88,11 @@ def box(  # noqa: PLR0913
     shape=RECT,
     floor: int = t.MIN_BODY_PT,
     pad: float = 0.1,
+    one_line: bool = False,
 ):
     """Add a flat shape with text. Text shrinks (never below ``floor`` pt) to fit; a warning is
-    recorded on ``ctx`` if it still doesn't."""
+    recorded on ``ctx`` if it still doesn't. ``one_line`` also shrinks until no paragraph wraps
+    (big-number values)."""
     shp = slide.shapes.add_shape(shape, Inches(x), Inches(y), Inches(w), Inches(h))
     flat(shp)
     if fill:
@@ -111,13 +115,21 @@ def box(  # noqa: PLR0913
     if not paras or not any(p.text for p in paras):
         return shp
     inner_w, inner_h = w - 2 * pad, h - 0.1
+
+    def wraps(d: int) -> bool:
+        # est_lines is a rough width guess; a 15% margin keeps one-line text off the edge
+        return one_line and any(
+            est_lines(p.text, inner_w / 1.15, p.size - d, p.bold) > 1 for p in paras
+        )
+
     delta = 0
-    while (
-        est_height(paras, inner_w, delta) > inner_h and min(p.size for p in paras) - delta > floor
-    ):
+    while (est_height(paras, inner_w, delta) > inner_h or wraps(delta)) and min(
+        p.size for p in paras
+    ) - delta > floor:
         delta += 1
-    if est_height(paras, inner_w, delta) > inner_h and ctx is not None:
+    if (est_height(paras, inner_w, delta) > inner_h or wraps(delta)) and ctx is not None:
         ctx.warnings.append(f"text may overflow: {paras[0].text[:40]!r}")
+    runs = []
     for i, p in enumerate(paras):
         para = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
         para.alignment = _ALIGN[align]
@@ -129,7 +141,23 @@ def box(  # noqa: PLR0913
         run.font.size = Pt(max(p.size - delta, 1))
         run.font.bold = p.bold
         run.font.color.rgb = _rgb(p.color)
+        runs.append((run, p.size))
+    if ctx is not None:
+        key = (round(w, 2), round(h, 2), tuple((p.size, p.bold) for p in paras), anchor, align)
+        ctx.fits.append((key, runs, delta))
     return shp
+
+
+def equalize(ctx: Ctx, start: int = 0) -> None:
+    """Sibling boxes (same size and type size) share one font size: the smallest any of them
+    needed. Without this each box auto-fits alone and a slide ends up with uneven text."""
+    groups: dict[tuple, int] = {}
+    for key, _, delta in ctx.fits[start:]:
+        groups[key] = max(groups.get(key, 0), delta)
+    for key, runs, delta in ctx.fits[start:]:
+        if groups[key] != delta:
+            for run, base in runs:
+                run.font.size = Pt(max(base - groups[key], 1))
 
 
 def line(slide, x1, y1, x2, y2, color=P.army_black, pt=2.0):
@@ -170,6 +198,29 @@ def set_title(slide, text: str) -> None:
     pt = 28 if len(text) <= 45 else 24 if len(text) <= 52 else 22
     for r in ph.text_frame.paragraphs[0].runs:
         r.font.size = Pt(pt)
+
+
+CALLOUT_W = 2.5
+#: callout kind -> (label, fill, text color); D9: CAUTION black on gold, WARNING white on red
+CALLOUTS = {
+    "caution": ("CAUTION", P.army_gold, P.army_black),
+    "warning": ("WARNING", P.dont_red, P.white),
+}
+
+
+def draw_callout(slide, kind: str, ctx: Ctx) -> None:
+    """Label chip at the right end of the title bar (so no content moves). The slide's title
+    placeholder gets narrower to make room."""
+    label, fill, color = CALLOUTS[kind]
+    ph = slide.shapes.title
+    left, top, width, height = ph.left, ph.top, ph.width, ph.height
+    ph.left, ph.top, ph.height = left, top, height
+    ph.width = Emu(int(width - Inches(CALLOUT_W + 0.2)))
+    x = t.SLIDE_W - t.MARGIN - CALLOUT_W
+    box(
+        slide, x, (t.TITLE_BAR_H - 0.7) / 2, CALLOUT_W, 0.7, label,
+        size=28, bold=True, color=color, fill=fill, align="c", floor=24,
+    )  # fmt: skip
 
 
 def drop_empty_placeholders(slide) -> None:
