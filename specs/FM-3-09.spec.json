@@ -446,17 +446,17 @@
        "para-3-29"
       ],
       "directive": "will"
-     },
-     {
-      "text": "Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances.",
-      "cite": [
-       "para-3-29"
-      ]
      }
     ],
     "extra_sources": []
    },
-   "id": "s12"
+   "id": "s12",
+   "caveat": {
+    "text": "Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances.",
+    "cite": [
+     "para-3-29"
+    ]
+   }
   },
   {
    "pattern": "cycle",

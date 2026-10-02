@@ -3,7 +3,7 @@
  "rubric_version": "1.0",
  "pub_id": "FM-3-09",
  "source_sha256": "1fd2a14b86c57f2b7af7d757fd5acba80f0abda59f65e313f5b67526a33303ba",
- "spec_sha256": "13ea59a42944b041190e5a3a79e2ed09b8468881d477351c8f353dc1312b0193",
+ "spec_sha256": "4595ea8fc246dd7f1fd7e3f9b875788f8088f32b401150de12549af1efacf91f",
  "reviewed_on": "2026-10-02",
  "reviewer": "Opus session (D10): round 1 four reviewers + adjudication; round 2 carry-over, two reviewers + adjudication",
  "verdicts": {
@@ -50,11 +50,11 @@
   "s11.blurb": "pass",
   "s12.notes.talking_points[0]": "pass",
   "s12.notes.talking_points[1]": "pass",
-  "s12.notes.talking_points[2]": "pass",
   "s12.stats[0]": "pass",
   "s12.stats[1]": "pass",
   "s12.stats[2]": "pass",
   "s12.stats[3]": "pass",
+  "s12.caveat": "pass",
   "s13.notes.talking_points[0]": "pass",
   "s13.notes.talking_points[1]": "pass",
   "s13.steps[0]": "minor",
@@ -301,8 +301,8 @@
   "Round 2 (WP 5.1c, 2026-10-02): plain-language rewrite to D15 (97% of slides <= grade 9), new slide on GPS/digital-link failure (C-9, C-12, C-14, C-20, C-63, C-67), D-81 added to terrain hazards, s07 'Who trains you' and the air support request flow removed, sun-filter slide marked CAUTION, s24 general support row now 'own observers' (table 4-1 repaired in WP 5.1a).",
   "Round 2 method: 136 verdicts carried over where claim text and cites were unchanged since round 1; 54 changed/new claims reviewed by two independent Opus reviewers (42 pass, 3 major, 9 minor); every finding adjudicated against the source and fixed; the 14 claims edited after review re-read by the adjudicator against their cited text.",
   "Round 2 major findings (all fixed): FSCL row lost its 'beyond it' scope; GPS/digital slide dropped C-14's 'or the howitzer can fire data from an adjacent section'; the s12 big-number caveat was not drawn by the renderer.",
-  "Caveat deferred: spec 1.1 big-number 'caveat' is not drawn until WP 5.1g (Sonnet). Until then the 'Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances' line stays a speaker-note talking point on s12 (round-1 text, passed). After 5.1g, move it to s12.caveat with the same text and cite and re-run --review-check.",
   "Round 1 (WP 4.1): 199 claims, 1 critical, 4 major, 22 minor; all fixed except one accepted minor (now s13.steps[0]). Details in this file's git history (commit 7c259b1).",
-  "Planning-level, not fidelity: s30 defense column is still staff planning content in plainer words; the s26 CAUTION callout and any s12 caveat need the WP 5.1g renderer to show."
+  "Planning-level, not fidelity: s30 defense column is still staff planning content in plainer words; the s26 CAUTION callout and any s12 caveat need the WP 5.1g renderer to show.",
+  "Caveat follow-up (after WP 5.1g): the s12 'Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances' line moved from the speaker notes to s12.caveat, same text and cite (para 3-29); verdict carried over (pass). The renderer now draws it under the danger-close numbers, and the s26 CAUTION label."
  ]
 }
