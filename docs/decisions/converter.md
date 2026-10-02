@@ -95,3 +95,17 @@ The decision held up on the whole document. WP 1.2 (`src/army_trainer/convert/`)
 - **Scrambled full-width form rows** (e.g. Table A-10) are rebuilt from PyMuPDF lines, but only when the letters match exactly, so no text is invented.
 - **Table overflow:** a cell cut off at the page bottom and repeated as a paragraph is folded back into the cell.
 - pdfplumber turned out not to be needed in the pipeline. It stays a dependency for manual cross-checks.
+
+## Addendum (WP 5.1a, 2026-10-02): table rebuild and word repairs
+The WP 4.4 pilot review found that 7 of 32 FM 3-09 tables were damaged in conversion: glued headers, scrambled merged cells, key lines read as rows, and overflow junk rows. It also found joined words at line breaks.
+- **Tables:** `convert/tables.py` rebuilds every table from PyMuPDF's `page.find_tables()`, which follows the ruling lines.
+  - **Merged cells:** a cell whose text sits in one row band is a label and is repeated in every row it spans ("Decide", "Plan"). A cell whose lines fall in several bands is split by the vertical position of each line (table 3-1's Joint Targeting Cycle column).
+  - **Headers:** a header printed on two lines is merged, and headers repeated on a continuation page are dropped.
+  - **Notes and keys:** key and "Note" lines inside the border become notes after the table.
+  - **Formatting:** bold, italic and superscript (footnote markers) come from the PDF's font flags.
+  - **When a rebuild is kept:** only when it matches the words the PDF prints inside the table border better. The score is recall minus stray tokens, and it must gain at least 0.02. On FM 3-09 every table met that bar. I checked all 26 changed tables word by word: every lost token was garble ("Companyt", "SuppressiBetty", "ANALYS"), and the gained tokens are recovered text.
+- **Words:** `convert/words.py` makes three repairs:
+  - **Joined words:** split only on evidence from the PDF itself. The PDF must never print the joined form whole, and must print the two parts across a line break. The hyphen is restored if the break was hyphenated ("high-explosive", "decision-making"); otherwise a space is ("for execution").
+  - **Split references:** "JP 3- 09" → "JP 3-09", and the same for staff sections ("S- 2").
+  - **Hyphen-spaces:** "pre- mission" → "pre-mission", while suspended hyphens ("rotary- and fixed-wing") stay.
+- **Tree:** a table's abbreviation key may now follow a "Notes: …" line (`structure/parse.py`).

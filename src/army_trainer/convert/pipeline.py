@@ -21,6 +21,8 @@ from ..fetch.models import PubMetadata
 from ..llm_guard import require_gate_pass
 from . import blocks as B
 from .layout import document_title, scan
+from .tables import rebuild_tables
+from .words import repair_words
 
 MD_DIR = Path("data/md")
 
@@ -35,6 +37,10 @@ class ConversionReport:
     tables: int = 0
     continued_tables_merged: int = 0
     table_rows_repaired: int = 0
+    tables_rebuilt: int = 0
+    word_repairs: int = 0
+    word_repair_log: list[str] = field(default_factory=list)
+    rebuilt_tables_log: list[str] = field(default_factory=list)
     table_overflow_absorbed: int = 0
     table_rows_rebuilt: int = 0
     rebuilt_log: list[tuple[int, str]] = field(default_factory=list)
@@ -156,6 +162,7 @@ def convert_pdf(
     else:  # a page range has no zone-opening titles to go on; keep everything
         blocks = _excerpt(blocks)
 
+    report.tables_rebuilt = rebuild_tables(blocks, doc, report.rebuilt_tables_log)
     report.table_overflow_absorbed = B.absorb_table_overflow(blocks)
     report.continued_tables_merged = B.merge_continued_tables(blocks)
     report.page_break_joins = B.join_page_breaks(blocks, report.join_log)
@@ -163,6 +170,8 @@ def convert_pdf(
         blocks, doc, report.rebuilt_log
     )
     report.table_rows_repaired = B.repair_tables(blocks, legend_from_pdf(doc))
+    pdf_text = "\n".join(page.get_text() for page in doc)
+    report.word_repairs = repair_words(blocks, pdf_text, report.word_repair_log)
     report.glossary_terms = B.format_glossary(blocks)
 
     report.headings = sum(b.kind == "heading" for b in blocks)

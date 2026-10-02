@@ -62,7 +62,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 
 | ID | Fix | Model | Status |
 |---|---|---|---|
-| 5.1a | Converter: repair 7 damaged tables, word joins, split references; golden tests | Opus | todo |
+| 5.1a | Converter: repair 7 damaged tables, word joins, split references; golden tests | Opus | done |
 | 5.1b | Decision D15: per-slide, term-aware readability metric for §8 | Opus | todo |
 | 5.1c | Spec rewrite for readability + Soldier-task coverage (D-81, C-9, C-67, C-63), swap low-value slides; packet flags Soldier-actionable requirements; fidelity re-review | Opus | todo |
 | 5.1d | Schema: `callout` (caution/warning) and `big_numbers` caveat; playbook | Opus | todo |

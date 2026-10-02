@@ -312,7 +312,9 @@ class _Builder:
             self.table(block)
             return
         self.flush_gridless_table()
-        self.last_table = None if not KEY.match(plain(block)) else self.last_table
+        # a table's abbreviation key may follow a "Notes: ..." line printed inside its border
+        keep = KEY.match(plain(block)) or re.match(r"^Notes?\b", plain(block))
+        self.last_table = self.last_table if keep else None
         if m := HEADING.match(block):
             self.heading(len(m.group(1)), m.group(2).strip())
         elif m := CAPTION.match(block.strip()):
