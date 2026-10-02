@@ -62,6 +62,19 @@ def convert(pub: str = PUB) -> None:
 
 
 @app.command()
+def index(pub: str = PUB) -> None:
+    """Stage 3b: directives, deadlines, roles, cross-references and glossary indexes."""
+    from .fetch.pdf import normalize_pub_id
+    from .index.build import JSON_DIR, write_indexes
+
+    pub_id = normalize_pub_id(pub)
+    if not (JSON_DIR / f"{pub_id}.json").exists():
+        typer.echo(f"error: no document tree for {pub_id}; run `convert` first.", err=True)
+        raise typer.Exit(code=1)
+    typer.echo(f"{pub_id}: wrote {write_indexes(pub_id)}")
+
+
+@app.command()
 def plan(pub: str = PUB) -> None:
     """Stage 4: build the slide spec."""
     _stub("plan", "2.1-2.3")
