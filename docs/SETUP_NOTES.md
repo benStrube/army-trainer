@@ -2,6 +2,8 @@
 
 Working notes for Phase 0 (see [PROJECT_SCOPE.md](PROJECT_SCOPE.md) §6).
 
+> **Update (2026-10-02, D9):** the user chose a **best-guess Army-style palette** instead of waiting for official sources. The palette in use, with contrast ratios, is in [`decisions/no-api-key.md`](decisions/no-api-key.md). It's built from the screenshot-sampled colors below. WP 0.3 is closed as superseded. The research notes are kept for reference; if the brand guide is ever obtained, update D9 with official values.
+
 ## Subtask: Army branding research (D5)
 
 **Goal:** collect the standard Army branding rules and real-world examples so the deck template (`templates/base.pptx`) and `render/theme.py` are built from official sources, not guesses. Must be finished before Phase 3 (rendering).

@@ -16,6 +16,8 @@
 | D6 | **Output format:** **PowerPoint (`.pptx`) only** for now. Other formats (PDF etc.) stay an open question (§9). | 2026-10-02 |
 | D7 | **Converter:** pymupdf4llm primary, pdfplumber for table cross-check, PyMuPDF for bookmarks/font signals; Docling not evaluated (huggingface.co blocked). See `docs/decisions/converter.md`. Final for the FM 3-09 pilot (D8). | 2026-10-02 |
 | D8 | **Pilot document:** the AR pilots are dropped. The single pilot is **FM 3-09** *Fire Support and Field Artillery Operations* (Aug 2024, Distribution A), supplied by the user. Field Manuals are therefore in scope from now on; ARs remain the longer-term target. All exit criteria that said "the 3 pilots" now mean FM 3-09. | 2026-10-02 |
+| D9 | **Branding (replaces D5's "from official sources"):** best-guess Army style: mostly white, grays, black and Army gold, sampled from army.mil screenshots. Arial; no Army star or logo; disclaimer kept. Palette and contrast in `docs/decisions/no-api-key.md`. Swap in official values if the brand guide is obtained. | 2026-10-02 |
+| D10 | **No API key:** the CLI makes no Claude API calls for now. Planning (stage 4) and fidelity review (stage 6) are done by an Opus Claude Code session following committed playbooks; the CLI builds gated input packets and validates outputs. Specs are committed under `specs/`. Claude Slides is used only as an optional preview (WP 2.4). An API backend is optional later (WP 6.1). See `docs/decisions/no-api-key.md`. | 2026-10-02 |
 
 ## 1. Problem & Outcome
 
@@ -105,7 +107,7 @@ A typed tree the planner can reason over:
 Plus extracted indexes: glossary terms, cross-references, tables, every "must / will / may not" sentence (directive language), dates/time limits ("within 30 days"), and role names ("commanders", "the DCS, G–1").
 
 ### Stage 4 — Slide planning (the "make it visual" brain)
-Each section is classified into a **visual pattern**. Rules first (cheap, deterministic), LLM (Claude) where the rules can't decide.
+Each section is classified into a **visual pattern**. Rules first (cheap, deterministic) give hints; the planning step decides. Under D10 the planning step is an Opus Claude Code session following `plan/prompts/planner.md`, not an API call.
 
 | Content signal in the text | Visual pattern | Rendered as |
 |---|---|---|
@@ -163,7 +165,7 @@ Output: a **slide spec** per deck, validated against a JSON Schema:
 
 **Design system**
 - Palette: high-contrast, colorblind-safe categorical palette (6–8 colors) with semantic colors fixed across all decks — e.g. responsibilities = blue, deadlines = amber, prohibitions = red, requirements = green, definitions = purple.
-- Base look follows **standard Army branding** (D5): Army brand colors (black, gold, white and the official accent colors), brand fonts or their approved substitutes, and logo placement rules. Exact hex values, fonts, and logo rules are pulled from army.mil sources during Phase 0 (see `docs/SETUP_NOTES.md`) and stored in `render/theme.py` — no hard-coded guesses.
+- *(Superseded by D9: best-guess Army-style palette in `docs/decisions/no-api-key.md`.)* Original intent: base look follows **standard Army branding** (D5): Army brand colors (black, gold, white and the official accent colors), brand fonts or their approved substitutes, and logo placement rules. Exact hex values, fonts, and logo rules are pulled from army.mil sources during Phase 0 (see `docs/SETUP_NOTES.md`) and stored in `render/theme.py` — no hard-coded guesses.
 - The semantic colors above are mapped onto the Army palette where possible, and checked for contrast and colorblind safety.
 - 16:9, one big idea per slide, ≥ 18 pt body text.
 
@@ -174,7 +176,7 @@ Automated:
 - **Directive check:** "will/must/will not" in source isn't softened on the slide.
 - **Coverage report:** % of paragraphs represented somewhere, and 100% of directive sentences that apply to individual Soldiers.
 - **Readability check:** reading-grade score per slide (e.g. Flesch-Kincaid via `textstat`); flag slides above ~grade 9 and undefined acronyms.
-- **LLM-as-judge pass:** second model call compares each slide to its cited text and flags distortions.
+- **Fidelity review pass:** an Opus session (D10) compares each slide to its cited text and flags distortions, following `qa/prompts/fidelity_review.md`.
 - Render thumbnails (LibreOffice headless → PNG) to catch overflow/overlap.
 
 Human:
@@ -188,7 +190,7 @@ Human:
 | Language | Python 3.12, `uv` for env/deps |
 | PDF | Docling, PyMuPDF, pdfplumber |
 | Data models | Pydantic (tree + slide spec schemas) |
-| LLM | Claude API (classification, summarization, judging); prompt caching on the regulation text |
+| LLM | Claude Code session (Opus) following committed playbooks (D10); Claude API backend optional later (WP 6.1) |
 | Slides | python-pptx; Graphviz / Mermaid CLI for complex diagrams |
 | Preview | LibreOffice headless → PDF/PNG |
 | CLI | Typer, run locally: `army-trainer fetch|convert|plan|render|qa|build AR-600-20` |
@@ -247,7 +249,7 @@ army-trainer/
 | **Branding misuse / implied endorsement** | Follow the Army's published brand and trademark guidance exactly (captured in `docs/SETUP_NOTES.md`); use only logo files and colors from official army.mil sources; confirm whether unit/individual training products may use the Army star logo and drop it if not; keep the "unofficial training aid" disclaimer |
 | **Table/layout extraction errors** | Docling + pdfplumber fallback; golden tests; flag low-confidence tables for manual review |
 | **Visual clutter / bad auto-layout** | Hard budgets per pattern, auto-splitting, thumbnail review |
-| **LLM cost** | Rules first; prompt caching of the full reg text; batch API for large runs. Rough order: low single-digit dollars per regulation |
+| **LLM cost / throughput** | No API spend under D10; each new publication needs one Opus planning session. If a key is added: rules first, prompt caching, batch API. Rough order: low single-digit dollars per regulation |
 
 ## 8. Success Criteria (MVP)
 - The pilot (FM 3-09) converted with ≥ 98% paragraph-structure accuracy (spot-checked) and all tables intact.
@@ -263,4 +265,4 @@ Resolved questions are recorded in §0 (D1–D6).
 2. **Other output formats** — `.pptx` only for now (D6). Revisit whether a PDF copy (for people without PowerPoint) or other formats are needed.
 
 ## 10. Immediate Next Steps
-Current status and the next work package live in [ACTION_PLAN.md](ACTION_PLAN.md). The first work is Phase 0 (WP 0.1–0.3) on **Sonnet**: scaffold, fetch + Distribution A gate, branding research. It then hard-stops and hands over to **Opus** for the converter work (WP 1.1).
+Current status and the next work package live in [ACTION_PLAN.md](ACTION_PLAN.md). Phase 1 is finishing (WP 1.4 on Sonnet). Phase 2 then runs without an API key (D10): an Opus session builds the planner tooling, writes the FM 3-09 slide spec, and optionally previews it as a Claude Slides deck (WP 2.4) before Sonnet builds the renderer with the D9 palette.

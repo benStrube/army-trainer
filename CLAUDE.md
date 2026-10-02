@@ -6,9 +6,10 @@ Guidance for Claude sessions working in this repo. Read this first, every sessio
 A local CLI that turns **public (Distribution A) Army publications** (regulations and field manuals; the current pilot is FM 3-09, see D8) in PDF form into structured Markdown/JSON and then into **visual, diagram-heavy PowerPoint decks for junior Soldiers**. Decks are made locally and distributed by hand.
 
 Key docs:
-- `docs/PROJECT_SCOPE.md`: architecture, decisions log (§0, D1–D6), risks, open questions
+- `docs/PROJECT_SCOPE.md`: architecture, decisions log (§0, D1–D10), risks, open questions
+- `docs/decisions/no-api-key.md`: **no API key (D10)**: how planning/review run in-session; **branding palette (D9)**
 - `docs/ACTION_PLAN.md`: work packages, **model assignments**, stop points, **current status**
-- `docs/SETUP_NOTES.md`: branding research (feeds the slide template)
+- `docs/SETUP_NOTES.md`: branding research background (the palette in use is D9)
 - `docs/handovers/`: handover notes between sessions (newest file = where to resume)
 
 ## Start-of-session procedure
@@ -22,10 +23,10 @@ Key docs:
 ## Model assignments (summary; the full table is in `docs/ACTION_PLAN.md`)
 | Model | Owns |
 |---|---|
-| **Opus** | Converter choice + AR PDF cleanup rules (1.1–1.2), doc tree schema (1.3), slide spec schema + classifier (2.1), Claude API prompts and runtime model choice (2.2), pilot spec review (2.3), LLM fidelity judge (4.1), pilot deck review (4.4) |
+| **Opus** | Converter choice + AR PDF cleanup rules (1.1–1.2), doc tree schema (1.3), slide spec schema + classifier (2.1), planner tooling + playbook (2.2), writing the FM 3-09 spec (2.3), Claude Slides preview (2.4), fidelity review playbook + run (4.1), pilot deck review (4.4), API backend later (6.1) |
 | **Sonnet** | Scaffold/CLI/CI (0.1), fetch + Distribution A gate (0.2), branding research (0.3), index extractors (1.4), theme/template/renderers/deck assembly (3.1–3.3), rule-based QA + review report (4.2–4.3), extra patterns + batch mode (5.2–5.3) |
 
-Opus-owned artifacts: `schemas/*.json`, `src/army_trainer/plan/prompts/`, fidelity rules, the QA judge prompt. Sonnet may *use* them but must hand over to Opus rather than change them.
+Opus-owned artifacts: `schemas/*.json`, `src/army_trainer/plan/prompts/`, `src/army_trainer/qa/prompts/`, fidelity rules, and the committed specs and reviews in `specs/`. Sonnet may *use* them but must hand over to Opus rather than change them.
 
 ## Stop and handover procedure
 **When to stop:**
@@ -49,10 +50,11 @@ Opus-owned artifacts: `schemas/*.json`, `src/army_trainer/plan/prompts/`, fideli
 - **Fidelity over polish.** Slides may summarize, restructure, and simplify. They may never add requirements or change meaning. Every slide item carries a paragraph citation that exists in the doc tree.
 - **Never soften directive words:** `will` / `must` / `will not` / `may` stay as written. Numbers, dates, form numbers, and role names are copied exactly.
 - **Audience is junior Soldiers:** plain language (~8th-grade), acronyms spelled out on first use, "what this means for you" framing.
-- **One deck per regulation, ~25–40 slides, `.pptx` only.** Standard Army branding from `docs/SETUP_NOTES.md` findings, never guessed. Every deck keeps the "unofficial training aid" disclaimer.
+- **One deck per publication, ~25–40 slides, `.pptx` only.** Best-guess Army-style palette from D9 (`docs/decisions/no-api-key.md`): mostly white/gray/black with Army gold; Arial; **no Army star, seal or wordmark**. Every deck keeps the "unofficial training aid" disclaimer.
+- **No API key (D10):** the CLI makes no Claude API calls. Planning and fidelity review are done in an Opus session following the committed playbooks; the session only reads text produced by gated commands.
 - No hosting. Everything runs locally.
 
 ## Conventions
 - Python 3.12, `uv`, Typer CLI, Pydantic, pytest, ruff.
-- Pipeline stages write to `data/{raw,md,json,specs}/` and `out/decks/` (gitignored except test fixtures).
+- Deterministic stages write to `data/{raw,md,json}/` and `out/decks/` (gitignored; regenerate with the CLI). Session-written outputs (slide specs, fidelity reviews) are **committed** under `specs/`.
 - Don't put model version identifiers in code, commits, or docs. Refer to model tiers ("Opus", "Sonnet") only.
