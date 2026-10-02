@@ -3,7 +3,7 @@
 Guidance for Claude sessions working in this repo. Read this first, every session.
 
 ## What this project is
-A local CLI that turns **public (Distribution A) Army regulations** in PDF form into structured Markdown/JSON and then into **visual, diagram-heavy PowerPoint decks for junior Soldiers**. Decks are made locally and distributed by hand.
+A local CLI that turns **public (Distribution A) Army publications** (regulations and field manuals; the current pilot is FM 3-09, see D8) in PDF form into structured Markdown/JSON and then into **visual, diagram-heavy PowerPoint decks for junior Soldiers**. Decks are made locally and distributed by hand.
 
 Key docs:
 - `docs/PROJECT_SCOPE.md`: architecture, decisions log (§0, D1–D6), risks, open questions

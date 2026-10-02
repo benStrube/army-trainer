@@ -14,7 +14,8 @@
 | D4 | **Hosting / delivery:** **no hosting.** The tool runs locally as a CLI and produces `.pptx` files for **manual distribution**. | 2026-10-02 |
 | D5 | **Branding:** use **standard Army branding** (colors, fonts, logo usage, slide layout). Exact values come from the Phase 0 branding research subtask (`docs/SETUP_NOTES.md`). | 2026-10-02 |
 | D6 | **Output format:** **PowerPoint (`.pptx`) only** for now. Other formats (PDF etc.) stay an open question (§9). | 2026-10-02 |
-| D7 | **Converter (provisional):** pymupdf4llm primary, pdfplumber for table cross-check, PyMuPDF for bookmarks/font signals; Docling not evaluated (huggingface.co blocked). See `docs/decisions/converter.md`. Re-confirm on an AR. | 2026-10-02 |
+| D7 | **Converter:** pymupdf4llm primary, pdfplumber for table cross-check, PyMuPDF for bookmarks/font signals; Docling not evaluated (huggingface.co blocked). See `docs/decisions/converter.md`. Final for the FM 3-09 pilot (D8). | 2026-10-02 |
+| D8 | **Pilot document:** the AR pilots are dropped. The single pilot is **FM 3-09** *Fire Support and Field Artillery Operations* (Aug 2024, Distribution A), supplied by the user. Field Manuals are therefore in scope from now on; ARs remain the longer-term target. All exit criteria that said "the 3 pilots" now mean FM 3-09. | 2026-10-02 |
 
 ## 1. Problem & Outcome
 
@@ -39,7 +40,7 @@ Army Regulations (ARs) are long (often 100+ pages), text-dense, and built from n
 ### Out of scope (for now)
 - Anything CAC-restricted, CUI, FOUO, or marked with a Distribution Statement other than A. The pipeline should **refuse** these, not just skip them (see §7).
 - Scanned/legacy PDFs requiring OCR.
-- Field Manuals / ATPs (different structure — later phase).
+- ~~Field Manuals / ATPs~~ — now in scope: the pilot is FM 3-09 (D8). ATPs are still out of scope.
 - Interactive e-learning, quizzes, LMS integration (possible Phase 6).
 - Hosting of any kind — no web app, server, or online viewer (D4).
 - Claiming official endorsement — decks use standard Army branding (D5) but are still labeled unofficial training aids (see §7).
@@ -234,11 +235,7 @@ army-trainer/
 
 **Two-model build:** the phases are split into work packages, each assigned to Opus or Sonnet, with defined stop and handover points. See [ACTION_PLAN.md](ACTION_PLAN.md) for assignments and status, and [`CLAUDE.md`](../CLAUDE.md) for the handover procedure.
 
-**Suggested pilot regulations** (all public, varied structure):
-- **AR 600-20** *Army Command Policy* — responsibilities, EO/SHARP complaint processes (great for flowcharts)
-- **AR 670-1** *Wear and Appearance of Army Uniforms and Insignia* — rules, do/don't, tables
-- **AR 623-3** *Evaluation Reporting System* — timelines, rater chains, deadlines
-- *(alt)* **AR 350-1** *Army Training and Leader Development* — very long; stress test
+**Pilot document (D8):** **FM 3-09** *Fire Support and Field Artillery Operations* (12 Aug 2024; 284 pages; chapters 1–6, appendixes A–E, glossary). It replaces the three AR pilots originally suggested (AR 600-20, AR 670-1, AR 623-3), which couldn't be downloaded from this environment. Those ARs remain good candidates for later batches.
 
 ## 7. Risks & Mitigations
 
@@ -253,10 +250,10 @@ army-trainer/
 | **LLM cost** | Rules first; prompt caching of the full reg text; batch API for large runs. Rough order: low single-digit dollars per regulation |
 
 ## 8. Success Criteria (MVP)
-- 3 pilot regs converted with ≥ 98% paragraph-structure accuracy (spot-checked) and all tables intact.
-- Each pilot deck: ≥ 60% of content slides are diagrams/visuals (not bullet lists).
+- The pilot (FM 3-09) converted with ≥ 98% paragraph-structure accuracy (spot-checked) and all tables intact.
+- The pilot deck: ≥ 60% of content slides are diagrams/visuals (not bullet lists).
 - 100% of slide claims carry a valid citation; 0 verbatim-check failures on numbers/dates/forms.
-- Each pilot deck is 25–40 slides, with ≥ 90% of slides at or below ~grade 9 reading level and no undefined acronyms.
+- The pilot deck is 25–40 slides, with ≥ 90% of slides at or below ~grade 9 reading level and no undefined acronyms.
 - A junior Soldier unfamiliar with the reg can answer 8/10 basic "what do I have to do" questions about it after a 15-minute deck walkthrough (simple usability test).
 
 ## 9. Open Questions

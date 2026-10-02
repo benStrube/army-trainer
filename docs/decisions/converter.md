@@ -1,7 +1,7 @@
 # Decision: PDF → Markdown converter (WP 1.1)
 
 - **Date:** 2026-10-02
-- **Status:** **Provisional.** Decided on FM 3-09 because no AR was available. Must be re-confirmed on an AR 600-20 chapter before WP 1.2 is closed (see "Re-confirmation" below).
+- **Status:** **Final for the pilot.** The user made FM 3-09 the pilot document (D8), so the AR re-confirmation below is no longer required. Run it when ARs are added later.
 - **Owner:** Opus
 
 ## Decision
@@ -77,7 +77,7 @@ Why FM 3-09 is a fair stand-in: same Army publishing pipeline (Word → Acrobat)
 - Running the tool locally to make decks is fine. The decks themselves are not affected by the AGPL.
 - If the tool's **code** is ever distributed to others, the AGPL requires distributing its source under the AGPL too. That matches how this repo is intended to be used (local CLI, no hosting), but it should be a conscious choice. If AGPL is ever unacceptable, the fallback is pdfplumber + pypdf (both permissive), with more custom structure code.
 
-## Re-confirmation (required before WP 1.2 is marked done)
+## Re-confirmation (optional, when ARs are added later)
 
 When an AR PDF is available (allow `armypubs.army.mil` in the environment's network settings, or supply the PDFs):
 ```
@@ -86,3 +86,12 @@ uv run --with pymupdf --with pymupdf4llm --with pdfplumber \
   python scripts/converter_bakeoff.py data/raw/AR-600-20.pdf <first> <last> out/bakeoff
 ```
 Pick one chapter with a table and nested `a.`/`(1)`/`(a)` sub-paragraphs. If pymupdf4llm still wins on headings and paragraph structure, mark this decision **Final**. If it doesn't, revisit. The likely alternative is Docling, which needs huggingface.co allowed.
+
+## Outcome in WP 1.2 (full FM 3-09 conversion)
+
+The decision held up on the whole document. WP 1.2 (`src/army_trainer/convert/`) needed these additions on top of pymupdf4llm:
+- **Heading levels from PDF fonts, not pymupdf4llm.** Its `#` levels vary from page to page for the same style. `layout.py` reads the real heading styles. All bookmarked headings are found.
+- **Abbreviation keys under tables** are read column by column by pymupdf4llm and come out scrambled. They're rebuilt from PyMuPDF reading-order text, but only when the abbreviations match.
+- **Scrambled full-width form rows** (e.g. Table A-10) are rebuilt from PyMuPDF lines, but only when the letters match exactly, so no text is invented.
+- **Table overflow:** a cell cut off at the page bottom and repeated as a paragraph is folded back into the cell.
+- pdfplumber turned out not to be needed in the pipeline. It stays a dependency for manual cross-checks.

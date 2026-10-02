@@ -9,6 +9,9 @@ dependencies = [
     "pydantic>=2.6",
     "httpx>=0.27",
     "pypdf>=4.0",
+    "pymupdf4llm>=1.28.2",
+    "pdfplumber>=0.11.10",
+    "pyyaml>=6.0.3",
 ]
 
 [project.scripts]

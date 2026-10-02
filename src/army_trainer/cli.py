@@ -6,7 +6,7 @@ from pathlib import Path
 
 import typer
 
-from .fetch.fetch import FetchError
+from .fetch.fetch import RAW_DIR, FetchError
 from .fetch.fetch import fetch as run_fetch
 
 app = typer.Typer(
@@ -43,8 +43,19 @@ def fetch(
 
 @app.command()
 def convert(pub: str = PUB) -> None:
-    """Stage 2-3: PDF to Markdown and JSON document tree."""
-    _stub("convert", "1.2-1.3")
+    """Stage 2: gated PDF to clean Markdown (data/md/<ID>.md + conversion report)."""
+    from .convert.pipeline import convert as run_convert
+    from .fetch.pdf import normalize_pub_id
+    from .llm_guard import GateError, load_gated_metadata
+
+    pub_id = normalize_pub_id(pub)
+    try:
+        meta = load_gated_metadata(pub_id, RAW_DIR)
+    except GateError as e:
+        typer.echo(f"error: {e}", err=True)
+        raise typer.Exit(code=1) from e
+    out = run_convert(meta, RAW_DIR)
+    typer.echo(f"{pub_id}: wrote {out} (report: {out.with_suffix('.report.json')})")
 
 
 @app.command()
