@@ -1,5 +1,5 @@
 {
- "spec_version": "1.0",
+ "spec_version": "1.1",
  "pub": {
   "pub_id": "FM-3-09",
   "short_name": "FM 3-09",
@@ -398,7 +398,7 @@
   },
   {
    "id": "s12",
-   "title": "Safety: danger close and the sun",
+   "title": "Sun observations: protect your eyes",
    "chapter": null,
    "notes": {
     "talking_points": [],
@@ -407,18 +407,18 @@
    "pattern": "do_dont",
    "do": [
     {
-     "text": "The creeping fire method will be used exclusively during danger close missions.",
-     "cite": [
-      "para-3-29"
-     ],
-     "directive": "will"
-    },
-    {
      "text": "The sun filter should be inspected before use.",
      "cite": [
       "para-C-32.t2"
      ],
      "directive": "should"
+    },
+    {
+     "text": "If the sun filter is damaged or lost, a solar observation may be completed by the card method.",
+     "cite": [
+      "para-C-32.t3"
+     ],
+     "directive": "may"
     }
    ],
    "dont": [
@@ -430,13 +430,14 @@
      "directive": "must"
     },
     {
-     "text": "Do not confuse the creeping fire method with risk-estimate or minimum safe distances.",
+     "text": "Don't skip the precautions: serious eye damage will result if proper precautions are not taken.",
      "cite": [
-      "para-3-29"
+      "para-C-32.t3"
      ],
      "directive": null
     }
-   ]
+   ],
+   "callout": "caution"
   },
   {
    "id": "s13",
@@ -517,7 +518,14 @@
       "para-3-29"
      ]
     }
-   ]
+   ],
+   "caveat": {
+    "text": "Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances.",
+    "cite": [
+     "para-3-29"
+    ],
+    "directive": null
+   }
   },
   {
    "id": "s15",

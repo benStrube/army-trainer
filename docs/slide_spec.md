@@ -43,6 +43,8 @@ The 25–40 slide budget, the ≥ 60% visual-slide target and the deck template 
 
 Every slide has `id`, `pattern`, `title` (≤ 70 characters), optional `chapter` (division node ID) and `notes` (`talking_points[]` of cited items, and `extra_sources[]` whose text goes into the notes).
 
+**Callouts (spec 1.1, WP 5.1d).** Any content slide may set `callout: "caution" | "warning"` when the publication prints its content as a CAUTION or WARNING block. The renderer then labels the slide with that word (D9 colors: black on gold for CAUTION, white on red for WARNING). A callout labels the whole slide, so `plan --check` fails unless **every** on-slide statement cites text the source prints under that label: a node starting with the word, or a text node that follows the label node. Title, divider, acronyms and closing slides can't take a callout. Spec version `1.1` adds `callout` and the `big_numbers` caveat; `1.0` specs stay valid.
+
 `Item` = `{text ≤ 160, cite[], directive?}`. `Stat` = `{value ≤ 12, label ≤ 60, cite[]}`. `Step` = `{label ≤ 40, detail? ≤ 140, cite[]}`.
 
 | Pattern | Use when the source… | Fields (limits) | Draw as |
@@ -60,7 +62,7 @@ Every slide has `id`, `pattern`, `title` (≤ 70 characters), optional `chapter`
 | `checklist` | a set of requirements or considerations | `items: Item[3–7]` | Check icons |
 | `do_dont` | prohibitions and their positive counterparts | `do: Item[1–4]`, `dont: Item[1–4]` | Two columns, green / red marks |
 | `table` | a source table (cut down) | `source_table?`, `columns[2–4] ≤ 30`, `rows: {cells ≤ 80, cite}[1–6]` | Banded table (split rather than cram) |
-| `big_numbers` | a few distances, counts or limits matter | `stats: Stat[2–4]` | Large number tiles |
+| `big_numbers` | a few distances, counts or limits matter | `stats: Stat[2–4]`, `caveat?: Item` (one cited line under the tiles when the numbers could be misread) | Large number tiles, caveat line beneath |
 | `comparison` | two or three things side by side | `columns: {heading ≤ 40, points: Item[1–4]}[2–3]` | Side-by-side columns |
 | `decision_tree` | if/then conditions | `root`, `nodes: {key, kind: question\|outcome, text ≤ 90, yes?, no?, cite}[3–9]`; must form a tree | Yes/no flowchart |
 | `key_terms` | definitions to learn | `terms: {term ≤ 40, definition ≤ 200, cite}[2–6]` | Definition cards |
@@ -91,7 +93,8 @@ The budget is by length only: every chapter gets a divider and one content slide
 | A cite, `chapter`, `source_table` or `extra_sources` id not in the tree | A cite of a whole heading/section/division (except divider blurbs) |
 | An item's `directive` isn't in its cited text | An acronym's meaning differs from the glossary; a key term found nowhere |
 | Slide text says will / must / shall / will not / must not / may not / should not and the cited text doesn't | An acronym used on a slide but missing from the `acronyms` slide (publication designators like "FM 3-09" don't count) |
-| A slide title contains one of those words (titles aren't cited) | A chapter with no divider |
+| A slide title contains one of those words (titles aren't cited) | |
+| A `callout` slide has a statement that isn't under that CAUTION/WARNING block in the source | A chapter with no divider |
 | An acronym entry not in the glossary | |
 | Whole deck: 25–40 slides; ≥ 60% of non-structural slides visual; `title`, `at_a_glance`, `takeaways` (slide 3 or 4), …, `key_terms`, `acronyms`, `closing` order; dividers in document order; a chapter's slides under its own divider | |
 

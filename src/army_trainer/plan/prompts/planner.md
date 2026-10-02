@@ -99,6 +99,8 @@ Wrong: "FOs should know the observation plan" (softened `must`); "FOs must carry
 - **table:** columns ≤ 30 characters, cells ≤ 80; every row cites the table (and the paragraph if it adds to it). Rows, steps and stats have no `directive` field: a directive word in a cell must be the source's word for that rule (the check fails on will/must/shall added there).
 - **decision_tree:** every question has yes and no branches; outcomes don't branch; every node is cited.
 - **key_terms:** 2–6 terms; `definition` in plain words, cited to the glossary term or the inline definition. The official definition goes into the notes automatically.
+- **callout:** set `"callout": "caution"` (or `"warning"`) only on a slide whose every statement comes from a block the publication prints under that label. FM 3-09 has one: the sun-filter CAUTION at para C-32. Don't invent safety labels: a caution in your own words is a `do_dont` or `key_idea` without a callout.
+- **big_numbers caveat:** when the numbers could be misread, add one cited `caveat` line, e.g. FM 3-09 para 3-29: "Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances."
 - **acronyms:** 4–24 entries; every abbreviation on a slide, meaning as in the glossary, cited to the `acr-…` node.
 - **closing:** "Read the full publication" pointer and where to find related publications, cited to the preface or references.
 - **notes:** `talking_points` (≤ 5 cited items) say what the instructor adds; `extra_sources` adds the verbatim text of more nodes. Every cited node's text goes into the notes automatically, so don't copy source text into the spec.
