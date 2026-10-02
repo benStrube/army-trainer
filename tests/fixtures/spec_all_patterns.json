@@ -1,0 +1,748 @@
+{
+ "spec_version": "1.0",
+ "pub": {
+  "pub_id": "FM-3-09",
+  "short_name": "FM 3-09",
+  "title": "Fire Support and Field Artillery Operations",
+  "pub_date": "2024-08-12",
+  "source_sha256": "1fd2a14b86c57f2b7af7d757fd5acba80f0abda59f65e313f5b67526a33303ba"
+ },
+ "audience": "junior Soldiers",
+ "disclaimer": "Unofficial training aid. Not an official Army product. The publication is the authoritative source; read it before acting.",
+ "slides": [
+  {
+   "id": "s01",
+   "title": "Fire Support and Field Artillery Operations",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "title",
+   "subtitle": "FM 3-09 (12 August 2024): key ideas for junior Soldiers"
+  },
+  {
+   "id": "s02",
+   "title": "FM 3-09 at a glance",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "at_a_glance",
+   "purpose": {
+    "text": "The Army's field manual for fire support and field artillery operations.",
+    "cite": [
+     "preface.t1"
+    ],
+    "directive": null
+   },
+   "applies_to": {
+    "text": "Regular Army, Army National Guard, and Army Reserve, unless stated otherwise.",
+    "cite": [
+     "preface.t8"
+    ],
+    "directive": null
+   },
+   "stats": [
+    {
+     "value": "4",
+     "label": "fire support functions",
+     "cite": [
+      "para-1-32"
+     ]
+    },
+    {
+     "value": "2",
+     "label": "field artillery core competencies",
+     "cite": [
+      "para-1-27"
+     ]
+    },
+    {
+     "value": "5",
+     "label": "requirements for accurate predicted fire",
+     "cite": [
+      "para-4-67"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s03",
+   "title": "What this means for you",
+   "chapter": null,
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Each point links to the paragraph it comes from; read it with your team.",
+      "cite": [
+       "para-2-19"
+      ],
+      "directive": null
+     }
+    ],
+    "extra_sources": []
+   },
+   "pattern": "takeaways",
+   "items": [
+    {
+     "text": "Forward observers locate targets accurately, then call for and adjust fire support.",
+     "cite": [
+      "para-2-19"
+     ],
+     "directive": null
+    },
+    {
+     "text": "Danger close is a mandatory call when rounds will land near friendly troops.",
+     "cite": [
+      "para-3-29"
+     ],
+     "directive": null
+    },
+    {
+     "text": "The sun must never be viewed through the telescope without a sun filter.",
+     "cite": [
+      "para-C-32.t2"
+     ],
+     "directive": "must"
+    }
+   ]
+  },
+  {
+   "id": "s04",
+   "title": "What's new since 2020",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "whats_new",
+   "items": [
+    {
+     "text": "Formally recognizes multidomain operations and its tenets.",
+     "cite": [
+      "introduction.li4"
+     ],
+     "directive": null
+    },
+    {
+     "text": "Introduces the operational fires command.",
+     "cite": [
+      "introduction.li7"
+     ],
+     "directive": null
+    },
+    {
+     "text": "Adds tables linking the tenets and imperatives of operations to fire support.",
+     "cite": [
+      "introduction.li5"
+     ],
+     "directive": null
+    }
+   ]
+  },
+  {
+   "id": "s05",
+   "title": "Foundations of Fire Support",
+   "chapter": "ch-1",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "divider",
+   "number": "1",
+   "blurb": null
+  },
+  {
+   "id": "s06",
+   "title": "What field artillery brings",
+   "chapter": "ch-1",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "key_idea",
+   "statement": {
+    "text": "Field artillery has two core competencies: coordinate fire support and deliver indirect fire.",
+    "cite": [
+     "para-1-27",
+     "para-1-27.li1",
+     "para-1-27.li2"
+    ],
+    "directive": null
+   },
+   "points": [
+    {
+     "text": "Indirect fire is fire delivered at a target the firing unit cannot see.",
+     "cite": [
+      "para-1-27.li2"
+     ],
+     "directive": null
+    }
+   ]
+  },
+  {
+   "id": "s07",
+   "title": "The four fire support functions",
+   "chapter": "ch-1",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "checklist",
+   "items": [
+    {
+     "text": "Support forces in contact.",
+     "cite": [
+      "para-1-32.li1"
+     ],
+     "directive": null
+    },
+    {
+     "text": "Support the concept of operations.",
+     "cite": [
+      "para-1-32.li2"
+     ],
+     "directive": null
+    },
+    {
+     "text": "Synchronize and converge fire support systems and effects across all domains.",
+     "cite": [
+      "para-1-32.li3"
+     ],
+     "directive": null
+    },
+    {
+     "text": "Sustain and protect the fire support system.",
+     "cite": [
+      "para-1-32.li4"
+     ],
+     "directive": null
+    }
+   ]
+  },
+  {
+   "id": "s08",
+   "title": "Five phases of forcible entry",
+   "chapter": "ch-6",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "process_flow",
+   "steps": [
+    {
+     "label": "Preparation and deployment",
+     "detail": null,
+     "cite": [
+      "para-6-20"
+     ]
+    },
+    {
+     "label": "Assault",
+     "detail": null,
+     "cite": [
+      "para-6-20"
+     ]
+    },
+    {
+     "label": "Stabilize the lodgment",
+     "detail": null,
+     "cite": [
+      "para-6-20"
+     ]
+    },
+    {
+     "label": "Introduce follow-on forces",
+     "detail": null,
+     "cite": [
+      "para-6-20"
+     ]
+    },
+    {
+     "label": "Terminate or transition",
+     "detail": null,
+     "cite": [
+      "para-6-20"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s09",
+   "title": "The Army targeting process (D3A)",
+   "chapter": "ch-3",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "cycle",
+   "steps": [
+    {
+     "label": "Decide",
+     "detail": null,
+     "cite": [
+      "para-3-31"
+     ]
+    },
+    {
+     "label": "Detect",
+     "detail": null,
+     "cite": [
+      "para-3-31"
+     ]
+    },
+    {
+     "label": "Deliver",
+     "detail": null,
+     "cite": [
+      "para-3-31"
+     ]
+    },
+    {
+     "label": "Assess",
+     "detail": null,
+     "cite": [
+      "para-3-31"
+     ]
+    }
+   ],
+   "center_label": "Targeting"
+  },
+  {
+   "id": "s10",
+   "title": "Who does fire support at company level",
+   "chapter": "ch-2",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "roles",
+   "layout": "cards",
+   "roles": [
+    {
+     "key": "fo",
+     "name": "Forward observer",
+     "abbreviation": "FO",
+     "duties": [
+      {
+       "text": "Locates targets accurately, then calls for and adjusts fire support.",
+       "cite": [
+        "para-2-19"
+       ],
+       "directive": null
+      },
+      {
+       "text": "Must fully understand their part in the observation plan.",
+       "cite": [
+        "para-2-19"
+       ],
+       "directive": "must"
+      }
+     ],
+     "parent": null
+    },
+    {
+     "key": "fso",
+     "name": "Company fire support officer",
+     "abbreviation": "FSO",
+     "duties": [
+      {
+       "text": "Builds the fire support plan from the commander's guidance and submits it for approval.",
+       "cite": [
+        "para-2-17"
+       ],
+       "directive": null
+      }
+     ],
+     "parent": null
+    }
+   ]
+  },
+  {
+   "id": "s11",
+   "title": "Recurring time standards",
+   "chapter": "app-c",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "timeline",
+   "events": [
+    {
+     "when": "Every 30 minutes",
+     "label": "Battalion FDC can provide a new met message",
+     "detail": null,
+     "cite": [
+      "para-C-60"
+     ]
+    },
+    {
+     "when": "Every 2 to 4 hours",
+     "label": "Firing unit should request a new met message",
+     "detail": null,
+     "cite": [
+      "para-C-60"
+     ]
+    },
+    {
+     "when": "Every 24 hours",
+     "label": "At least 6 hours of rest required (rule of thumb)",
+     "detail": null,
+     "cite": [
+      "para-D-134"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s12",
+   "title": "Safety: danger close and the sun",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "do_dont",
+   "do": [
+    {
+     "text": "The creeping fire method will be used exclusively during danger close missions.",
+     "cite": [
+      "para-3-29"
+     ],
+     "directive": "will"
+    },
+    {
+     "text": "The sun filter should be inspected before use.",
+     "cite": [
+      "para-C-32.t2"
+     ],
+     "directive": "should"
+    }
+   ],
+   "dont": [
+    {
+     "text": "The sun must never be viewed through the telescope without a sun filter.",
+     "cite": [
+      "para-C-32.t2"
+     ],
+     "directive": "must"
+    },
+    {
+     "text": "Do not confuse the creeping fire method with risk-estimate or minimum safe distances.",
+     "cite": [
+      "para-3-29"
+     ],
+     "directive": null
+    }
+   ]
+  },
+  {
+   "id": "s13",
+   "title": "Who coordinates fire support",
+   "chapter": "ch-2",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "table",
+   "source_table": "table-2-1",
+   "columns": [
+    "Echelon",
+    "Fire support coordinator",
+    "Assisted by"
+   ],
+   "rows": [
+    {
+     "cells": [
+      "Corps",
+      "FSCOORD (FAB CDR/OFC CDR)",
+      "DFSCOORD"
+     ],
+     "cite": [
+      "table-2-1"
+     ]
+    },
+    {
+     "cells": [
+      "Division",
+      "FSCOORD (DIVARTY CDR)",
+      "DFSCOORD"
+     ],
+     "cite": [
+      "table-2-1"
+     ]
+    },
+    {
+     "cells": [
+      "Brigade",
+      "FSCOORD (FA BN CDR)",
+      "FSO"
+     ],
+     "cite": [
+      "table-2-1"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s14",
+   "title": "Danger close distances",
+   "chapter": "ch-3",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "big_numbers",
+   "stats": [
+    {
+     "value": "600 m",
+     "label": "Mortars or artillery: danger close inside this distance",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "value": "750 m",
+     "label": "Naval surface fires: danger close inside this distance",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "value": "100 m",
+     "label": "Largest creeping adjustment for mortars or artillery",
+     "cite": [
+      "para-3-29"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s15",
+   "title": "Three fire support coordination measures",
+   "chapter": "app-b",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "comparison",
+   "columns": [
+    {
+     "heading": "Coordinated fire line",
+     "points": [
+      {
+       "text": "Beyond it, surface fires may fire at any time without more coordination.",
+       "cite": [
+        "term-coordinated-fire-line"
+       ],
+       "directive": "may"
+      }
+     ]
+    },
+    {
+     "heading": "No-fire area",
+     "points": [
+      {
+       "text": "Fires or their effects are prohibited inside it.",
+       "cite": [
+        "term-no-fire-area"
+       ],
+       "directive": null
+      }
+     ]
+    },
+    {
+     "heading": "Restrictive fire area",
+     "points": [
+      {
+       "text": "Fires that exceed its limits will not be delivered without coordination.",
+       "cite": [
+        "para-B-36"
+       ],
+       "directive": "will not"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s16",
+   "title": "Is it danger close? (mortars or artillery)",
+   "chapter": "ch-3",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "decision_tree",
+   "root": "q1",
+   "nodes": [
+    {
+     "key": "q1",
+     "kind": "question",
+     "text": "Will the predicted impact be within 600 m of friendly troops?",
+     "yes": "o1",
+     "no": "o2",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "key": "o1",
+     "kind": "outcome",
+     "text": "Danger close: include it with the method of engagement.",
+     "yes": null,
+     "no": null,
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "key": "o2",
+     "kind": "outcome",
+     "text": "The 600 m danger close distance is not met.",
+     "yes": null,
+     "no": null,
+     "cite": [
+      "para-3-29"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s17",
+   "title": "Key terms",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "key_terms",
+   "terms": [
+    {
+     "term": "Danger close",
+     "definition": "A mandatory call warning of higher risk to the closest friendly troops from where a weapon will hit.",
+     "cite": [
+      "term-danger-close"
+     ]
+    },
+    {
+     "term": "Forward observer",
+     "definition": "A Soldier with front-line troops trained to adjust gunfire and pass back battlefield information.",
+     "cite": [
+      "term-forward-observer"
+     ]
+    },
+    {
+     "term": "No-fire area",
+     "definition": "An area where fires or their effects are prohibited.",
+     "cite": [
+      "term-no-fire-area"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s18",
+   "title": "Acronyms used in this deck",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "acronyms",
+   "entries": [
+    {
+     "abbreviation": "FA",
+     "meaning": "field artillery",
+     "cite": [
+      "acr-fa"
+     ]
+    },
+    {
+     "abbreviation": "FS",
+     "meaning": "fire support",
+     "cite": [
+      "acr-fs"
+     ]
+    },
+    {
+     "abbreviation": "FO",
+     "meaning": "forward observer",
+     "cite": [
+      "acr-fo"
+     ]
+    },
+    {
+     "abbreviation": "FSO",
+     "meaning": "fire support officer",
+     "cite": [
+      "acr-fso"
+     ]
+    },
+    {
+     "abbreviation": "FSCOORD",
+     "meaning": "fire support coordinator",
+     "cite": [
+      "acr-fscoord"
+     ]
+    },
+    {
+     "abbreviation": "FSE",
+     "meaning": "fire support element",
+     "cite": [
+      "acr-fse"
+     ]
+    },
+    {
+     "abbreviation": "CFL",
+     "meaning": "coordinated fire line",
+     "cite": [
+      "acr-cfl"
+     ]
+    },
+    {
+     "abbreviation": "NFA",
+     "meaning": "no-fire area",
+     "cite": [
+      "acr-nfa"
+     ]
+    },
+    {
+     "abbreviation": "RFA",
+     "meaning": "restrictive fire area",
+     "cite": [
+      "acr-rfa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "s19",
+   "title": "Read the full text",
+   "chapter": null,
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "pattern": "closing",
+   "items": [
+    {
+     "text": "This deck summarizes FM 3-09; the field manual is the authority.",
+     "cite": [
+      "preface.t1"
+     ],
+     "directive": null
+    },
+    {
+     "text": "For forward observer duties, see ATP 3-09.30.",
+     "cite": [
+      "para-2-19"
+     ],
+     "directive": null
+    }
+   ]
+  }
+ ]
+}

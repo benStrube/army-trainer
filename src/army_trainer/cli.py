@@ -75,9 +75,30 @@ def index(pub: str = PUB) -> None:
 
 
 @app.command()
-def plan(pub: str = PUB) -> None:
-    """Stage 4: build the slide spec."""
-    _stub("plan", "2.1-2.3")
+def plan(
+    pub: str = PUB,
+    hints: bool = typer.Option(False, "--hints", help="Write rule-based pattern hints."),
+) -> None:
+    """Stage 4: planning inputs and checks (the spec itself is written in a session, D10)."""
+    if not hints:
+        _stub("plan --packet / --check", "2.2")
+    import json
+
+    from .fetch.pdf import normalize_pub_id
+    from .index.build import JSON_DIR, Indexes
+    from .plan.classify import classify
+    from .structure.models import DocTree
+
+    pub_id = normalize_pub_id(pub)
+    tree_path, index_path = JSON_DIR / f"{pub_id}.json", JSON_DIR / f"{pub_id}.indexes.json"
+    if not (tree_path.exists() and index_path.exists()):
+        typer.echo(f"error: run `convert` and `index` for {pub_id} first.", err=True)
+        raise typer.Exit(code=1)
+    tree = DocTree.model_validate_json(tree_path.read_text())
+    indexes = Indexes.model_validate_json(index_path.read_text())
+    out = JSON_DIR / f"{pub_id}.hints.json"
+    out.write_text(json.dumps([h.to_dict() for h in classify(tree, indexes)], indent=1))
+    typer.echo(f"{pub_id}: wrote {out}")
 
 
 @app.command()

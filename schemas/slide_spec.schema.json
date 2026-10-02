@@ -1,0 +1,1844 @@
+{
+  "$defs": {
+    "AcronymEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "abbreviation": {
+          "description": "",
+          "maxLength": 16,
+          "minLength": 1,
+          "title": "Abbreviation",
+          "type": "string"
+        },
+        "meaning": {
+          "description": "",
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Meaning",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "abbreviation",
+        "meaning",
+        "cite"
+      ],
+      "title": "AcronymEntry",
+      "type": "object"
+    },
+    "AcronymsSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "acronyms",
+          "default": "acronyms",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/AcronymEntry"
+          },
+          "maxItems": 24,
+          "minItems": 4,
+          "title": "Entries",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "entries"
+      ],
+      "title": "AcronymsSlide",
+      "type": "object"
+    },
+    "AtAGlanceSlide": {
+      "additionalProperties": false,
+      "description": "Purpose, who it applies to, and 2-4 headline facts.",
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "at_a_glance",
+          "default": "at_a_glance",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "purpose": {
+          "$ref": "#/$defs/Item"
+        },
+        "applies_to": {
+          "$ref": "#/$defs/Item"
+        },
+        "stats": {
+          "items": {
+            "$ref": "#/$defs/Stat"
+          },
+          "maxItems": 4,
+          "title": "Stats",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "purpose",
+        "applies_to"
+      ],
+      "title": "AtAGlanceSlide",
+      "type": "object"
+    },
+    "BigNumbersSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "big_numbers",
+          "default": "big_numbers",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "stats": {
+          "items": {
+            "$ref": "#/$defs/Stat"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Stats",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "stats"
+      ],
+      "title": "BigNumbersSlide",
+      "type": "object"
+    },
+    "ChecklistSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "checklist",
+          "default": "checklist",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 7,
+          "minItems": 3,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "items"
+      ],
+      "title": "ChecklistSlide",
+      "type": "object"
+    },
+    "ClosingSlide": {
+      "additionalProperties": false,
+      "description": "'Read the full text': where to go next. The renderer repeats the disclaimer.",
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "closing",
+          "default": "closing",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "items"
+      ],
+      "title": "ClosingSlide",
+      "type": "object"
+    },
+    "Column": {
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "description": "",
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Heading",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "heading",
+        "points"
+      ],
+      "title": "Column",
+      "type": "object"
+    },
+    "ComparisonSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "comparison",
+          "default": "comparison",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "$ref": "#/$defs/Column"
+          },
+          "maxItems": 3,
+          "minItems": 2,
+          "title": "Columns",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "columns"
+      ],
+      "title": "ComparisonSlide",
+      "type": "object"
+    },
+    "CycleSlide": {
+      "additionalProperties": false,
+      "description": "Steps that repeat in a loop, e.g. decide - detect - deliver - assess.",
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "cycle",
+          "default": "cycle",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/Step"
+          },
+          "maxItems": 6,
+          "minItems": 3,
+          "title": "Steps",
+          "type": "array"
+        },
+        "center_label": {
+          "anyOf": [
+            {
+              "maxLength": 30,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Center Label"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "steps"
+      ],
+      "title": "CycleSlide",
+      "type": "object"
+    },
+    "DecisionNode": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "maxLength": 40,
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Key",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "question",
+            "outcome"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "text": {
+          "description": "",
+          "maxLength": 90,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "yes": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "pattern": "^[a-z0-9][a-z0-9_-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Yes"
+        },
+        "no": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "pattern": "^[a-z0-9][a-z0-9_-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "No"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "key",
+        "kind",
+        "text",
+        "cite"
+      ],
+      "title": "DecisionNode",
+      "type": "object"
+    },
+    "DecisionTreeSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "decision_tree",
+          "default": "decision_tree",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "root": {
+          "maxLength": 40,
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Root",
+          "type": "string"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/DecisionNode"
+          },
+          "maxItems": 9,
+          "minItems": 3,
+          "title": "Nodes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "root",
+        "nodes"
+      ],
+      "title": "DecisionTreeSlide",
+      "type": "object"
+    },
+    "DividerSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "divider",
+          "default": "divider",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "number": {
+          "anyOf": [
+            {
+              "maxLength": 4,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "'2', 'B'.",
+          "title": "Number"
+        },
+        "blurb": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Item"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "id",
+        "title"
+      ],
+      "title": "DividerSlide",
+      "type": "object"
+    },
+    "DoDontSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "do_dont",
+          "default": "do_dont",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "do": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Do",
+          "type": "array"
+        },
+        "dont": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Dont",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "do",
+        "dont"
+      ],
+      "title": "DoDontSlide",
+      "type": "object"
+    },
+    "Event": {
+      "additionalProperties": false,
+      "properties": {
+        "when": {
+          "description": "As written in the source, e.g. 'H-6', 'within 24 hours', 'Phase II'.",
+          "maxLength": 24,
+          "minLength": 1,
+          "title": "When",
+          "type": "string"
+        },
+        "label": {
+          "description": "",
+          "maxLength": 60,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "maxLength": 140,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detail"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "when",
+        "label",
+        "cite"
+      ],
+      "title": "Event",
+      "type": "object"
+    },
+    "Item": {
+      "additionalProperties": false,
+      "description": "One cited statement: a bullet, a card line, a checklist entry.",
+      "properties": {
+        "text": {
+          "description": "Plain language for junior Soldiers (~8th grade).",
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        },
+        "directive": {
+          "anyOf": [
+            {
+              "enum": [
+                "will",
+                "will not",
+                "must",
+                "must not",
+                "shall",
+                "may",
+                "may not",
+                "should",
+                "should not"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Exact directive verb when the item states a requirement; it must appear in `text` and in the cited source.",
+          "title": "Directive"
+        }
+      },
+      "required": [
+        "text",
+        "cite"
+      ],
+      "title": "Item",
+      "type": "object"
+    },
+    "KeyIdeaSlide": {
+      "additionalProperties": false,
+      "description": "One big statement (often a definition) with up to three supporting points.",
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "key_idea",
+          "default": "key_idea",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "statement": {
+          "$ref": "#/$defs/Item"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 3,
+          "title": "Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "statement"
+      ],
+      "title": "KeyIdeaSlide",
+      "type": "object"
+    },
+    "KeyTermsSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "key_terms",
+          "default": "key_terms",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "terms": {
+          "items": {
+            "$ref": "#/$defs/TermCard"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "title": "Terms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "terms"
+      ],
+      "title": "KeyTermsSlide",
+      "type": "object"
+    },
+    "Notes": {
+      "additionalProperties": false,
+      "description": "Speaker notes. The renderer appends the verbatim text of every cited node.",
+      "properties": {
+        "talking_points": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 5,
+          "title": "Talking Points",
+          "type": "array"
+        },
+        "extra_sources": {
+          "description": "More nodes whose verbatim text goes in the notes.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "title": "Extra Sources",
+          "type": "array"
+        }
+      },
+      "title": "Notes",
+      "type": "object"
+    },
+    "ProcessFlowSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "process_flow",
+          "default": "process_flow",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/Step"
+          },
+          "maxItems": 7,
+          "minItems": 3,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "steps"
+      ],
+      "title": "ProcessFlowSlide",
+      "type": "object"
+    },
+    "PubRef": {
+      "additionalProperties": false,
+      "properties": {
+        "pub_id": {
+          "description": "e.g. 'FM-3-09'",
+          "title": "Pub Id",
+          "type": "string"
+        },
+        "short_name": {
+          "description": "As printed in footers, e.g. 'FM 3-09'.",
+          "title": "Short Name",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "pub_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pub Date"
+        },
+        "source_sha256": {
+          "description": "Ties the spec to the exact PDF the tree came from.",
+          "title": "Source Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "pub_id",
+        "short_name",
+        "title",
+        "source_sha256"
+      ],
+      "title": "PubRef",
+      "type": "object"
+    },
+    "Role": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "maxLength": 40,
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Key",
+          "type": "string"
+        },
+        "name": {
+          "description": "Role name as written in the publication.",
+          "maxLength": 50,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "abbreviation": {
+          "anyOf": [
+            {
+              "maxLength": 12,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Abbreviation"
+        },
+        "duties": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Duties",
+          "type": "array"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "pattern": "^[a-z0-9][a-z0-9_-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "`key` of the role above (hierarchy).",
+          "title": "Parent"
+        }
+      },
+      "required": [
+        "key",
+        "name",
+        "duties"
+      ],
+      "title": "Role",
+      "type": "object"
+    },
+    "RolesSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "roles",
+          "default": "roles",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "layout": {
+          "default": "cards",
+          "enum": [
+            "cards",
+            "hierarchy"
+          ],
+          "title": "Layout",
+          "type": "string"
+        },
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/Role"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "title": "Roles",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "roles"
+      ],
+      "title": "RolesSlide",
+      "type": "object"
+    },
+    "Row": {
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Cells",
+          "type": "array"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cells",
+        "cite"
+      ],
+      "title": "Row",
+      "type": "object"
+    },
+    "Stat": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "description": "Short number or term shown large, e.g. '4', '3 km', 'D3A'.",
+          "maxLength": 12,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        },
+        "label": {
+          "description": "",
+          "maxLength": 60,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "value",
+        "label",
+        "cite"
+      ],
+      "title": "Stat",
+      "type": "object"
+    },
+    "Step": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "description": "A few words, verb first where possible.",
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "maxLength": 140,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detail"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "label",
+        "cite"
+      ],
+      "title": "Step",
+      "type": "object"
+    },
+    "TableSlide": {
+      "additionalProperties": false,
+      "description": "A source table cut down to what a junior Soldier needs (split rather than cram).",
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "table",
+          "default": "table",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "source_table": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Table"
+        },
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Columns",
+          "type": "array"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/Row"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Rows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "columns",
+        "rows"
+      ],
+      "title": "TableSlide",
+      "type": "object"
+    },
+    "TakeawaysSlide": {
+      "additionalProperties": false,
+      "description": "'What this means for you': the 3-5 most important points for a junior Soldier.",
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "takeaways",
+          "default": "takeaways",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 5,
+          "minItems": 3,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "items"
+      ],
+      "title": "TakeawaysSlide",
+      "type": "object"
+    },
+    "TermCard": {
+      "additionalProperties": false,
+      "properties": {
+        "term": {
+          "description": "",
+          "maxLength": 40,
+          "minLength": 1,
+          "title": "Term",
+          "type": "string"
+        },
+        "definition": {
+          "description": "Plain-language definition; the official one goes in notes.",
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Definition",
+          "type": "string"
+        },
+        "cite": {
+          "description": "Tree nodes this text rests on.",
+          "items": {
+            "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+            "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Cite",
+          "type": "array"
+        }
+      },
+      "required": [
+        "term",
+        "definition",
+        "cite"
+      ],
+      "title": "TermCard",
+      "type": "object"
+    },
+    "TimelineSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "timeline",
+          "default": "timeline",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/Event"
+          },
+          "maxItems": 7,
+          "minItems": 3,
+          "title": "Events",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "events"
+      ],
+      "title": "TimelineSlide",
+      "type": "object"
+    },
+    "TitleSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "title",
+          "default": "title",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "subtitle": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subtitle"
+        }
+      },
+      "required": [
+        "id",
+        "title"
+      ],
+      "title": "TitleSlide",
+      "type": "object"
+    },
+    "WhatsNewSlide": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "'s01', 's02', ... in deck order.",
+          "pattern": "^s\\d{2,3}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "description": "",
+          "maxLength": 70,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "chapter": {
+          "anyOf": [
+            {
+              "description": "Document-tree node id, e.g. 'para-2-5', 'table-1-2', 'term-kill-box'.",
+              "pattern": "^[A-Za-z0-9][\\w.\\-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Division id this slide belongs to, e.g. 'ch-2'.",
+          "title": "Chapter"
+        },
+        "notes": {
+          "$ref": "#/$defs/Notes"
+        },
+        "pattern": {
+          "const": "whats_new",
+          "default": "whats_new",
+          "title": "Pattern",
+          "type": "string"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/Item"
+          },
+          "maxItems": 6,
+          "minItems": 2,
+          "title": "Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "items"
+      ],
+      "title": "WhatsNewSlide",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Spec Version",
+      "type": "string"
+    },
+    "pub": {
+      "$ref": "#/$defs/PubRef"
+    },
+    "audience": {
+      "const": "junior Soldiers",
+      "default": "junior Soldiers",
+      "title": "Audience",
+      "type": "string"
+    },
+    "disclaimer": {
+      "const": "Unofficial training aid. Not an official Army product. The publication is the authoritative source; read it before acting.",
+      "default": "Unofficial training aid. Not an official Army product. The publication is the authoritative source; read it before acting.",
+      "title": "Disclaimer",
+      "type": "string"
+    },
+    "slides": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "acronyms": "#/$defs/AcronymsSlide",
+            "at_a_glance": "#/$defs/AtAGlanceSlide",
+            "big_numbers": "#/$defs/BigNumbersSlide",
+            "checklist": "#/$defs/ChecklistSlide",
+            "closing": "#/$defs/ClosingSlide",
+            "comparison": "#/$defs/ComparisonSlide",
+            "cycle": "#/$defs/CycleSlide",
+            "decision_tree": "#/$defs/DecisionTreeSlide",
+            "divider": "#/$defs/DividerSlide",
+            "do_dont": "#/$defs/DoDontSlide",
+            "key_idea": "#/$defs/KeyIdeaSlide",
+            "key_terms": "#/$defs/KeyTermsSlide",
+            "process_flow": "#/$defs/ProcessFlowSlide",
+            "roles": "#/$defs/RolesSlide",
+            "table": "#/$defs/TableSlide",
+            "takeaways": "#/$defs/TakeawaysSlide",
+            "timeline": "#/$defs/TimelineSlide",
+            "title": "#/$defs/TitleSlide",
+            "whats_new": "#/$defs/WhatsNewSlide"
+          },
+          "propertyName": "pattern"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/TitleSlide"
+          },
+          {
+            "$ref": "#/$defs/AtAGlanceSlide"
+          },
+          {
+            "$ref": "#/$defs/TakeawaysSlide"
+          },
+          {
+            "$ref": "#/$defs/WhatsNewSlide"
+          },
+          {
+            "$ref": "#/$defs/DividerSlide"
+          },
+          {
+            "$ref": "#/$defs/KeyIdeaSlide"
+          },
+          {
+            "$ref": "#/$defs/ProcessFlowSlide"
+          },
+          {
+            "$ref": "#/$defs/CycleSlide"
+          },
+          {
+            "$ref": "#/$defs/RolesSlide"
+          },
+          {
+            "$ref": "#/$defs/TimelineSlide"
+          },
+          {
+            "$ref": "#/$defs/ChecklistSlide"
+          },
+          {
+            "$ref": "#/$defs/DoDontSlide"
+          },
+          {
+            "$ref": "#/$defs/TableSlide"
+          },
+          {
+            "$ref": "#/$defs/BigNumbersSlide"
+          },
+          {
+            "$ref": "#/$defs/ComparisonSlide"
+          },
+          {
+            "$ref": "#/$defs/DecisionTreeSlide"
+          },
+          {
+            "$ref": "#/$defs/KeyTermsSlide"
+          },
+          {
+            "$ref": "#/$defs/AcronymsSlide"
+          },
+          {
+            "$ref": "#/$defs/ClosingSlide"
+          }
+        ]
+      },
+      "maxItems": 60,
+      "minItems": 3,
+      "title": "Slides",
+      "type": "array"
+    }
+  },
+  "required": [
+    "pub",
+    "slides"
+  ],
+  "title": "SlideSpec",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "army-trainer/slide_spec.schema.json"
+}

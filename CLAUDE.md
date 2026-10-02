@@ -8,6 +8,7 @@ A local CLI that turns **public (Distribution A) Army publications** (regulation
 Key docs:
 - `docs/PROJECT_SCOPE.md`: architecture, decisions log (§0, D1–D10), risks, open questions
 - `docs/decisions/no-api-key.md`: **no API key (D10)**: how planning/review run in-session; **branding palette (D9)**
+- `docs/doc_tree.md`, `docs/indexes.md`, `docs/slide_spec.md`: the data contracts between stages (tree → indexes → slide spec)
 - `docs/ACTION_PLAN.md`: work packages, **model assignments**, stop points, **current status**
 - `docs/SETUP_NOTES.md`: branding research background (the palette in use is D9)
 - `docs/handovers/`: handover notes between sessions (newest file = where to resume)

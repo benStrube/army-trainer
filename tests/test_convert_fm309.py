@@ -4,6 +4,7 @@ Skipped when the PDF is not in the checkout. The full-document test takes about 
 run it with RUN_SLOW=1. Refresh the golden excerpt with UPDATE_GOLDEN=1 after an intended change.
 """
 
+import json
 import os
 import re
 from collections import Counter
@@ -14,6 +15,8 @@ import pytest
 
 from army_trainer.convert.pipeline import convert_pdf
 from army_trainer.fetch.fetch import ingest
+from army_trainer.index.build import build_indexes
+from army_trainer.plan.classify import classify
 from army_trainer.structure.parse import parse_markdown
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,6 +92,16 @@ def test_full_document_against_pdf_ground_truth(gated):
     kinds = Counter(n.type for d in tree.divisions for n in _walk(d))
     assert kinds["paragraph"] == 933 and kinds["term"] == report.glossary_terms
     assert [d.id for d in tree.divisions][:3] == ["preface", "introduction", "ch-1"]
+
+    # WP 2.1 classifier: regression guard on the reviewed, blind-labelled sample
+    review = json.loads((Path(__file__).parent / "fixtures/classifier_review.json").read_text())
+    hints = {h.node_id: h for h in classify(tree, build_indexes(tree))}
+    units = review["units"]
+    top3 = sum(u["gold"] in list(hints[u["node_id"]].scores)[:3] for u in units) / len(units)
+    ok = sum(hints[u["node_id"]].primary in [u["gold"], *u["acceptable"]] for u in units) / len(
+        units
+    )
+    assert top3 >= 0.65 and ok >= 0.6, (top3, ok)
 
 
 def _walk(node):

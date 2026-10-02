@@ -1,0 +1,513 @@
+{
+ "pub_id": "FM-3-09",
+ "labelled_by": "Opus, blind to classifier output",
+ "units": [
+  {
+   "sample": "development",
+   "node_id": "ch-2.sec-i",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-2.sec-i.command-posts.brigade-combat-team-fire-support-element",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-2.sec-i.joint-fire-support-command-posts.maritime-operations-center",
+   "gold": "key_idea",
+   "acceptable": [
+    "roles"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-2.sec-i.joint-fire-support-command-posts.united-states-marine-corps-command-and-control-a.air-naval-ground-liaison-company",
+   "gold": "key_idea",
+   "acceptable": [
+    "roles"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-3.sec-i.sustain-and-protect-the-fire-support-system.sustainment",
+   "gold": "checklist",
+   "acceptable": [
+    "roles"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-3.sec-ii.suppression-of-enemy-air-defenses.targeting-and-synchronization",
+   "gold": "key_idea",
+   "acceptable": [
+    "process_flow"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-4.sec-iv.the-principles-of-fire-support-execution-applied.weight-to-the-main-effort",
+   "gold": "checklist",
+   "acceptable": []
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-4.sec-iv.field-artillery-inherent-responsibilities-in-arm-2.general-support",
+   "gold": "table",
+   "acceptable": [
+    "key_idea",
+    "comparison"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6",
+   "gold": "divider",
+   "acceptable": []
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-ii.forcible-entry",
+   "gold": "key_idea",
+   "acceptable": [
+    "key_terms"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-iii.common-defensive-control-measures",
+   "gold": "key_terms",
+   "acceptable": [
+    "checklist",
+    "comparison"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-iii.fire-support-considerations-and-the-characterist.flexibility",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-iii.types-of-defensive-operations.retrograde.planning-for-retrograde-operations",
+   "gold": "key_idea",
+   "acceptable": []
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-iii.types-of-defensive-operations.fire-support-considerations-for-sustainment-in-d",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-iv.types-of-offensive-operations.sustainment-for-fire-support-in-offensive-operat",
+   "gold": "checklist",
+   "acceptable": [
+    "process_flow"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-v.enabling-operations.encirclement",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist",
+    "process_flow"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "ch-6.sec-v.reconstitution-operations",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-b.sec-ii.restrictive-fire-area",
+   "gold": "key_idea",
+   "acceptable": [
+    "key_terms"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-b.sec-iv.artillery-target-intelligence-zone",
+   "gold": "key_idea",
+   "acceptable": []
+  },
+  {
+   "sample": "development",
+   "node_id": "app-c.sec-i.the-threat-to-communications",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-c.sec-iii.accurate-firing-unit-location.artillery-astronomic-observation-using-the-sun",
+   "gold": "do_dont",
+   "acceptable": [
+    "process_flow"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-i.lethal-fire-support-in-urban-areas.counterfire",
+   "gold": "do_dont",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-i.lethal-fire-support-in-urban-areas.air-and-army-aviation-support",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-ii",
+   "gold": "checklist",
+   "acceptable": [
+    "key_terms"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-iii",
+   "gold": "key_idea",
+   "acceptable": []
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-iii.targeting",
+   "gold": "checklist",
+   "acceptable": []
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-iv.munitions",
+   "gold": "checklist",
+   "acceptable": [
+    "comparison"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-v",
+   "gold": "key_idea",
+   "acceptable": [
+    "comparison"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-d.sec-vi.night-offensive-operations",
+   "gold": "comparison",
+   "acceptable": [
+    "decision_tree"
+   ]
+  },
+  {
+   "sample": "development",
+   "node_id": "app-e.sec-i.planned-targets-and-air-missions",
+   "gold": "comparison",
+   "acceptable": [
+    "key_terms"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "introduction",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-1.fire-support-and-the-threat",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-1.operational-approach-and-operational-framework",
+   "gold": "key_terms",
+   "acceptable": [
+    "comparison",
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-2.sec-i.fire-support-personnel.company-fire-support-officer",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-2.sec-i.fire-support-personnel.forward-observer",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-3.sec-ii.suppression-of-enemy-air-defenses.surface-component-capabilities",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-3.sec-ii.fire-support-and-the-military-decision-making-pr.receipt-of-mission.fire-support-running-estimate",
+   "gold": "process_flow",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-3.sec-ii.fire-support-and-the-military-decision-making-pr.commander-s-intent-and-concept-of-operations.commander-s-guidance-for-fire-support",
+   "gold": "checklist",
+   "acceptable": []
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-3.sec-iii.rehearsals.fire-support-rehearsal",
+   "gold": "process_flow",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-4.sec-iii",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-4.sec-v.provide-proactive-and-responsive-fires-that-crea.massed-fires",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-6.sec-ii.forcible-entry-planning-considerations",
+   "gold": "process_flow",
+   "acceptable": [
+    "timeline",
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "ch-6.sec-iv.the-enemy-defense.fire-support-considerations-and-characteristics.tempo",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-b.sec-i.coordinated-fire-line",
+   "gold": "key_idea",
+   "acceptable": [
+    "key_terms"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-b.sec-iii.boundaries",
+   "gold": "comparison",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-c.sec-i.maintenance-or-system-fault",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-c.sec-iii.accurate-firing-unit-location",
+   "gold": "key_idea",
+   "acceptable": [
+    "checklist",
+    "roles"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-c.sec-iii.accurate-weapon-and-ammunition-information",
+   "gold": "checklist",
+   "acceptable": [
+    "key_terms"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-c.sec-iii.verifying-met-messages",
+   "gold": "process_flow",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "held_out",
+   "node_id": "app-d.sec-v.positioning",
+   "gold": "checklist",
+   "acceptable": [
+    "do_dont"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-2.sec-i.command-posts.theater-fires-command",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-2.sec-i.command-posts.joint-air-ground-integration-center",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-2.sec-iii.surface-to-surface-capabilities",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-3.sec-iii.rehearsals.field-artillery-technical-rehearsals",
+   "gold": "checklist",
+   "acceptable": [
+    "process_flow"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-4.sec-ii.theater-fires-command",
+   "gold": "roles",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-6.sec-iii.fire-support-considerations-and-the-characterist.disruption",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-6.sec-iii.fire-support-considerations-and-the-characterist.mass-and-concentration",
+   "gold": "checklist",
+   "acceptable": [
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "ch-6.sec-iii.transition-to-the-offense",
+   "gold": "key_idea",
+   "acceptable": []
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-a.sec-i.developing-the-fires-paragraph",
+   "gold": "process_flow",
+   "acceptable": [
+    "checklist"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-a.sec-i.essential-fire-support-task-development.task",
+   "gold": "checklist",
+   "acceptable": [
+    "key_terms",
+    "key_idea"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-b.sec-v",
+   "gold": "key_idea",
+   "acceptable": []
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-c",
+   "gold": "divider",
+   "acceptable": []
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-c.sec-i.the-threat-to-global-positioning-systems",
+   "gold": "checklist",
+   "acceptable": [
+    "do_dont"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-c.sec-iii.accurate-firing-unit-location.measuring-an-azimuth-using-aiming-point-deflecti",
+   "gold": "key_idea",
+   "acceptable": [
+    "big_numbers"
+   ]
+  },
+  {
+   "sample": "final_blind",
+   "node_id": "app-d.sec-i.target-acquisition-and-observation-consideration.observation",
+   "gold": "checklist",
+   "acceptable": [
+    "do_dont"
+   ]
+  }
+ ]
+}
