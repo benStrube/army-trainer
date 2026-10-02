@@ -20,7 +20,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 |---|---|---|---|---|---|
 | 0.1 | Scaffold: `uv` project, `src/army_trainer/` package layout (§5 of scope), Typer CLI with stub commands, pytest, ruff, GitHub Actions CI, `.gitignore` for `data/` and `out/` | Sonnet | `uv run army-trainer --help` works; CI green; tests run | ➡️ continue | done |
 | 0.2 | Fetch stage + **Distribution A gate**: download/accept PDF, metadata JSON (title, date, proponent, distribution, SHA-256, source URL), gate that rejects anything not Distribution A; API-client guard that refuses ungated docs | Sonnet | Pilot PDFs (AR 600-20, AR 670-1, AR 623-3) in `data/raw/` with metadata; gate unit tests including a rejection case | ➡️ continue | blocked (code done; PDFs blocked by network policy) |
-| 0.3 | Branding research subtask (see `docs/SETUP_NOTES.md`): pull brand rules and examples from several army.mil sites | Sonnet | Every checklist item in `SETUP_NOTES.md` filled in with source URL + date, or marked "not found" with what was searched | 🛑 **STOP** → Opus | todo |
+| 0.3 | Branding research subtask (see `docs/SETUP_NOTES.md`): pull brand rules and examples from several army.mil sites | Sonnet | Every checklist item in `SETUP_NOTES.md` filled in with source URL + date, or marked "not found" with what was searched | 🛑 **STOP** → Opus | blocked (army.mil unreachable; see SETUP_NOTES) |
 
 ### Phase 1 — Convert
 | WP | Work | Model | Exit criteria | Stop | Status |
