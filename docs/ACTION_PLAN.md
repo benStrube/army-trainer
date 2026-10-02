@@ -64,7 +64,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 |---|---|---|---|
 | 5.1a | Converter: repair 7 damaged tables, word joins, split references; golden tests | Opus | done |
 | 5.1b | Decision D15: per-slide, term-aware readability metric for §8 | Opus | done |
-| 5.1c | Spec rewrite for readability + Soldier-task coverage (D-81, C-9, C-67, C-63), swap low-value slides; packet flags Soldier-actionable requirements; fidelity re-review | Opus | done (s12 caveat waits for 5.1g) |
+| 5.1c | Spec rewrite for readability + Soldier-task coverage (D-81, C-9, C-67, C-63), swap low-value slides; packet flags Soldier-actionable requirements; fidelity re-review | Opus | done |
 | 5.1d | Schema: `callout` (caution/warning) and `big_numbers` caveat; playbook | Opus | done |
 | 5.1e | QA readability check per D15 | Sonnet | done |
 | 5.1f | Renderer: one-line big numbers, shared sibling font size, table split/14 pt floor, panel sizing, title slide | Sonnet | done |
