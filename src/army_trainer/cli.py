@@ -86,6 +86,10 @@ def plan(
     partial: bool = typer.Option(
         False, "--partial", help="With --check: skip deck-level checks (a chapter dry run)."
     ),
+    review: bool = typer.Option(
+        False, "--review", help="Print each cited statement next to its cited text."
+    ),
+    slides: str | None = typer.Option(None, help="With --review: slide ids, e.g. s05,s06."),
     target: int = typer.Option(34, help="With --packet: total slides to budget (25-40)."),
 ) -> None:
     """Stage 4: planning inputs and checks (the spec itself is written in a session, D10)."""
@@ -96,8 +100,8 @@ def plan(
     from .llm_guard import GateError, load_gated_metadata
     from .structure.models import DocTree
 
-    if not (hints or packet or check):
-        typer.echo("error: choose --hints, --packet or --check.", err=True)
+    if not (hints or packet or check or review):
+        typer.echo("error: choose --hints, --packet, --check or --review.", err=True)
         raise typer.Exit(code=2)
     pub_id = normalize_pub_id(pub)
     try:  # the session reads what these commands write: gate first (D10)
@@ -132,9 +136,7 @@ def plan(
             typer.echo(f"error: {e}", err=True)
             raise typer.Exit(code=2) from e
         typer.echo(f"{pub_id}: wrote {readme.parent}/ (start with README.md)")
-    if check:
-        from .plan.check import check_spec
-
+    if check or review:
         spec_path = spec or Path("specs") / f"{pub_id}.spec.json"
         if not spec_path.exists():
             typer.echo(f"error: no spec at {spec_path}", err=True)
@@ -144,6 +146,15 @@ def plan(
         except json.JSONDecodeError as e:
             typer.echo(f"error: {spec_path} is not valid JSON: {e}", err=True)
             raise typer.Exit(code=1) from e
+    if review:
+        from .plan.check import review_lines
+
+        ids = set(slides.split(",")) if slides else None
+        for line in review_lines(data, tree, ids):
+            typer.echo(line)
+    if check:
+        from .plan.check import check_spec
+
         findings = check_spec(data, tree, partial=partial)
         for f in findings:
             typer.echo(str(f))

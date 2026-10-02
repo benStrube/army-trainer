@@ -1,0 +1,1917 @@
+{
+ "spec_version": "1.0",
+ "pub": {
+  "pub_id": "FM-3-09",
+  "short_name": "FM 3-09",
+  "title": "Fire Support and Field Artillery Operations",
+  "pub_date": "2024-08-12",
+  "source_sha256": "1fd2a14b86c57f2b7af7d757fd5acba80f0abda59f65e313f5b67526a33303ba"
+ },
+ "audience": "junior Soldiers",
+ "disclaimer": "Unofficial training aid. Not an official Army product. The publication is the authoritative source; read it before acting.",
+ "slides": [
+  {
+   "pattern": "title",
+   "title": "Fire Support and Field Artillery Operations",
+   "subtitle": "FM 3-09 (12 August 2024): key ideas for junior Soldiers",
+   "id": "s01",
+   "chapter": null
+  },
+  {
+   "pattern": "at_a_glance",
+   "title": "FM 3-09 at a glance",
+   "purpose": {
+    "text": "The Army's field manual for fire support and field artillery operations.",
+    "cite": [
+     "preface.t1"
+    ]
+   },
+   "applies_to": {
+    "text": "Regular Army, Army National Guard and Army Reserve, unless the manual says otherwise.",
+    "cite": [
+     "preface.t8"
+    ]
+   },
+   "stats": [
+    {
+     "value": "4",
+     "label": "fire support functions",
+     "cite": [
+      "para-1-32"
+     ]
+    },
+    {
+     "value": "5",
+     "label": "requirements for accurate predicted fire",
+     "cite": [
+      "para-4-67"
+     ]
+    },
+    {
+     "value": "600 m",
+     "label": "danger close distance for mortars or artillery",
+     "cite": [
+      "para-3-29"
+     ]
+    }
+   ],
+   "id": "s02",
+   "chapter": null
+  },
+  {
+   "pattern": "takeaways",
+   "title": "What this means for you",
+   "items": [
+    {
+     "text": "Forward observers locate targets accurately, then call for and adjust fire support.",
+     "cite": [
+      "para-2-19"
+     ]
+    },
+    {
+     "text": "Danger close: rounds from mortars or artillery predicted to land within 600 meters of friendly troops.",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "text": "Fires that are not pre-cleared or allowed by a permissive measure must be positively cleared.",
+     "cite": [
+      "para-3-50"
+     ],
+     "directive": "must"
+    },
+    {
+     "text": "In a no-fire area, fires or their effects are prohibited.",
+     "cite": [
+      "para-B-33"
+     ]
+    },
+    {
+     "text": "The sun must never be viewed through the telescope without a sun filter.",
+     "cite": [
+      "para-C-32.t2"
+     ],
+     "directive": "must"
+    }
+   ],
+   "id": "s03",
+   "chapter": null
+  },
+  {
+   "pattern": "whats_new",
+   "title": "What changed from the 2020 edition",
+   "items": [
+    {
+     "text": "Formally recognizes multidomain operations and its tenets.",
+     "cite": [
+      "introduction.li4"
+     ]
+    },
+    {
+     "text": "Lines up with FM 3-0 on competition, crisis and armed conflict.",
+     "cite": [
+      "introduction.li1"
+     ]
+    },
+    {
+     "text": "Changes several fire support terms and definitions, including danger close.",
+     "cite": [
+      "introduction.li8",
+      "table-introductory-1"
+     ]
+    },
+    {
+     "text": "Introduces the operational fires command.",
+     "cite": [
+      "introduction.li7"
+     ]
+    },
+    {
+     "text": "Adds a large-scale combat battlefield framework figure in chapter 6.",
+     "cite": [
+      "introduction.li9"
+     ]
+    },
+    {
+     "text": "Adds a maritime section to the appendix on environment and terrain.",
+     "cite": [
+      "introduction.li10"
+     ]
+    }
+   ],
+   "id": "s04",
+   "chapter": null
+  },
+  {
+   "pattern": "divider",
+   "title": "Foundations of Fire Support",
+   "chapter": "ch-1",
+   "number": "1",
+   "blurb": {
+    "text": "Fire support brings fires, target acquisition, and attack systems together to support the commander's plan.",
+    "cite": [
+     "ch-1.t1"
+    ]
+   },
+   "id": "s05"
+  },
+  {
+   "pattern": "key_idea",
+   "chapter": "ch-1",
+   "title": "Fire support: what it is and what field artillery does",
+   "statement": {
+    "text": "Fire support brings indirect fires, target acquisition, armed aircraft, and other attack systems together against targets to support the commander's plan.",
+    "cite": [
+     "ch-1.t1"
+    ]
+   },
+   "points": [
+    {
+     "text": "The fire support system's elements: command and control, target acquisition, and attack/delivery systems.",
+     "cite": [
+      "para-1-28.li1",
+      "para-1-28.li2",
+      "para-1-28.li3"
+     ]
+    },
+    {
+     "text": "Field artillery's role: destroy, neutralize, or suppress the enemy by cannon, rocket, and missile fire, and integrate all fire support into operations.",
+     "cite": [
+      "para-1-26"
+     ]
+    },
+    {
+     "text": "Fire support must always be conducted in the spirit of the offense, even in the defense.",
+     "cite": [
+      "para-1-36"
+     ],
+     "directive": "must"
+    }
+   ],
+   "id": "s06"
+  },
+  {
+   "pattern": "roles",
+   "chapter": "ch-1",
+   "layout": "cards",
+   "title": "Who trains you",
+   "roles": [
+    {
+     "key": "cdr",
+     "name": "Commanders",
+     "duties": [
+      {
+       "text": "Commanders are the primary trainers.",
+       "cite": [
+        "para-1-43.li1"
+       ]
+      },
+      {
+       "text": "Train and resource training one echelon down, and evaluate two echelons down.",
+       "cite": [
+        "para-1-45"
+       ]
+      }
+     ]
+    },
+    {
+     "key": "ldr",
+     "name": "Subordinate unit leaders",
+     "duties": [
+      {
+       "text": "Primary trainers of their elements. Example: a platoon leader is responsible for the platoon's training and performance.",
+       "cite": [
+        "para-1-45"
+       ]
+      }
+     ]
+    },
+    {
+     "key": "nco",
+     "name": "Noncommissioned officers",
+     "duties": [
+      {
+       "text": "Train individuals, crews, and small teams; advise commanders on all aspects of training.",
+       "cite": [
+        "para-1-43.li2"
+       ]
+      },
+      {
+       "text": "Train and enforce task standards.",
+       "cite": [
+        "para-1-47.li3"
+       ]
+      },
+      {
+       "text": "Keep training focused on sustaining strengths and improving weaknesses.",
+       "cite": [
+        "para-1-47.li4"
+       ]
+      }
+     ]
+    }
+   ],
+   "id": "s07"
+  },
+  {
+   "pattern": "divider",
+   "title": "The Fire Support System",
+   "chapter": "ch-2",
+   "number": "2",
+   "blurb": {
+    "text": "Fire support works as a system with three parts: command and control, target acquisition, and attack and delivery.",
+    "cite": [
+     "ch-2.t1"
+    ]
+   },
+   "id": "s08"
+  },
+  {
+   "pattern": "roles",
+   "title": "Fire support people at company and platoon",
+   "chapter": "ch-2",
+   "layout": "cards",
+   "roles": [
+    {
+     "key": "fo",
+     "name": "Forward observer",
+     "abbreviation": "FO",
+     "duties": [
+      {
+       "text": "The fire support representative for the maneuver platoon.",
+       "cite": [
+        "para-2-19"
+       ]
+      },
+      {
+       "text": "Main job: locate targets accurately, then call for and adjust fire support.",
+       "cite": [
+        "para-2-19"
+       ]
+      },
+      {
+       "text": "The FO must fully understand their part in the observation plan.",
+       "cite": [
+        "para-2-19"
+       ],
+       "directive": "must"
+      }
+     ]
+    },
+    {
+     "key": "fs-sgt",
+     "name": "Fire support sergeant",
+     "duties": [
+      {
+       "text": "Senior enlisted assistant to the company fire support officer; does that officer's duties when they are absent.",
+       "cite": [
+        "para-2-18"
+       ]
+      },
+      {
+       "text": "Trains the fire support team and the forward observers.",
+       "cite": [
+        "para-2-18"
+       ]
+      }
+     ]
+    },
+    {
+     "key": "co-fso",
+     "name": "Company fire support officer",
+     "abbreviation": "FSO",
+     "duties": [
+      {
+       "text": "Works for the company or troop commander in combat.",
+       "cite": [
+        "para-2-17"
+       ]
+      },
+      {
+       "text": "Writes the fire support plan from the commander's guidance and submits it for approval.",
+       "cite": [
+        "para-2-17"
+       ]
+      }
+     ]
+    },
+    {
+     "key": "jfo",
+     "name": "Joint fires observer",
+     "duties": [
+      {
+       "text": "A certified Service member who requests, controls and adjusts surface-to-surface fires.",
+       "cite": [
+        "para-2-20"
+       ]
+      },
+      {
+       "text": "Cannot control close air support attacks and does not replace a joint terminal attack controller (JTAC).",
+       "cite": [
+        "para-2-20"
+       ]
+      }
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "The fire support sergeant also advises the fire support officer on tasking joint fires observers and other observers.",
+      "cite": [
+       "para-2-18"
+      ]
+     }
+    ]
+   },
+   "id": "s09"
+  },
+  {
+   "pattern": "key_idea",
+   "title": "The fire support team (FIST)",
+   "chapter": "ch-2",
+   "statement": {
+    "text": "Each maneuver company or troop gets a field artillery team that plans and coordinates all the fires supporting it.",
+    "cite": [
+     "para-2-18"
+    ]
+   },
+   "points": [
+    {
+     "text": "Those fires include mortars, field artillery, naval surface fire support and close air support.",
+     "cite": [
+      "para-2-18"
+     ]
+    },
+    {
+     "text": "The FIST works closely with the battalion and brigade fire support elements.",
+     "cite": [
+      "para-2-38"
+     ]
+    },
+    {
+     "text": "Infantry and armor company FISTs make artillery, mortar and joint fire support work for the maneuver force.",
+     "cite": [
+      "para-2-40"
+     ]
+    }
+   ],
+   "id": "s10"
+  },
+  {
+   "pattern": "comparison",
+   "title": "Target or suspected target?",
+   "chapter": "ch-2",
+   "columns": [
+    {
+     "heading": "Target",
+     "points": [
+      {
+       "text": "Targets must meet accuracy and timeliness requirements for engagement.",
+       "cite": [
+        "para-2-76"
+       ],
+       "directive": "must"
+      }
+     ]
+    },
+    {
+     "heading": "Suspected target",
+     "points": [
+      {
+       "text": "Suspected targets must be confirmed before any engagement.",
+       "cite": [
+        "para-2-76"
+       ],
+       "directive": "must"
+      }
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Target selection standards are the criteria used to decide whether enemy activity is a target.",
+      "cite": [
+       "para-2-76"
+      ]
+     },
+     {
+      "text": "Target acquisition ranges from Soldiers who see the target to advanced electronic sensors.",
+      "cite": [
+       "para-2-76"
+      ]
+     }
+    ]
+   },
+   "id": "s11"
+  },
+  {
+   "pattern": "divider",
+   "title": "Fire Support and the Operations Process",
+   "chapter": "ch-3",
+   "number": "3",
+   "blurb": {
+    "text": "This chapter covers the fire support functions, targeting and coordination, rehearsals, execution, and assessment.",
+    "cite": [
+     "ch-3.t1"
+    ]
+   },
+   "id": "s12"
+  },
+  {
+   "pattern": "big_numbers",
+   "chapter": "ch-3",
+   "title": "Danger close: the distances to know",
+   "stats": [
+    {
+     "value": "600 m",
+     "label": "Mortars or artillery: impact within this of friendly troops",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "value": "750 m",
+     "label": "Naval surface fires: impact within this of friendly troops",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "value": "100 m",
+     "label": "Largest creeping adjustment: mortars or artillery",
+     "cite": [
+      "para-3-29"
+     ]
+    },
+    {
+     "value": "200 m",
+     "label": "Largest creeping adjustment: naval surface fire support",
+     "cite": [
+      "para-3-29"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Danger close is a mandatory call. It warns that the closest friendly troops are at higher risk from where the weapon impacts.",
+      "cite": [
+       "para-3-29"
+      ]
+     },
+     {
+      "text": "The creeping fire method of adjustment will be used exclusively during danger close missions.",
+      "cite": [
+       "para-3-29"
+      ],
+      "directive": "will"
+     },
+     {
+      "text": "Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances.",
+      "cite": [
+       "para-3-29"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s13"
+  },
+  {
+   "pattern": "cycle",
+   "chapter": "ch-3",
+   "title": "The targeting cycle: decide, detect, deliver, assess",
+   "center_label": "Targeting",
+   "steps": [
+    {
+     "label": "Decide",
+     "detail": "Start identifying high-payoff targets.",
+     "cite": [
+      "para-3-31",
+      "table-3-1"
+     ]
+    },
+    {
+     "label": "Detect",
+     "detail": "Carry out the information collection plan.",
+     "cite": [
+      "para-3-31",
+      "ch-3.sec-ii.the-targeting-process.table"
+     ]
+    },
+    {
+     "label": "Deliver",
+     "detail": "Carry out fire support tasks as the attack guidance matrix lays out.",
+     "cite": [
+      "para-3-31",
+      "ch-3.sec-ii.the-targeting-process.table"
+     ]
+    },
+    {
+     "label": "Assess",
+     "detail": "Combat assessment: battle damage assessment, munitions effectiveness assessment, and reattack recommendation.",
+     "cite": [
+      "para-3-109"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Targeting means selecting and prioritizing targets and matching the right response to each target.",
+      "cite": [
+       "para-3-30"
+      ]
+     },
+     {
+      "text": "Targeting happens continuously throughout an operation.",
+      "cite": [
+       "para-3-31"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s14"
+  },
+  {
+   "pattern": "key_idea",
+   "chapter": "ch-3",
+   "title": "Fratricide: stopping friendly-fire casualties",
+   "statement": {
+    "text": "Fratricide is killing or wounding friendly or neutral people by accident with friendly fire.",
+    "cite": [
+     "para-3-41"
+    ]
+   },
+   "points": [
+    {
+     "text": "If enemy and friendly forces could be intermixed in the target area, units must positively verify their identity after detection, before engaging.",
+     "cite": [
+      "para-3-44.li1"
+     ],
+     "directive": "must"
+    },
+    {
+     "text": "Fratricides can occur when fire support coordination measures (FSCMs) are not used and not shared with units.",
+     "cite": [
+      "para-3-44.li2"
+     ]
+    },
+    {
+     "text": "Take special caution when daytime visibility is limited and at night.",
+     "cite": [
+      "para-3-44.li6"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Marking devices such as thermal beacons, thermal tape, and navigational aids help tell friend from foe.",
+      "cite": [
+       "para-3-44.li7"
+      ]
+     },
+     {
+      "text": "Fratricide can also happen in training and simulations, not just in combat.",
+      "cite": [
+       "para-3-42"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s15"
+  },
+  {
+   "pattern": "checklist",
+   "chapter": "ch-3",
+   "title": "Positive clearance of fires: what it takes",
+   "items": [
+    {
+     "text": "Fires that are not pre-cleared or allowed by a permissive FSCM must be positively cleared.",
+     "cite": [
+      "para-3-50"
+     ],
+     "directive": "must"
+    },
+    {
+     "text": "This should be a battle drill in command posts. Best method: send the call for clearance over two nets, the fire support net and the maneuver net.",
+     "cite": [
+      "para-3-50"
+     ],
+     "directive": "should"
+    },
+    {
+     "text": "Best available method of locating the target.",
+     "cite": [
+      "para-3-51.li1"
+     ]
+    },
+    {
+     "text": "Positive identification of the target as enemy.",
+     "cite": [
+      "para-3-51.li2"
+     ]
+    },
+    {
+     "text": "Eyes on the target, if possible.",
+     "cite": [
+      "para-3-51.li3"
+     ]
+    },
+    {
+     "text": "Clearance from the right outside elements if the target is outside unit boundaries.",
+     "cite": [
+      "para-3-51.li4"
+     ]
+    },
+    {
+     "text": "Coordination with airspace users affected by the munition's flight path.",
+     "cite": [
+      "para-3-51.li5"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "For positive clearance of fires, the listed items should be obtained.",
+      "cite": [
+       "para-3-51"
+      ],
+      "directive": "should"
+     },
+     {
+      "text": "Clearance of fires makes sure fires or their effects have no unintended consequences on friendly units or the scheme of maneuver.",
+      "cite": [
+       "para-3-45"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s16"
+  },
+  {
+   "pattern": "process_flow",
+   "chapter": "app-a",
+   "title": "The four parts of an essential fire support task",
+   "steps": [
+    {
+     "label": "Task (what)",
+     "detail": "The effect fires must have on an enemy formation's function or capability. Enemy oriented.",
+     "cite": [
+      "para-A-2"
+     ]
+    },
+    {
+     "label": "Purpose (why)",
+     "detail": "The benefit to the supported commander. Friendly oriented.",
+     "cite": [
+      "para-A-2"
+     ]
+    },
+    {
+     "label": "Method (how)",
+     "detail": "How the target is engaged, using priority, allocation and restrictions.",
+     "cite": [
+      "para-A-1"
+     ]
+    },
+    {
+     "label": "Effect (result)",
+     "detail": "The quantified, observable result of successfully doing the task.",
+     "cite": [
+      "para-A-2"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "An essential fire support task is a critical element of the fire support plan that must be accomplished for mission success.",
+      "cite": [
+       "app-a.t1"
+      ],
+      "directive": "must"
+     },
+     {
+      "text": "Each essential fire support task will be described in the sequence of planned execution using task, purpose, method, effects.",
+      "cite": [
+       "para-A-7"
+      ],
+      "directive": "will"
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s17"
+  },
+  {
+   "pattern": "comparison",
+   "chapter": "app-b",
+   "title": "Permissive vs. restrictive fire support coordination measures",
+   "notes": {
+    "talking_points": [
+     {
+      "text": "These measures will change frequently during large-scale combat operations.",
+      "cite": [
+       "para-B-1"
+      ],
+      "directive": "will"
+     }
+    ],
+    "extra_sources": []
+   },
+   "columns": [
+    {
+     "heading": "Permissive measures",
+     "points": [
+      {
+       "text": "They make it easier to attack targets.",
+       "cite": [
+        "para-B-1"
+       ]
+      },
+      {
+       "text": "Fires must be cleared with both terrain owners and other airspace users.",
+       "cite": [
+        "para-B-1"
+       ],
+       "directive": "must"
+      },
+      {
+       "text": "Free-fire area: any weapon system may fire into it without more coordination with the headquarters that set it up.",
+       "cite": [
+        "para-B-13"
+       ],
+       "directive": "may"
+      }
+     ]
+    },
+    {
+     "heading": "Restrictive measures",
+     "points": [
+      {
+       "text": "They provide safeguards for friendly forces and noncombatants, facilities, or terrain.",
+       "cite": [
+        "para-B-32"
+       ]
+      },
+      {
+       "text": "No-fire area: fires or their effects are prohibited inside it.",
+       "cite": [
+        "para-B-33"
+       ]
+      },
+      {
+       "text": "Restrictive fire area: fires that exceed its restrictions will not be delivered without coordination with the headquarters that set it up.",
+       "cite": [
+        "para-B-36"
+       ],
+       "directive": "will not"
+      }
+     ]
+    }
+   ],
+   "id": "s18"
+  },
+  {
+   "pattern": "table",
+   "chapter": "app-b",
+   "title": "Lines on the map and what they mean for fires",
+   "notes": {
+    "talking_points": [
+     {
+      "text": "A coordinated fire line is not authorization to fire indiscriminately into the area.",
+      "cite": [
+       "para-B-2"
+      ]
+     },
+     {
+      "text": "A restrictive fire line keeps converging friendly forces from hitting each other or engaging the same targets twice.",
+      "cite": [
+       "para-B-39"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "columns": [
+    "Line",
+    "Beyond or across the line",
+    "Also know"
+   ],
+   "rows": [
+    {
+     "cells": [
+      "Coordinated fire line (CFL)",
+      "Surface fires may fire beyond it at any time without more coordination.",
+      "Inside the setting unit's boundaries; must still follow the rules of engagement."
+     ],
+     "cite": [
+      "para-B-2"
+     ]
+    },
+    {
+     "cells": [
+      "Fire support coordination line (FSCL)",
+      "All fires must be coordinated with affected commanders before engaging.",
+      "Short of it, all fires must be coordinated with the commander who set it."
+     ],
+     "cite": [
+      "para-B-4"
+     ]
+    },
+    {
+     "cells": [
+      "Restrictive fire line (RFL)",
+      "Fires or their effects are prohibited from crossing it.",
+      "Set between friendly forces moving toward each other, to prevent fratricide."
+     ],
+     "cite": [
+      "para-B-39"
+     ]
+    },
+    {
+     "cells": [
+      "Boundary",
+      "Units normally do not fire across adjacent or forward boundaries.",
+      "Unless coordinated with the affected unit or allowed by a measure like a CFL."
+     ],
+     "cite": [
+      "para-B-51"
+     ]
+    }
+   ],
+   "id": "s19"
+  },
+  {
+   "pattern": "decision_tree",
+   "chapter": "app-b",
+   "title": "Can fires go into a no-fire area?",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "root": "q1",
+   "nodes": [
+    {
+     "key": "q1",
+     "kind": "question",
+     "text": "Has the headquarters that set the no-fire area approved joint fires for this mission?",
+     "yes": "o1",
+     "no": "q2",
+     "cite": [
+      "para-B-33.li1"
+     ]
+    },
+    {
+     "key": "o1",
+     "kind": "outcome",
+     "text": "Exception: the approved fires for that mission are allowed.",
+     "cite": [
+      "para-B-33.li1"
+     ]
+    },
+    {
+     "key": "q2",
+     "kind": "question",
+     "text": "An enemy in it is engaging a friendly force: does its commander need immediate protection?",
+     "yes": "o2",
+     "no": "o3",
+     "cite": [
+      "para-B-33.li2"
+     ]
+    },
+    {
+     "key": "o2",
+     "kind": "outcome",
+     "text": "Exception: respond with only the minimal force needed to defend the force.",
+     "cite": [
+      "para-B-33.li2"
+     ]
+    },
+    {
+     "key": "o3",
+     "kind": "outcome",
+     "text": "No fires: fires or their effects are prohibited in a no-fire area.",
+     "cite": [
+      "para-B-33"
+     ]
+    }
+   ],
+   "id": "s20"
+  },
+  {
+   "pattern": "process_flow",
+   "chapter": "app-e",
+   "title": "How an air support request moves up the chain",
+   "notes": {
+    "talking_points": [],
+    "extra_sources": []
+   },
+   "steps": [
+    {
+     "label": "Find a need for air support",
+     "detail": "When targets need effects beyond the unit's own capabilities, the fire support element creates an air support request.",
+     "cite": [
+      "para-E-1"
+     ]
+    },
+    {
+     "label": "Send it to next higher headquarters",
+     "detail": "Fire support elements at each echelon send their requests to the next higher headquarters for approval.",
+     "cite": [
+      "para-E-2"
+     ]
+    },
+    {
+     "label": "Each echelon reviews and merges",
+     "detail": "Approve or deny, verify priority, re-prioritize when needed, merge into a single air support list, and forward it.",
+     "cite": [
+      "para-E-2"
+     ]
+    },
+    {
+     "label": "Senior Army headquarters decides",
+     "detail": "It adjudicates the requests and may add more in time for the joint targeting and air tasking cycles.",
+     "cite": [
+      "para-E-2"
+     ]
+    },
+    {
+     "label": "Battlefield coordination detachment",
+     "detail": "The senior Army headquarters submits the list to the battlefield coordination detachment, which submits it to the joint air component.",
+     "cite": [
+      "para-E-8",
+      "para-E-9"
+     ]
+    },
+    {
+     "label": "Air missions on the tasking order",
+     "detail": "Preplanned requests may result in scheduled and on-call air missions on the air tasking order.",
+     "cite": [
+      "para-E-3"
+     ]
+    }
+   ],
+   "id": "s21"
+  },
+  {
+   "pattern": "divider",
+   "title": "Field Artillery Operations",
+   "chapter": "ch-4",
+   "number": "4",
+   "blurb": {
+    "text": "Field artillery destroys, neutralizes, or suppresses the enemy with cannon, rocket, and missile fire, and helps bring all fire support together.",
+    "cite": [
+     "para-4-1"
+    ]
+   },
+   "id": "s22"
+  },
+  {
+   "pattern": "table",
+   "chapter": "ch-4",
+   "title": "Five requirements for accurate first-round fire for effect",
+   "columns": [
+    "Requirement",
+    "What it takes"
+   ],
+   "rows": [
+    {
+     "cells": [
+      "Accurate target location and size",
+      "Detect, identify and locate the target; know its size and how it is spread out"
+     ],
+     "cite": [
+      "para-4-67.li1"
+     ]
+    },
+    {
+     "cells": [
+      "Accurate firing unit location",
+      "Know where each weapon is, using survey and on-board navigation systems"
+     ],
+     "cite": [
+      "para-4-67.li8"
+     ]
+    },
+    {
+     "cells": [
+      "Accurate weapon and ammunition information",
+      "Muzzle velocity, projectile weight, fuze type and propellant temperature"
+     ],
+     "cite": [
+      "para-4-67.li9"
+     ]
+    },
+    {
+     "cells": [
+      "Accurate weather (meteorological) information",
+      "Firing data must compensate for weather effects on the projectile in flight"
+     ],
+     "cite": [
+      "para-4-67.li10"
+     ]
+    },
+    {
+     "cells": [
+      "Accurate computational procedures",
+      "The computation of firing data must be accurate"
+     ],
+     "cite": [
+      "para-4-67.li11"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "The goal of any indirect firing unit is accurate first-round fire for effect: fire meant to get the desired result on the target.",
+      "cite": [
+       "para-4-67"
+      ]
+     },
+     {
+      "text": "If the requirements cannot be met completely, the firing unit may be required to use adjust-fire missions.",
+      "cite": [
+       "para-4-67"
+      ],
+      "directive": "may"
+     },
+     {
+      "text": "Adjust-fire missions can mean less effect on the target, loss of surprise, more ammunition used and a greater chance of being detected.",
+      "cite": [
+       "para-4-67"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s23"
+  },
+  {
+   "pattern": "table",
+   "chapter": "ch-4",
+   "title": "Four support relationships: who the artillery fires for",
+   "source_table": "table-4-1",
+   "columns": [
+    "Support relationship",
+    "Who it supports",
+    "Answers calls for fire from"
+   ],
+   "rows": [
+    {
+     "cells": [
+      "Direct support",
+      "One specific force; answers that force's requests for help directly",
+      "Supported unit, then own observers, then field artillery headquarters (HQ)"
+     ],
+     "cite": [
+      "para-4-55",
+      "table-4-1"
+     ]
+    },
+    {
+     "cells": [
+      "Reinforcing",
+      "Another field artillery unit; adds to that unit's fires",
+      "Reinforced field artillery unit, then own observers, then field artillery HQ"
+     ],
+     "cite": [
+      "para-4-57",
+      "table-4-1"
+     ]
+    },
+    {
+     "cells": [
+      "General support-reinforcing",
+      "The force as a whole first; second, reinforces another field artillery unit",
+      "Supported unit, field artillery HQ, reinforced unit, then own observers"
+     ],
+     "cite": [
+      "para-4-59",
+      "table-4-1"
+     ]
+    },
+    {
+     "cells": [
+      "General support",
+      "The force as a whole, not any one part of it",
+      "Supported unit, then force field artillery HQ, then others (see table 4-1)"
+     ],
+     "cite": [
+      "para-4-61",
+      "table-4-1"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Direct support is the most decentralized support relationship.",
+      "cite": [
+       "para-4-56"
+      ]
+     },
+     {
+      "text": "General support gives the highest degree of centralized control of fires.",
+      "cite": [
+       "para-4-62"
+      ]
+     },
+     {
+      "text": "Field artillery HQ is on the list only if designated by the support commander.",
+      "cite": [
+       "para-4-62.t1"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s24"
+  },
+  {
+   "pattern": "comparison",
+   "chapter": "ch-4",
+   "title": "Calls for fire: digital and voice",
+   "columns": [
+    {
+     "heading": "Digital",
+     "points": [
+      {
+       "text": "The field artillery battalion mainly uses digital means to plan and execute fires.",
+       "cite": [
+        "para-4-86"
+       ]
+      },
+      {
+       "text": "Whenever possible, digital fire missions should be rehearsed along the entire data link.",
+       "cite": [
+        "para-4-87"
+       ],
+       "directive": "should"
+      }
+     ]
+    },
+    {
+     "heading": "Voice",
+     "points": [
+      {
+       "text": "Voice may be necessary for unplanned, immediate fire requests or during denied, disrupted or degraded operations.",
+       "cite": [
+        "para-4-88"
+       ],
+       "directive": "may"
+      },
+      {
+       "text": "Fire direction centers (FDCs) must anticipate the circumstances and types of voice missions they may encounter.",
+       "cite": [
+        "para-4-88"
+       ],
+       "directive": "must"
+      },
+      {
+       "text": "Missions from untrained observers must be rehearsed during training.",
+       "cite": [
+        "para-4-88"
+       ],
+       "directive": "must"
+      }
+     ]
+    },
+    {
+     "heading": "Either way",
+     "points": [
+      {
+       "text": "The tactical solution and effects on the target should be essentially the same, voice or digital.",
+       "cite": [
+        "para-4-88"
+       ],
+       "directive": "should"
+      }
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "FDC personnel receive calls for fire through the Advanced Field Artillery Tactical Data System or by voice.",
+      "cite": [
+       "para-4-77"
+      ]
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s25"
+  },
+  {
+   "pattern": "process_flow",
+   "chapter": "app-c",
+   "title": "Global Positioning System (GPS) jammed? Get the signal back",
+   "steps": [
+    {
+     "label": "Use anti-jamming equipment",
+     "detail": "This is the best solution, if it is available.",
+     "cite": [
+      "para-C-11"
+     ]
+    },
+    {
+     "label": "Block the signal",
+     "detail": "No anti-jamming gear? Put a barrier, such as your body, between the GPS device and the suspected jamming source.",
+     "cite": [
+      "para-C-11"
+     ]
+    },
+    {
+     "label": "Pivot slowly",
+     "detail": "Using your body? Slowly pivot 90 degrees every two minutes until the signal is regained. The jammer is then behind you.",
+     "cite": [
+      "para-C-11"
+     ]
+    },
+    {
+     "label": "Or put it in a hole",
+     "detail": "Or place the receiver in a hole six inches deep. A vehicle hatch may be used as a hole. Allow two minutes to get the signal.",
+     "cite": [
+      "para-C-11"
+     ]
+    },
+    {
+     "label": "Still jammed? Move.",
+     "detail": "If neither technique works, move. The jammer is too close for these techniques to have any effect.",
+     "cite": [
+      "para-C-11"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Units must be prepared and trained to do the mission without GPS, using inertial navigation, maps, aiming circles and compass.",
+      "cite": [
+       "para-C-12"
+      ],
+      "directive": "must"
+     },
+     {
+      "text": "If digital communication is lost or degraded, it must be reestablished as soon as possible.",
+      "cite": [
+       "para-C-14"
+      ],
+      "directive": "must"
+     },
+     {
+      "text": "If one howitzer loses digital communications, the fire direction center will issue voice commands to it, or it can fire data from an adjacent section.",
+      "cite": [
+       "para-C-14"
+      ],
+      "directive": "will"
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s26"
+  },
+  {
+   "pattern": "do_dont",
+   "chapter": "app-c",
+   "title": "Sun observations: protect your eyes",
+   "do": [
+    {
+     "text": "The sun filter should be inspected before use. Check that its coated surface is free from scratches or other defects.",
+     "cite": [
+      "para-C-32.t2"
+     ],
+     "directive": "should"
+    },
+    {
+     "text": "If the sun filter is damaged or lost, a solar observation may be completed by the card method.",
+     "cite": [
+      "para-C-32.t3"
+     ],
+     "directive": "may"
+    },
+    {
+     "text": "Card method: project the sun's image onto a card held 3 to 6 inches behind the eyepiece. Focus until the cross hairs are clear.",
+     "cite": [
+      "para-C-32.t3"
+     ]
+    }
+   ],
+   "dont": [
+    {
+     "text": "The sun must never be viewed through the telescope without a sun filter.",
+     "cite": [
+      "para-C-32.t2"
+     ],
+     "directive": "must"
+    },
+    {
+     "text": "Don't skip the precautions. Serious eye damage will result if proper precautions are not taken.",
+     "cite": [
+      "para-C-32.t3"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Without GPS, field artillery personnel will use the M2A2 aiming circle for directional control. Soldiers can also use the sun and stars.",
+      "cite": [
+       "para-C-31"
+      ],
+      "directive": "will"
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s27"
+  },
+  {
+   "pattern": "divider",
+   "title": "Competition and Crisis",
+   "chapter": "ch-5",
+   "number": "5",
+   "blurb": {
+    "text": "How fire support works before a war starts: during competition and during crisis.",
+    "cite": [
+     "ch-5.t1"
+    ]
+   },
+   "id": "s28"
+  },
+  {
+   "pattern": "comparison",
+   "chapter": "ch-5",
+   "title": "Fire support before the fighting: competition and crisis",
+   "columns": [
+    {
+     "heading": "Competition",
+     "points": [
+      {
+       "text": "An adversary pursues interests that clash with United States interests, but stays short of open armed conflict.",
+       "cite": [
+        "para-5-1"
+       ]
+      },
+      {
+       "text": "Fire support activities include security cooperation, training, maintaining readiness, and contingency planning.",
+       "cite": [
+        "para-5-2"
+       ]
+      },
+      {
+       "text": "At the tactical level, units will primarily conduct military engagement through combined training and exercises.",
+       "cite": [
+        "para-5-4"
+       ],
+       "directive": "will"
+      }
+     ]
+    },
+    {
+     "heading": "Crisis",
+     "points": [
+      {
+       "text": "Activities to deter an adversary's undesirable actions, normally to keep competition from becoming military conflict.",
+       "cite": [
+        "para-5-10"
+       ]
+      },
+      {
+       "text": "The primary deterrent: a properly manned, equipped, and trained joint force that has shown it can prevail in large-scale combat.",
+       "cite": [
+        "para-5-10"
+       ]
+      },
+      {
+       "text": "Upon arrival in theater, units will conduct reception, staging, onward movement, and integration.",
+       "cite": [
+        "para-5-19"
+       ],
+       "directive": "will"
+      }
+     ]
+    }
+   ],
+   "id": "s29"
+  },
+  {
+   "pattern": "divider",
+   "title": "Large-Scale Combat Operations",
+   "chapter": "ch-6",
+   "number": "6",
+   "blurb": {
+    "text": "Fire support in large-scale combat: deep operations, the defense, the offense, and enabling, stability and reconstitution operations.",
+    "cite": [
+     "ch-6.t1"
+    ]
+   },
+   "id": "s30"
+  },
+  {
+   "pattern": "comparison",
+   "title": "Fire support in the defense vs. the offense",
+   "chapter": "ch-6",
+   "columns": [
+    {
+     "heading": "In the defense",
+     "points": [
+      {
+       "text": "Counterpreparation fire: intensive, prearranged fire delivered when you discover the enemy attack is about to start.",
+       "cite": [
+        "para-6-48"
+       ]
+      },
+      {
+       "text": "Place fires in front of, on top of, to the side of, and behind obstacles to get the most out of them.",
+       "cite": [
+        "para-6-41.li3"
+       ]
+      },
+      {
+       "text": "Plan targets, primary and alternate observer positions, and triggers for every engagement area.",
+       "cite": [
+        "para-6-44.li4"
+       ]
+      },
+      {
+       "text": "Prepare and harden artillery and target acquisition positions, and rehearse on the actual terrain.",
+       "cite": [
+        "para-6-44.li8",
+        "para-6-44.li9"
+       ]
+      }
+     ]
+    },
+    {
+     "heading": "In the offense",
+     "points": [
+      {
+       "text": "Field artillery units move well forward before an attack and displace by echelon to keep fires continuous.",
+       "cite": [
+        "para-6-94"
+       ]
+      },
+      {
+       "text": "To surprise the enemy, meet the five requirements for accurate predicted fire for first-round fire for effect.",
+       "cite": [
+        "para-6-86",
+        "para-6-86.li1"
+       ]
+      },
+      {
+       "text": "Fire support coordination measures, such as coordinated fire lines, must be well forward so the force will not outrun them.",
+       "cite": [
+        "para-6-103.li7"
+       ],
+       "directive": "must"
+      },
+      {
+       "text": "Forces forward of the forward line of own troops should have a restrictive measure, such as a no-fire area, to prevent friendly fire.",
+       "cite": [
+        "para-6-78"
+       ],
+       "directive": "should"
+      }
+     ]
+    }
+   ],
+   "id": "s31"
+  },
+  {
+   "pattern": "process_flow",
+   "title": "Breaching fundamentals: suppress, obscure, secure, reduce, assault",
+   "chapter": "ch-6",
+   "steps": [
+    {
+     "label": "Suppress",
+     "detail": "Suppress enemy direct fire near the breach site. Suppression must also work against enemy indirect fire that can reach it.",
+     "cite": [
+      "para-6-127.li1",
+      "para-6-127.li2"
+     ]
+    },
+    {
+     "label": "Obscure",
+     "detail": "Reduce enemy direct fire on breach and assault elements. Smoke should be used with fog or darkness; it may draw enemy attention.",
+     "cite": [
+      "para-6-128.li1",
+      "para-6-128.li3",
+      "para-6-128.li5"
+     ]
+    },
+    {
+     "label": "Secure",
+     "detail": "Mortars and field artillery keep suppressing and obscuring as needed while maneuver forces secure the breach site.",
+     "cite": [
+      "para-6-129.li1"
+     ]
+    },
+    {
+     "label": "Reduce",
+     "detail": "As maneuver forces with engineer support reduce the obstacle, mortars and artillery should keep suppressing, ready to lift or shift.",
+     "cite": [
+      "para-6-130.li1"
+     ]
+    },
+    {
+     "label": "Assault",
+     "detail": "As the force assaults through the breach, fires should continue, ready to lift or shift as it nears enemy battle positions.",
+     "cite": [
+      "para-6-131.li1"
+     ]
+    }
+   ],
+   "id": "s32"
+  },
+  {
+   "pattern": "table",
+   "chapter": "app-d",
+   "title": "How terrain and weather change munitions and observing",
+   "columns": [
+    "Where",
+    "Effective",
+    "Problems",
+    "For observers"
+   ],
+   "rows": [
+    {
+     "cells": [
+      "Deep snow (cold weather)",
+      "Airburst munitions; white phosphorous",
+      "High explosives (HE) point detonating or delay: ineffective in deep snow",
+      "Amber filters cut snow blindness; update visibility diagrams regularly"
+     ],
+     "cite": [
+      "para-D-136.li1",
+      "para-D-136.li2",
+      "para-D-136.li4",
+      "para-D-137.li3",
+      "para-D-137.li4"
+     ]
+    },
+    {
+     "cells": [
+      "Rocky mountain ground",
+      "HE point detonating: splintering rocks add extra fragments",
+      "Swirling winds make smoke very hard to adjust and maintain",
+      "No laser rangefinder: looking up, you underestimate range; down, overestimate"
+     ],
+     "cite": [
+      "para-D-65.li7",
+      "para-D-65.li11",
+      "para-D-66.li5"
+     ]
+    },
+    {
+     "cells": [
+      "Sandy or dune desert",
+      "Variable time and time fuzes are very effective",
+      "HE with point detonating or delay fuze is smothered by deep sand",
+      "Watch for dust clouds from moving enemy; heat waves hamper distance estimates"
+     ],
+     "cite": [
+      "para-D-99.li1",
+      "para-D-99.li2",
+      "para-D-100",
+      "para-D-101"
+     ]
+    },
+    {
+     "cells": [
+      "Triple-canopy jungle",
+      "HE-delay splinters trees for extra fragments; white phosphorous marks well",
+      "Smoke has limited effectiveness",
+      "Seeing beyond 25 to 50 m is very difficult; rounds often can't be seen"
+     ],
+     "cite": [
+      "para-D-74.li1",
+      "para-D-74.li2",
+      "para-D-74.li3",
+      "para-D-75",
+      "para-D-76"
+     ]
+    },
+    {
+     "cells": [
+      "Urban areas",
+      "Fuze delay should be used to penetrate fortifications or building tops",
+      "Variable time fuzes may detonate early near other structures",
+      "FOs may be placed on upper floors; rooftop observers are vulnerable"
+     ],
+     "cite": [
+      "para-D-28.li5",
+      "para-D-28.li11",
+      "para-D-17"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Forward observers (FOs) in the jungle must be able to adjust mortar and field artillery fire by sound, because often they cannot see the rounds.",
+      "cite": [
+       "para-D-76"
+      ],
+      "directive": "must"
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s33"
+  },
+  {
+   "pattern": "checklist",
+   "chapter": "app-d",
+   "title": "Hidden hazards in tough terrain and weather",
+   "items": [
+    {
+     "text": "Snow: white phosphorus may burn undetected for up to four days and may be a hazard to friendly troops moving through later.",
+     "cite": [
+      "para-D-136.li4"
+     ],
+     "directive": "may"
+    },
+    {
+     "text": "Frozen lakes and rivers: determine ice thickness and load-bearing capacity before the field artillery crosses.",
+     "cite": [
+      "para-D-144.li2"
+     ]
+    },
+    {
+     "text": "Dry riverbeds, wadis and gulches: positions there risk flash flooding.",
+     "cite": [
+      "para-D-70.li3",
+      "para-D-113"
+     ]
+    },
+    {
+     "text": "Windows and other polished, flat surfaces may reflect laser energy and pose a hazard to friendly troops.",
+     "cite": [
+      "para-D-26.li5"
+     ],
+     "directive": "may"
+    },
+    {
+     "text": "Elevators typically should not be used, so you don't get trapped if the power fails.",
+     "cite": [
+      "para-D-16"
+     ],
+     "directive": "should not"
+    },
+    {
+     "text": "Weapons placed in buildings: collapse and fire are possible, and overpressure can significantly increase the noise hazard for crews.",
+     "cite": [
+      "para-D-41"
+     ]
+    }
+   ],
+   "notes": {
+    "talking_points": [
+     {
+      "text": "Rule of thumb: a minimum of 6 hours rest is required for every 24 hours without sleep.",
+      "cite": [
+       "para-D-134"
+      ]
+     },
+     {
+      "text": "In cold weather, panels or pyrotechnics must be used to indicate friendly locations.",
+      "cite": [
+       "para-D-141.li3"
+      ],
+      "directive": "must"
+     }
+    ],
+    "extra_sources": []
+   },
+   "id": "s34"
+  },
+  {
+   "pattern": "key_terms",
+   "title": "Key terms",
+   "terms": [
+    {
+     "term": "Fire support",
+     "definition": "Bringing together indirect fires, target acquisition, armed aircraft, and other attack systems against targets to support the commander's plan.",
+     "cite": [
+      "term-fire-support"
+     ]
+    },
+    {
+     "term": "Indirect fire",
+     "definition": "Fire delivered at a target the firing unit cannot see.",
+     "cite": [
+      "term-indirect-fire"
+     ]
+    },
+    {
+     "term": "Danger close",
+     "definition": "A mandatory call that warns of higher risk to the closest friendly troops from where a weapon impacts.",
+     "cite": [
+      "term-danger-close"
+     ]
+    },
+    {
+     "term": "Fratricide",
+     "definition": "Killing or wounding friendly or neutral people by accident with friendly fire.",
+     "cite": [
+      "term-fratricide"
+     ]
+    },
+    {
+     "term": "Clearance of fires",
+     "definition": "How the supported commander makes sure fires or their effects have no unintended consequences on friendly units or the scheme of maneuver.",
+     "cite": [
+      "term-clearance-of-fires"
+     ]
+    },
+    {
+     "term": "No-fire area",
+     "definition": "An area set by the commander where fires or their effects are prohibited.",
+     "cite": [
+      "term-no-fire-area"
+     ]
+    }
+   ],
+   "id": "s35",
+   "chapter": null
+  },
+  {
+   "pattern": "acronyms",
+   "title": "Acronyms",
+   "entries": [
+    {
+     "abbreviation": "CFL",
+     "meaning": "coordinated fire line",
+     "cite": [
+      "acr-cfl"
+     ]
+    },
+    {
+     "abbreviation": "DA",
+     "meaning": "Department of the Army",
+     "cite": [
+      "acr-da"
+     ]
+    },
+    {
+     "abbreviation": "FDC",
+     "meaning": "fire direction center",
+     "cite": [
+      "acr-fdc"
+     ]
+    },
+    {
+     "abbreviation": "FIST",
+     "meaning": "fire support team",
+     "cite": [
+      "acr-fist"
+     ]
+    },
+    {
+     "abbreviation": "FO",
+     "meaning": "forward observer",
+     "cite": [
+      "acr-fo"
+     ]
+    },
+    {
+     "abbreviation": "FSCL",
+     "meaning": "fire support coordination line",
+     "cite": [
+      "acr-fscl"
+     ]
+    },
+    {
+     "abbreviation": "FSCM",
+     "meaning": "fire support coordination measure",
+     "cite": [
+      "acr-fscm"
+     ]
+    },
+    {
+     "abbreviation": "FSO",
+     "meaning": "fire support officer",
+     "cite": [
+      "acr-fso"
+     ]
+    },
+    {
+     "abbreviation": "GPS",
+     "meaning": "Global Positioning System",
+     "cite": [
+      "acr-gps"
+     ]
+    },
+    {
+     "abbreviation": "HE",
+     "meaning": "high explosives",
+     "cite": [
+      "acr-he"
+     ]
+    },
+    {
+     "abbreviation": "HQ",
+     "meaning": "headquarters",
+     "cite": [
+      "acr-hq"
+     ]
+    },
+    {
+     "abbreviation": "JTAC",
+     "meaning": "joint terminal attack controller",
+     "cite": [
+      "acr-jtac"
+     ]
+    },
+    {
+     "abbreviation": "RFL",
+     "meaning": "restrictive fire line",
+     "cite": [
+      "acr-rfl"
+     ]
+    }
+   ],
+   "id": "s36",
+   "chapter": null
+  },
+  {
+   "pattern": "closing",
+   "title": "Read the full text",
+   "items": [
+    {
+     "text": "Read FM 3-09 itself: it is the Army's field manual for fire support and field artillery operations.",
+     "cite": [
+      "preface.t1"
+     ]
+    },
+    {
+     "text": "Forward observer duties: ATP 3-09.30. Fire support team and fire support sergeant duties: ATP 3-09.42.",
+     "cite": [
+      "para-2-19",
+      "para-2-18"
+     ]
+    },
+    {
+     "text": "Send suggested changes on a Department of the Army (DA) Form 2028 to the Directorate of Training and Doctrine at Fort Sill.",
+     "cite": [
+      "preface.t9"
+     ]
+    }
+   ],
+   "id": "s37",
+   "chapter": null
+  }
+ ]
+}

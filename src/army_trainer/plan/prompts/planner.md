@@ -7,11 +7,12 @@ This playbook is the prompt. Today an Opus session follows it by hand (D10). If 
 ## 0. Rules you never break
 
 1. **Only the packet.** Use only text from `data/packets/<ID>/` (written by `army-trainer plan <ID> --packet`, which runs the Distribution A gate). Don't fill gaps with what you know about the subject. If the publication doesn't say it, the slide doesn't say it. Example: don't write "danger close is a 'mandatory call'" unless the cited text says that (FM 3-09 para 3-29 does).
-2. **Every statement is cited** to the smallest node that supports it: a list item (`para-2-8.li3`) before its paragraph, a paragraph before its heading. Cite headings or divisions only in a `divider` blurb. Two cites are fine when the statement rests on both.
+2. **Every statement is cited** to the nodes that support **all** of it, smallest first: a list item (`para-2-8.li3`) before its paragraph, a paragraph before its heading. Cite headings or divisions only in a `divider` blurb. Two cites are fine when the statement rests on both; cite the lead-in paragraph too when the item depends on it (a "to achieve surprise:" list item cites the list item **and** its paragraph).
 3. **Never add requirements or change meaning.** Summarize, restructure and simplify; don't add advice, examples, numbers or steps that aren't in the cited text.
 4. **Directive words stay as written.** If the source says `will`, `must`, `will not`, `may`, `should`, `shall` or `may not`, and the slide states that requirement, the slide uses the **same word** and sets `"directive"` to it. Never turn `must` into `should`, `will not` into `avoid`, `may` into `can`, or the reverse. Don't put `will` / `must` in slide text for something the source doesn't require ("the FO will call for fire" when the source says "the FO calls for fire" adds a requirement). `plan --check` fails on this.
 5. **Numbers, dates, form numbers, distances and role names are copied exactly.** "600 meters", not "about half a kilometer". Keep the unit the source uses. Spell a number as digits or as the source's word, but don't change its value.
-6. **No classified, CUI or FOUO material.** The gate makes this impossible through the packet; never paste text from anywhere else.
+6. **Don't repair the source.** If a packet line is cut off or garbled (a conversion slip, e.g. table 4-1's general support cell ends "3. Own"), don't complete it from what you expect: leave it out or point to the source ("then others (see table 4-1)"). Obvious word slips ("around or shell" for "a round or shell") may be put in plain words, never copied; list them in the handover.
+7. **No classified, CUI or FOUO material.** The gate makes this impossible through the packet; never paste text from anywhere else.
 
 ## 1. Workflow
 
@@ -27,7 +28,9 @@ This playbook is the prompt. Today an Opus session follows it by hand (D10). If 
 4. For each chapter and appendix, read the **whole** `<division>.md`: outline and hints first, then the full text. Then decide what a junior Soldier needs from it (§2), pick the slides (§3), and write them (§4–§5). Keep a short list of the acronyms you used.
 5. Write the back slides: `key_terms` (from `glossary.md` or the "Terms defined here" lists), `acronyms` (every acronym that appears on a slide), `closing`.
 6. Write the spec, then run `uv run army-trainer plan <ID> --check`. Fix **every error**. Treat warnings as questions: fix them, or be able to say why each one is fine. Number warnings should end at zero (MVP: 0 verbatim failures).
-7. Self-review (§7), then commit the spec. For a single-chapter dry run use `--check --partial --spec <file>`.
+7. Self-review (§7) with `uv run army-trainer plan <ID> --review [--slides s05,s06]`: it prints every cited statement next to the text of the nodes it cites. Then commit the spec. For a single-chapter dry run use `--check --partial --spec <file>`.
+
+**Drafting in parallel (optional).** For a long publication the chapters can be drafted by separate sessions or subagents, each given this playbook, its division files and its slide budget, writing content slides only (no ids) and checking them with `--check --partial`. The integrating session then writes the front and back slides, assembles the deck, and **re-reviews every slide itself** with `--review`: a drafter's "0 warnings" is not a fidelity review.
 
 ## 2. Choosing content for junior Soldiers
 
@@ -69,6 +72,7 @@ Vary the patterns: two `checklist` slides in a row is a sign one should be somet
 
 - **Short sentences, common words, active voice, "you" where it fits.** Aim for 8th grade: under ~20 words per sentence, one idea per item.
 - **Lead with the action or the point.** "Locate targets accurately, then call for and adjust fire." not "The primary duty of the FO is to…".
+- **Use only acronyms the glossary defines, with the glossary's meaning.** Check the meaning before using one: FM 3-09's glossary has FFA = "force field artillery", but appendix B uses FFA for free-fire area, so write "free-fire area" out. Shorthand the glossary lacks (e.g. D3A) stays out of slide text; spell the steps out instead.
 - **Spell out every acronym the first time it appears in the deck**: "forward observer (FO)". After that the acronym is fine. Prefer the words when there's room. Every acronym on a slide goes on the `acronyms` slide, with the glossary's meaning.
 - **Keep doctrinal terms** a Soldier will hear (danger close, fire support coordination measure, no-fire area), and explain them in plain words next to the term.
 - **Titles say the point** ("Danger close means extra care near friendly troops") or name the subject plainly ("Who does what in a fire support team"). ≤ 70 characters.
@@ -91,7 +95,7 @@ Wrong: "FOs should know the observation plan" (softened `must`); "FOs must carry
 - **whats_new:** from the introduction / summary of change; skip the slide if the publication gives no changes.
 - **divider:** `chapter` = the division id, `number` as printed ("2", "B"), optional one-line `blurb` cited to the chapter's intro text.
 - **roles:** 2–6 roles, 1–3 duties each, role names exactly as written. `parent` only when the text gives the reporting line.
-- **table:** columns ≤ 30 characters, cells ≤ 80; every row cites the table (and the paragraph if it adds to it).
+- **table:** columns ≤ 30 characters, cells ≤ 80; every row cites the table (and the paragraph if it adds to it). Rows, steps and stats have no `directive` field: a directive word in a cell must be the source's word for that rule (the check fails on will/must/shall added there).
 - **decision_tree:** every question has yes and no branches; outcomes don't branch; every node is cited.
 - **key_terms:** 2–6 terms; `definition` in plain words, cited to the glossary term or the inline definition. The official definition goes into the notes automatically.
 - **acronyms:** 4–24 entries; every abbreviation on a slide, meaning as in the glossary, cited to the `acr-…` node.
@@ -120,7 +124,7 @@ Slide ids run `s01, s02, …` with no gaps. `tests/fixtures/spec_all_patterns.js
 ## 7. Self-review before you commit
 
 - [ ] `plan --check` passes with no errors; every warning fixed or explained in the handover.
-- [ ] Read each slide next to its cited text: nothing added, no meaning changed, no directive softened or strengthened, numbers exact.
+- [ ] Read each slide next to its cited text (`plan --review`): nothing added, no meaning changed, no directive softened or strengthened, numbers exact.
 - [ ] A junior Soldier could act on each slide: the deck answers "what do I have to do?" for the topics in §2.
 - [ ] Every acronym spelled out at first use and listed on the `acronyms` slide.
 - [ ] Patterns vary; ≥ 60% visual; no slide crammed to its limits throughout.

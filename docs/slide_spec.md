@@ -95,4 +95,6 @@ The budget is by length only: every chapter gets a divider and one content slide
 | An acronym entry not in the glossary | |
 | Whole deck: 25–40 slides; ≥ 60% of non-structural slides visual; `title`, `at_a_glance`, `takeaways` (slide 3 or 4), …, `key_terms`, `acronyms`, `closing` order; dividers in document order; a chapter's slides under its own divider | |
 
+`uv run army-trainer plan <ID> --review [--slides s05,s06]` prints every cited statement next to the text of the nodes it cites, for the self-review.
+
 What the check can't see: a reworded requirement with **no** directive word ("Never look at the sun" for "must never be viewed"), meaning changes, and outside knowledge. The session's self-review and the fidelity review (WP 4.1) cover those.

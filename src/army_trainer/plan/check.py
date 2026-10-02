@@ -269,3 +269,19 @@ def _deck_checks(spec: SlideSpec, tree: DocTree, idx: NodeIndex, err, warn) -> N
     for d in tree.divisions:
         if d.kind == "chapter" and d.id not in seen:
             warn("deck", f"no divider/slides for {d.id} ({d.title})")
+
+
+def review_lines(data: dict, tree: DocTree, slide_ids: set[str] | None = None, width: int = 500):
+    """Yield every cited statement with the text of the nodes it cites, for the self-review."""
+    spec = SlideSpec.model_validate(data)
+    idx = NodeIndex(tree)
+    for s in spec.slides:
+        if slide_ids and s.id not in slide_ids:
+            continue
+        yield f"\n=== {s.id} [{s.pattern}] {s.title}" + (f"  ({s.chapter})" if s.chapter else "")
+        for _, obj in _cited_objects(s, s.id):
+            d = getattr(obj, "directive", None)
+            yield f"  * {_slide_text(obj)}" + (f"  <{d}>" if d else "")
+            for c in obj.cite:
+                text = idx.text(c) if c in idx else "(not in the tree)"
+                yield f"      [{c}] {text[:width]}"

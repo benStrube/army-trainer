@@ -237,3 +237,12 @@ def test_acronyms_on_slides_must_be_listed(tree):
     warns = warnings(check_spec(deck([s]), tree))
     assert any("acronym FO is used" in w for w in warns)
     assert not any("acronym FM" in w for w in warns)
+
+
+def test_review_lines_pair_statements_with_cited_text(tree):
+    from army_trainer.plan.check import review_lines
+
+    spec = deck([checklist(*(item("Verify the date and time.", ["para-1-2.li2"]),) * 3)])
+    lines = list(review_lines(spec, tree, {"s02"}))
+    assert lines[0].strip().startswith("=== s02 [checklist]")
+    assert "* Verify the date and time." in lines[1] and "[para-1-2.li2] Verify" in lines[2]
