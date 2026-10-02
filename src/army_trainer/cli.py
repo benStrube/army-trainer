@@ -227,6 +227,9 @@ def qa(
     review_check: bool = typer.Option(
         False, "--review-check", help="Check specs/<ID>.review.json against the spec."
     ),
+    report: bool = typer.Option(
+        False, "--report", help="Also write the static review report (out/reports/<ID>/)."
+    ),
     spec: Path | None = typer.Option(None, help="Spec (default specs/<ID>.spec.json)."),
 ) -> None:
     """Stage 6: rule-based checks (default), fidelity review packet and review check."""
@@ -247,7 +250,7 @@ def qa(
         typer.echo(f"error: no spec at {spec_path}", err=True)
         raise typer.Exit(code=1)
     if not (review_packet or review_check):
-        _run_rules(pub_id, meta, spec_path)
+        _run_rules(pub_id, meta, spec_path, report)
         return
     if review_packet:
         tree_path, index_path = JSON_DIR / f"{pub_id}.json", JSON_DIR / f"{pub_id}.indexes.json"
@@ -282,7 +285,7 @@ def qa(
             raise typer.Exit(code=1)
 
 
-def _run_rules(pub_id: str, meta, spec_path: Path) -> None:
+def _run_rules(pub_id: str, meta, spec_path: Path, write_report: bool = False) -> None:
     import json
 
     from .index.build import JSON_DIR, Indexes
@@ -300,6 +303,14 @@ def _run_rules(pub_id: str, meta, spec_path: Path) -> None:
     indexes = Indexes.model_validate_json(index_path.read_text())
     deck = Path("out/decks") / f"{pub_id}.pptx"
     report = run_qa(spec_path, tree, indexes, deck)
+    if write_report:
+        from .qa.report import build_report
+
+        page = build_report(
+            spec_path, tree, report, Path("out/reports") / pub_id, deck,
+            spec_path.with_name(f"{pub_id}.review.json"),
+        )  # fmt: skip
+        typer.echo(f"report: {page}")
     out = Path("data/qa") / pub_id
     out.mkdir(parents=True, exist_ok=True)
     (out / "qa.json").write_text(json.dumps(report.to_json(), indent=1), encoding="utf-8")
