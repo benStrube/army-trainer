@@ -72,7 +72,7 @@ Status values: `todo` · `in progress` · `done` · `blocked`
 | 5.1h | Tooling: libreoffice-impress for thumbnails; loud failure | Sonnet | done |
 | 5.1i | Run the usability check (`docs/pilot/FM-3-09-usability-check.md`) | User | todo |
 | 5.2 | Remaining patterns: decision tree, comparison, term cards | Sonnet | Samples + tests | ➡️ continue | done (quality pass, see handover) |
-| 5.3 | Batch mode for every deterministic stage (fetch, convert, indexes, render, qa) over a list of publications; `check-updates` revision detection. Planning a new publication still needs one Opus session (D10) | Sonnet | Batch run on ≥ 5 publications through `convert`; update check tested | 🛑 **STOP** → user | todo |
+| 5.3 | Batch mode for every deterministic stage (fetch, convert, indexes, render, qa) over a list of publications; `check-updates` revision detection. Planning a new publication still needs one Opus session (D10) | Sonnet | Batch run on ≥ 5 publications through `convert`; update check tested | 🛑 **STOP** → user | done (code and tests; the >= 5 real-publication run needs user-supplied PDFs, see handover) |
 
 ### Phase 6 — Later (optional)
 | WP | Work | Model | Exit criteria | Stop | Status |

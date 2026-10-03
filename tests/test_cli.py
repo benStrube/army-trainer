@@ -8,14 +8,15 @@ runner = CliRunner()
 def test_help_lists_stage_commands():
     result = runner.invoke(app, ["--help"])
     assert result.exit_code == 0
-    for cmd in ("fetch", "convert", "plan", "render", "qa", "build"):
+    for cmd in ("fetch", "convert", "plan", "render", "qa", "build", "batch", "check-updates"):
         assert cmd in result.output
 
 
-def test_stub_command_exits_nonzero():
+def test_build_without_an_input_pdf_fails_and_says_where_to_put_it(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
     result = runner.invoke(app, ["build", "AR-600-20"])
-    assert result.exit_code == 2
-    assert "not implemented" in result.output
+    assert result.exit_code == 1
+    assert "no_input" in result.output and "data/inbox" in result.output
 
 
 def test_render_refuses_document_without_gate_record(tmp_path, monkeypatch):

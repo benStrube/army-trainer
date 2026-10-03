@@ -337,10 +337,131 @@ def _run_rules(pub_id: str, meta, spec_path: Path, write_report: bool = False) -
         raise typer.Exit(code=1)
 
 
+def _parse_stages(stages: str | None) -> tuple[str, ...]:
+    from .batch import STAGES
+
+    if not stages:
+        return STAGES
+    chosen = tuple(x.strip() for x in stages.split(",") if x.strip())
+    bad = [x for x in chosen if x not in STAGES]
+    if bad:
+        typer.echo(f"error: unknown stage(s) {bad}; choose from {', '.join(STAGES)}.", err=True)
+        raise typer.Exit(code=2)
+    return tuple(s for s in STAGES if s in chosen)
+
+
+def _print_batch(report) -> None:
+    typer.echo(report.table())
+    typer.echo("")
+    typer.echo(", ".join(f"{n} {k.replace('_', ' ')}" for k, n in sorted(report.counts().items())))
+    if any(r.status == "needs_planning" for r in report.results):
+        typer.echo(
+            "needs planning: each needs one Opus session with its packet (D10); "
+            "see data/packets/<ID>/README.md."
+        )
+
+
 @app.command()
-def build(pub: str = PUB) -> None:
-    """Run every stage for one publication."""
-    _stub("build", "5.3")
+def batch(
+    list_file: Path = typer.Argument(
+        help="Text file, one publication per line: ID, ID path/to.pdf or ID https://armypubs... "
+        "(# starts a comment)."
+    ),
+    stages: str | None = typer.Option(
+        None, help="Comma list of stages to run: fetch,convert,index,plan,render,qa (default all)."
+    ),
+    force: bool = typer.Option(False, "--force", help="Redo stages even when up to date."),
+    target: int = typer.Option(34, help="Slide budget for planning packets (25-40)."),
+    inbox: Path = typer.Option(
+        Path("data/inbox"), help="Folder of <ID>.pdf files used when the list gives no source."
+    ),
+) -> None:
+    """Run the deterministic stages over a list of publications (WP 5.3).
+
+    Every PDF goes through the Distribution A gate. A publication with no committed spec stops
+    after `index` with its planning packet written ("needs planning"); `render` and `qa` run
+    only where specs/<ID>.spec.json exists. One failure never stops the rest."""
+    from dataclasses import replace
+
+    from .batch import Dirs, parse_list, run_batch
+
+    if not list_file.exists():
+        typer.echo(f"error: no list file at {list_file}", err=True)
+        raise typer.Exit(code=1)
+    try:
+        entries = parse_list(list_file.read_text())
+    except ValueError as e:
+        typer.echo(f"error: {list_file}: {e}", err=True)
+        raise typer.Exit(code=1) from e
+    if not entries:
+        typer.echo(f"error: {list_file} lists no publications", err=True)
+        raise typer.Exit(code=1)
+    report = run_batch(
+        entries, replace(Dirs(), inbox=inbox), _parse_stages(stages), force, target, typer.echo
+    )
+    _print_batch(report)
+    typer.echo(f"report: {Dirs().batch / 'report.json'}")
+    if report.errors:
+        raise typer.Exit(code=1)
+
+
+@app.command("check-updates")
+def check_updates_cmd(
+    list_file: Path | None = typer.Argument(
+        None, help="List file (as for `batch`); default: every publication fetched so far."
+    ),
+    inbox: Path = typer.Option(
+        Path("data/inbox"), help="Folder of newer <ID>.pdf files to compare against."
+    ),
+) -> None:
+    """Compare the PDFs held in data/raw with the current ones (WP 5.3). Read-only.
+
+    The candidate comes from the list entry, else <inbox>/<ID>.pdf, else the URL the PDF was
+    fetched from. It is run through the Distribution A gate and compared by SHA-256 and date.
+    To adopt a newer revision, re-run `fetch` or `batch`, then re-plan."""
+    from dataclasses import replace
+
+    from .batch import Dirs, check_updates, known_entries, parse_list
+
+    dirs = replace(Dirs(), inbox=inbox)
+    try:
+        entries = parse_list(list_file.read_text()) if list_file else known_entries(dirs)
+    except (OSError, ValueError) as e:
+        typer.echo(f"error: {e}", err=True)
+        raise typer.Exit(code=1) from e
+    if not entries:
+        typer.echo("nothing fetched yet: run `fetch` or `batch` first.")
+        raise typer.Exit(code=0)
+    results = check_updates(entries, dirs)
+    for r in results:
+        typer.echo(f"{r.pub_id:16} {r.status:11} {r.message}")
+    changed = [r for r in results if r.status == "changed"]
+    typer.echo(
+        f"{len(results)} checked: {len(changed)} changed, "
+        f"{sum(r.status == 'unchanged' for r in results)} unchanged, "
+        f"{sum(r.is_error for r in results)} could not be checked or were rejected"
+    )
+    if any(r.is_error for r in results):
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def build(
+    pub: str = PUB,
+    pdf: Path | None = typer.Option(None, help="Local PDF to ingest first."),
+    force: bool = typer.Option(False, "--force", help="Redo stages even when up to date."),
+) -> None:
+    """Run every stage for one publication (the same pipeline as `batch`)."""
+    from .batch import Entry, process
+    from .fetch.pdf import normalize_pub_id
+
+    res = process(Entry(normalize_pub_id(pub), pdf=pdf), force=force)
+    _print = typer.echo
+    for stage, note in res.steps.items():
+        _print(f"  {stage:8} {note}")
+    _print(f"{res.pub_id}: {res.status}" + (f" ({res.message})" if res.message else ""))
+    if res.is_error:
+        raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":
