@@ -3,7 +3,7 @@
  "rubric_version": "1.0",
  "pub_id": "FM-3-09",
  "source_sha256": "1fd2a14b86c57f2b7af7d757fd5acba80f0abda59f65e313f5b67526a33303ba",
- "spec_sha256": "4595ea8fc246dd7f1fd7e3f9b875788f8088f32b401150de12549af1efacf91f",
+ "spec_sha256": "efce1c3ae8f47c6fba0440cb2aa1ce0a539f06d54b148dfd7c2831e734c471f3",
  "reviewed_on": "2026-10-02",
  "reviewer": "Opus session (D10): round 1 four reviewers + adjudication; round 2 carry-over, two reviewers + adjudication",
  "verdicts": {
@@ -180,8 +180,6 @@
   "s34.terms[1]": "pass",
   "s34.terms[2]": "pass",
   "s34.terms[3]": "pass",
-  "s34.terms[4]": "pass",
-  "s34.terms[5]": "pass",
   "s35.entries[0]": "pass",
   "s35.entries[1]": "pass",
   "s35.entries[2]": "pass",
@@ -303,6 +301,7 @@
   "Round 2 major findings (all fixed): FSCL row lost its 'beyond it' scope; GPS/digital slide dropped C-14's 'or the howitzer can fire data from an adjacent section'; the s12 big-number caveat was not drawn by the renderer.",
   "Round 1 (WP 4.1): 199 claims, 1 critical, 4 major, 22 minor; all fixed except one accepted minor (now s13.steps[0]). Details in this file's git history (commit 7c259b1).",
   "Planning-level, not fidelity: s30 defense column is still staff planning content in plainer words; the s26 CAUTION callout and any s12 caveat need the WP 5.1g renderer to show.",
-  "Caveat follow-up (after WP 5.1g): the s12 'Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances' line moved from the speaker notes to s12.caveat, same text and cite (para 3-29); verdict carried over (pass). The renderer now draws it under the danger-close numbers, and the s26 CAUTION label."
+  "Caveat follow-up (after WP 5.1g): the s12 'Do not confuse the creeping fire method with risk-estimate distances or minimum safe distances' line moved from the speaker notes to s12.caveat, same text and cite (para 3-29); verdict carried over (pass). The renderer now draws it under the danger-close numbers, and the s26 CAUTION label.",
+  "Trims after WP 5.2 (2026-10-03): key terms cut to four (clearance of fires and no-fire area dropped; each has its own slides), so definitions render at 20 pt; decision-tree node text shortened (s19.nodes[0-4]). The adjudicator re-read the five nodes against para B-33: both exceptions and the 'engaged commander determines' condition kept; all pass."
  ]
 }
