@@ -844,7 +844,7 @@
     {
      "key": "q1",
      "kind": "question",
-     "text": "Has the headquarters that set the no-fire area approved joint fires for this mission?",
+     "text": "Did the HQ that set the no-fire area approve joint fires for this mission?",
      "yes": "o1",
      "no": "q2",
      "cite": [
@@ -854,7 +854,7 @@
     {
      "key": "o1",
      "kind": "outcome",
-     "text": "Exception: the approved fires for that mission are allowed.",
+     "text": "Exception: those approved fires are allowed.",
      "cite": [
       "para-B-33.li1"
      ]
@@ -862,7 +862,7 @@
     {
      "key": "q2",
      "kind": "question",
-     "text": "Enemy inside engages friendlies: does the engaged commander find protection is needed now?",
+     "text": "An enemy in it engages friendlies. Does their commander decide protection is needed now?",
      "yes": "o2",
      "no": "o3",
      "cite": [
@@ -872,7 +872,7 @@
     {
      "key": "o2",
      "kind": "outcome",
-     "text": "Exception: the engaged commander responds with only the minimal force needed to defend.",
+     "text": "Exception: the engaged commander uses only the minimal force needed to defend.",
      "cite": [
       "para-B-33.li2"
      ]
@@ -880,7 +880,7 @@
     {
      "key": "o3",
      "kind": "outcome",
-     "text": "No fires: fires or their effects are prohibited in a no-fire area.",
+     "text": "No fires: fires or their effects are prohibited.",
      "cite": [
       "para-B-33"
      ]
@@ -1692,20 +1692,6 @@
      "definition": "Killing or wounding friendly or neutral people by accident, with friendly fire.",
      "cite": [
       "term-fratricide"
-     ]
-    },
-    {
-     "term": "Clearance of fires",
-     "definition": "How the commander makes sure fires cause no unintended harm to friendly units or the scheme of maneuver.",
-     "cite": [
-      "term-clearance-of-fires"
-     ]
-    },
-    {
-     "term": "No-fire area",
-     "definition": "An area set by the commander where fires or their effects are prohibited.",
-     "cite": [
-      "term-no-fire-area"
      ]
     }
    ],
